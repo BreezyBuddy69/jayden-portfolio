@@ -1,0 +1,109 @@
+@import url('https://fonts.cdnfonts.com/css/anurati');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-anurati {
+  font-family: 'Anurati', sans-serif;
+}
+
+/* ── Base ── */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #080808;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ── Custom Cursor — Amber ── */
+.cursor-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+}
+
+.cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.95);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.7);
+  will-change: transform, opacity;
+}
+
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(245, 158, 11, 0.65);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.cursor-text {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(245, 158, 11, 0.9);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Chat scrollbar ── */
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 158, 11, 0.28) transparent;
+}
+.chat-scroll::-webkit-scrollbar { width: 3px; }
+.chat-scroll::-webkit-scrollbar-track { background: transparent; }
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.28);
+  border-radius: 2px;
+}
+
+/* ── Global scrollbar ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 2px;
+}
+
+/* ── Desktop: no body scroll ── */
+@media (hover: hover) {
+  body { overflow: hidden; }
+}
+
+/* ── Mobile: allow scroll ── */
+@media (max-width: 767px) {
+  html, body, #root { overflow: auto; }
+}
+
+/* ── Hide native cursor on desktop ── */
+@media (hover: hover) {
+  *, *::before, *::after { cursor: none !important; }
+}

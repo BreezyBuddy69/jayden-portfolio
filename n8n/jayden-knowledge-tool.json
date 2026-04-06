@@ -1,0 +1,69 @@
+{
+  "name": "Jayden Knowledge Tool (Sub-Workflow)",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "workflow-trigger",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "id"
+        },
+        "filtersUI": {},
+        "options": {}
+      },
+      "id": "read-sheet",
+      "name": "Read Knowledge Base",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [460, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_WITH_YOUR_GOOGLE_CREDENTIAL_ID",
+          "name": "Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all rows from the sheet\nconst rows = $input.all();\nconst query = $('Execute Workflow Trigger').first().json.query || '';\n\n// Build the knowledge base content\nconst knowledge = rows.map(r => r.json);\n\n// Format as readable text\nlet result = 'JAYDEN MIKUS — KNOWLEDGE BASE\\n';\nresult += '================================\\n\\n';\n\n// Group by category\nconst byCategory = {};\nfor (const row of knowledge) {\n  const cat = row.Category || 'General';\n  if (!byCategory[cat]) byCategory[cat] = [];\n  byCategory[cat].push(`${row.Topic}: ${row.Content}`);\n}\n\nfor (const [cat, items] of Object.entries(byCategory)) {\n  result += `## ${cat}\\n`;\n  result += items.join('\\n');\n  result += '\\n\\n';\n}\n\n// Try to find rows relevant to the query\nconst queryLower = query.toLowerCase();\nconst relevant = knowledge.filter(row => {\n  const text = `${row.Category} ${row.Topic} ${row.Content}`.toLowerCase();\n  const keywords = queryLower.split(' ').filter(w => w.length > 2);\n  return keywords.some(kw => text.includes(kw));\n});\n\nif (relevant.length > 0) {\n  result += '\\n## MOST RELEVANT FOR THIS QUERY\\n';\n  result += relevant.map(r => `${r.Topic}: ${r.Content}`).join('\\n');\n}\n\nreturn [{ json: { knowledge: result, rowCount: knowledge.length } }];"
+      },
+      "id": "format-knowledge",
+      "name": "Format Knowledge",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 300]
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [{ "node": "Read Knowledge Base", "type": "main", "index": 0 }]
+      ]
+    },
+    "Read Knowledge Base": {
+      "main": [
+        [{ "node": "Format Knowledge", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

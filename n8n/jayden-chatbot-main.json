@@ -1,0 +1,164 @@
+{
+  "name": "Jayden Portfolio Chatbot",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jayden-portfolio-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "jayden-portfolio-chat"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract the last user message and build conversation string\nconst body = $input.first().json.body;\nconst messages = body.messages || [];\n\n// Get last user message\nconst lastMsg = messages.filter(m => m.role === 'user').slice(-1)[0];\nconst userInput = lastMsg ? lastMsg.content : '';\n\n// Build chat history string for context (last 8 messages)\nconst history = messages.slice(-8).map(m => \n  `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`\n).join('\\n');\n\n// Session ID: based on first message content for memory continuity\nconst firstMsg = messages[0]?.content || 'default';\nconst sessionId = 'session_' + firstMsg.slice(0, 20).replace(/[^a-z0-9]/gi, '_').toLowerCase();\n\nreturn [{\n  json: {\n    userInput,\n    chatHistory: history,\n    sessionId,\n    messageCount: messages.length\n  }\n}];"
+      },
+      "id": "prepare-input",
+      "name": "Prepare Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userInput }}",
+        "options": {
+          "systemMessage": "You are the personal AI assistant on Jayden Mikus' portfolio website.\n\nJayden Mikus is a 17-year-old creative technologist from Austria. He was born on 17.08.2008.\n\nYour job: Answer questions about Jayden honestly, personally, and engagingly. Sound human — not like a corporate chatbot. Be concise but thorough.\n\nIMPORTANT: For detailed or specific questions about Jayden's skills, projects, experience, pricing, or anything factual — ALWAYS use the 'Get_Jayden_Knowledge' tool first to look up accurate information from his knowledge base before answering.\n\nFor simple greetings or very general questions you can answer directly without the tool.\n\nAlways respond in the same language the user writes in (German or English).\n\nConversation so far:\n={{ $('Prepare Input').item.json.chatHistory }}"
+        }
+      },
+      "id": "ai-agent",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "model": "qwen/qwen3-235b-a22b:free",
+        "options": {
+          "maxTokens": 1024,
+          "temperature": 0.7,
+          "baseURL": "https://openrouter.ai/api/v1"
+        }
+      },
+      "id": "qwen-llm",
+      "name": "Qwen3 via OpenRouter (Brain)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [580, 520],
+      "credentials": {
+        "openAiApi": {
+          "id": "REPLACE_WITH_YOUR_OPENROUTER_CREDENTIAL_ID",
+          "name": "OpenRouter API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Prepare Input').item.json.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "id": "window-memory",
+      "name": "Window Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [700, 520]
+    },
+    {
+      "parameters": {
+        "name": "Get_Jayden_Knowledge",
+        "description": "Look up specific information about Jayden Mikus from his knowledge base. Use this when you need facts about his skills, projects, experience, contact info, personality, lifestyle, or services. Input: the specific question or topic to look up.",
+        "workflowId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_KNOWLEDGE_TOOL_WORKFLOW_ID",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "query": "={{ $fromAI('query', 'What specific information to look up about Jayden', 'string') }}"
+          },
+          "schema": [
+            {
+              "id": 0,
+              "displayName": "query",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        }
+      },
+      "id": "knowledge-tool",
+      "name": "Get Jayden Knowledge (Tool)",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [820, 520]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ response: $json.output }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [940, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [{ "node": "Prepare Input", "type": "main", "index": 0 }]
+      ]
+    },
+    "Prepare Input": {
+      "main": [
+        [{ "node": "AI Agent", "type": "main", "index": 0 }]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [{ "node": "Respond to Webhook", "type": "main", "index": 0 }]
+      ]
+    },
+    "Qwen3 via OpenRouter (Brain)": {
+      "ai_languageModel": [
+        [{ "node": "AI Agent", "type": "ai_languageModel", "index": 0 }]
+      ]
+    },
+    "Window Memory": {
+      "ai_memory": [
+        [{ "node": "AI Agent", "type": "ai_memory", "index": 0 }]
+      ]
+    },
+    "Get Jayden Knowledge (Tool)": {
+      "ai_tool": [
+        [{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
