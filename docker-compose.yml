@@ -1,19 +1,20 @@
+version: "3.9"
+
 services:
   app:
-    image: ghcr.io/breezybuddy69/jayden-portfolio:main
+    build: .
     container_name: jayden-portfolio-app
     restart: unless-stopped
-
     networks:
       - traefik-proxy
-
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.jayden-portfolio.rule=Host(`jayden-mikus.halovisionai.cloud`)"
-      - "traefik.http.routers.jayden-portfolio.entrypoints=websecure"
-      - "traefik.http.routers.jayden-portfolio.tls=true"
-      - "traefik.http.routers.jayden-portfolio.tls.certresolver=letsencrypt"
-      - "traefik.http.services.jayden-portfolio.loadbalancer.server.port=80"
+      - traefik.enable=true
+      - traefik.docker.network=traefik-proxy
+      - traefik.http.routers.jayden.rule=Host(`jayden-mikus.halovisionai.cloud`)
+      - traefik.http.routers.jayden.entrypoints=websecure
+      - traefik.http.routers.jayden.tls=true
+      - traefik.http.routers.jayden.tls.certresolver=letsencrypt
+      - traefik.http.services.jayden.loadbalancer.server.port=80
 
 networks:
   traefik-proxy:
