@@ -21,7 +21,7 @@ export const GlassPanel = forwardRef<HTMLDivElement, GlassPanelProps>(
       : 'bg-white/[0.04] hover:bg-white/[0.06]'
 
     const shadow = glow
-      ? 'shadow-[inset_0_1px_0_rgba(255,255,255,0.10),0_0_40px_rgba(0,0,0,0.5),0_0_60px_rgba(245,158,11,0.12)]'
+      ? 'shadow-[inset_0_1px_0_rgba(255,255,255,0.10),0_0_40px_rgba(0,0,0,0.5),0_0_60px_rgba(232,69,18,0.12)]'
       : 'shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_40px_rgba(0,0,0,0.4)]'
 
     return (

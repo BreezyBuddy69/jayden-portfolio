@@ -4,6 +4,13 @@ import { X, Send, MessageCircle } from 'lucide-react'
 import { ThinkingProcess } from './ThinkingProcess'
 import { TypingMessage } from './TypingMessage'
 import { useChatContext } from '../../contexts/ChatContext'
+import { type Language } from '../../i18n/translations'
+
+const PLACEHOLDERS: Record<Language, string> = {
+  en: 'Ask me anything about Jayden…',
+  de: 'Stell mir eine Frage über Jayden…',
+  fr: 'Pose-moi une question sur Jayden…',
+}
 
 const CHATBOT_URL = 'https://n8n.halovisionai.cloud/webhook/jayden-portfolio-chat'
 
@@ -20,9 +27,10 @@ function renderText(content: string) {
 interface ChatBotProps {
   forceOpen?: boolean
   onForceOpenConsumed?: () => void
+  language?: Language
 }
 
-export function ChatBot({ forceOpen, onForceOpenConsumed }: ChatBotProps) {
+export function ChatBot({ forceOpen, onForceOpenConsumed, language = 'en' }: ChatBotProps) {
   const { messages, isLoading, addMessage, markDone, setIsLoading } = useChatContext()
 
   const [isOpen, setIsOpen] = useState(false)
@@ -168,13 +176,13 @@ export function ChatBot({ forceOpen, onForceOpenConsumed }: ChatBotProps) {
         style={{
           background: isOpen
             ? 'linear-gradient(160deg, rgba(20,12,4,0.97) 0%, rgba(12,7,2,0.98) 55%, rgba(6,4,1,0.99) 100%)'
-            : `linear-gradient(148deg, rgba(255,255,255,${0.30 + buttonBrightness * 0.14}) 0%, rgba(251,191,36,${0.22 + buttonBrightness * 0.16}) 45%, rgba(245,158,11,${0.16 + buttonBrightness * 0.12}) 100%)`,
+            : `linear-gradient(148deg, rgba(255,255,255,${0.30 + buttonBrightness * 0.14}) 0%, rgba(251,191,36,${0.22 + buttonBrightness * 0.16}) 45%, rgba(232,69,18,${0.16 + buttonBrightness * 0.12}) 100%)`,
           border: isOpen
-            ? '1px solid rgba(245,158,11,0.18)'
+            ? '1px solid rgba(232,69,18,0.18)'
             : `1px solid rgba(255,255,255,${0.40 + buttonBrightness * 0.18})`,
           boxShadow: isOpen
             ? '0 32px 72px rgba(0,0,0,0.75), 0 8px 28px rgba(0,0,0,0.45), inset 0 1.5px 0 rgba(255,255,255,0.12)'
-            : `0 8px ${36 + buttonBrightness * 28}px rgba(245,158,11,${0.45 + buttonBrightness * 0.35}), inset 0 1.5px 0 rgba(255,255,255,${0.65 + buttonBrightness * 0.18})`,
+            : `0 8px ${36 + buttonBrightness * 28}px rgba(232,69,18,${0.45 + buttonBrightness * 0.35}), inset 0 1.5px 0 rgba(255,255,255,${0.65 + buttonBrightness * 0.18})`,
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
           cursor: isOpen ? 'default' : 'pointer',
@@ -215,7 +223,7 @@ export function ChatBot({ forceOpen, onForceOpenConsumed }: ChatBotProps) {
             >
               {/* Accent line */}
               <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl pointer-events-none"
-                style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(245,158,11,0.7) 30%, rgba(251,191,36,0.9) 50%, rgba(245,158,11,0.7) 70%, transparent 100%)' }} />
+                style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(232,69,18,0.7) 30%, rgba(251,191,36,0.9) 50%, rgba(232,69,18,0.7) 70%, transparent 100%)' }} />
 
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 shrink-0"
@@ -240,14 +248,15 @@ export function ChatBot({ forceOpen, onForceOpenConsumed }: ChatBotProps) {
                     <div
                       className="max-w-[85%] rounded-xl px-3 py-2.5 text-xs leading-relaxed"
                       style={msg.role === 'user' ? {
-                        background: 'linear-gradient(135deg, rgba(245,158,11,0.22) 0%, rgba(217,119,6,0.18) 100%)',
-                        border: '1px solid rgba(245,158,11,0.30)',
+                        background: 'linear-gradient(135deg, rgba(232,69,18,0.22) 0%, rgba(217,119,6,0.18) 100%)',
+                        border: '1px solid rgba(232,69,18,0.30)',
                         color: 'rgba(255,255,255,0.93)',
                       } : {
                         background: 'rgba(255,255,255,0.06)',
                         border: '1px solid rgba(255,255,255,0.08)',
-                        borderLeft: '2px solid rgba(245,158,11,0.45)',
-                        color: 'rgba(255,255,255,0.80)',
+                        borderLeft: '2px solid rgba(232,69,18,0.45)',
+                        color: 'rgba(255,255,255,0.95)',
+                        textShadow: '0 1px 8px rgba(0,0,0,0.55)',
                       }}
                     >
                       {msg.role === 'assistant' && msg.isNew && !seenMsgIdsRef.current.has(msg.id) ? (
@@ -266,7 +275,7 @@ export function ChatBot({ forceOpen, onForceOpenConsumed }: ChatBotProps) {
                 {isLoading && (
                   <div className="flex justify-start">
                     <div className="max-w-[85%] rounded-xl px-3 py-2.5"
-                      style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', borderLeft: '2px solid rgba(245,158,11,0.45)' }}>
+                      style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', borderLeft: '2px solid rgba(232,69,18,0.45)' }}>
                       <ThinkingProcess />
                     </div>
                   </div>
@@ -284,7 +293,7 @@ export function ChatBot({ forceOpen, onForceOpenConsumed }: ChatBotProps) {
                     onKeyDown={e => {
                       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitInput() }
                     }}
-                    placeholder="Ask me anything about Jayden..."
+                    placeholder={PLACEHOLDERS[language]}
                     rows={1}
                     className="flex-1 bg-transparent text-white/88 text-xs placeholder-white/28 outline-none resize-none leading-relaxed"
                     style={{ maxHeight: 80 }}
@@ -296,8 +305,8 @@ export function ChatBot({ forceOpen, onForceOpenConsumed }: ChatBotProps) {
                     disabled={!input.trim() || isLoading || userMsgCount >= 20}
                     className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mb-0.5 transition-all disabled:opacity-25"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(245,158,11,0.85) 0%, rgba(217,119,6,0.95) 100%)',
-                      boxShadow: '0 2px 12px rgba(245,158,11,0.40)',
+                      background: 'linear-gradient(135deg, rgba(232,69,18,0.85) 0%, rgba(217,119,6,0.95) 100%)',
+                      boxShadow: '0 2px 12px rgba(232,69,18,0.40)',
                     }}
                   >
                     <Send className="w-3 h-3 text-white" />

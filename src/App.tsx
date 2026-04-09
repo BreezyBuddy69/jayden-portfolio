@@ -18,21 +18,23 @@ import { HeroSection } from './components/sections/HeroSection'
 import { SkillsSection } from './components/sections/SkillsSection'
 import { AutomationsSection } from './components/sections/AutomationsSection'
 import { EditingSection } from './components/sections/EditingSection'
+import { ArsenalSection } from './components/sections/ArsenalSection'
 import { TestimonialsSection } from './components/sections/TestimonialsSection'
 import { AboutSection } from './components/sections/AboutSection'
 import { ContactSection } from './components/sections/ContactSection'
 
-// 0:Hero | 1:Skills | 2:Automations | 3:Editing | 4:Testimonials | 5:About | 6:Contact
-const TOTAL_SECTIONS = 7
+// 0:Hero | 1:Skills | 2:Automations | 3:Editing | 4:Arsenal | 5:Testimonials | 6:About | 7:Contact
+const TOTAL_SECTIONS = 8
 
 const SECTION_MAP: Record<string, number> = {
   hero: 0,
   skills: 1,
   automations: 2,
   editing: 3,
-  testimonials: 4,
-  about: 5,
-  contact: 6,
+  arsenal: 4,
+  testimonials: 5,
+  about: 6,
+  contact: 7,
 }
 
 function getSplashSeen() {
@@ -93,7 +95,6 @@ export default function App() {
     <AutomationsSection
       key="automations"
       isActive={currentSection === 2}
-      onOpenChat={handleOpenChat}
       language={language}
     />,
     <EditingSection
@@ -101,19 +102,24 @@ export default function App() {
       isActive={currentSection === 3}
       language={language}
     />,
+    <ArsenalSection
+      key="arsenal"
+      isActive={currentSection === 4}
+      language={language}
+    />,
     <TestimonialsSection
       key="testimonials"
-      isActive={currentSection === 4}
+      isActive={currentSection === 5}
       language={language}
     />,
     <AboutSection
       key="about"
-      isActive={currentSection === 5}
+      isActive={currentSection === 6}
       language={language}
     />,
     <ContactSection
       key="contact"
-      isActive={currentSection === 6}
+      isActive={currentSection === 7}
       language={language}
     />,
   ]
@@ -149,6 +155,7 @@ export default function App() {
             <ChatBot
               forceOpen={chatForceOpen}
               onForceOpenConsumed={() => setChatForceOpen(false)}
+              language={language}
             />
           </>
         )}

@@ -19,11 +19,11 @@ const CITIES = [
 ]
 
 const PILL_STYLE = {
-  background: 'linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%)',
-  border: '1px solid rgba(255,255,255,0.14)',
+  background: 'rgba(255,255,255,0.04)',
+  border: '1px solid rgba(255,255,255,0.10)',
   backdropFilter: 'blur(12px)',
   WebkitBackdropFilter: 'blur(12px)',
-  boxShadow: '0 4px 14px rgba(0,0,0,0.36), inset 0 1.5px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(0,0,0,0.18)',
+  boxShadow: '0 4px 14px rgba(0,0,0,0.30)',
 }
 
 interface HeaderProps {
@@ -119,7 +119,7 @@ export function Header({ onNavigate, language, onLanguageChange }: HeaderProps) 
           style={{ background: 'none', border: 'none', cursor: 'none' }}
         >
           <ScrambleText
-            text="JAYDEN MIKUS"
+            text="PORTFOLIO"
             className="font-anurati text-white text-sm tracking-[0.3em] select-none"
           />
         </button>

@@ -1,9 +1,7 @@
-import { useRef } from 'react'
 import { motion } from 'framer-motion'
-import { NeonButton } from '../ui/NeonButton'
-import { useVantaNet } from '../../hooks/useVantaNet'
-import { usePerformanceTier } from '../../hooks/usePerformanceTier'
-import translations, { type Language } from '../../i18n/translations'
+import { type Language } from '../../i18n/translations'
+
+const ORANGE = '#E8600A'
 
 interface HeroSectionProps {
   isActive: boolean
@@ -12,169 +10,152 @@ interface HeroSectionProps {
   language: Language
 }
 
-
 export function HeroSection({ isActive, onScrollDown, onOpenChat, language }: HeroSectionProps) {
-  const t = translations[language].hero
-  const containerRef = useRef<HTMLDivElement>(null)
-  const tier = usePerformanceTier()
-  useVantaNet(tier === 'full' ? containerRef : { current: null })
+  const sub  = language === 'de' ? 'Skills, die wirklich liefern.' : language === 'fr' ? 'Des skills qui livrent vraiment.' : 'Skills that deliver.'
+  const cta1 = language === 'de' ? 'Meine Arbeit' : language === 'fr' ? 'Mon travail' : 'See My Work'
+  const cta2 = language === 'de' ? 'Mit KI sprechen' : language === 'fr' ? "Parler à l'IA" : 'Talk to My AI'
 
   return (
     <section
-      ref={containerRef}
-      className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: '#080808' }}
+      className="relative w-full h-full overflow-hidden flex items-center justify-center"
+      style={{ background: ORANGE }}
     >
-      {/* Radial amber pulse */}
-      <div
+      <div aria-hidden className="absolute inset-0 pointer-events-none grain opacity-[0.04]" />
+
+      {/* ── Background words ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isActive ? 1 : 0 }}
+        transition={{ duration: 1.1, delay: 0.05, ease: 'easeOut' }}
         aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 65vw 55vh at 50% 45%, rgba(245,158,11,0.055) 0%, transparent 68%)',
-        }}
-      />
+        className="absolute inset-0 select-none pointer-events-none"
+      >
+        {/* JAYDEN — use text-shadow via CSS class; section clips letters but not
+            the diffuse soft shadow which bleeds into the orange below */}
+        <div style={{
+          position: 'absolute',
+          top: '5%',
+          left: 0,
+          right: 0,
+          lineHeight: 0,
+          overflow: 'visible',
+        }}>
+          <span
+            className="text-3d-on-orange font-anurati"
+            style={{
+              display: 'block',
+              fontSize: 'clamp(7rem, 22vw, 26rem)',
+              color: '#0a0a0a',
+              fontWeight: 900,
+              lineHeight: 0.90,
+              whiteSpace: 'nowrap',
+              letterSpacing: '0.02em',
+            }}
+          >
+            JAYDEN
+          </span>
+        </div>
 
-      {/* Grain */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-[0.035]"
-        style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px' }}
-      />
+        {/* MIKUS — invisible clip box, S touches right edge, bottom */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          overflow: 'hidden',
+          lineHeight: 0,
+        }}>
+          <span
+            className="text-3d-outline-on-orange font-anurati"
+            style={{
+              display: 'block',
+              textAlign: 'right',
+              fontSize: 'clamp(8.05rem, 25.3vw, 29.9rem)',
+              color: 'transparent',
+              fontWeight: 900,
+              WebkitTextStroke: '2px rgba(0,0,0,0.45)',
+              lineHeight: 0.90,
+              whiteSpace: 'nowrap',
+              letterSpacing: '0.22em',
+            }}
+          >
+            MIKUS
+          </span>
+        </div>
+      </motion.div>
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto flex flex-col items-center">
-        {/* Eyebrow */}
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
-          className="text-[10px] tracking-[0.36em] uppercase mb-8 block"
-          style={{ color: 'rgba(245,158,11,0.60)', fontFamily: 'Inter, sans-serif' }}
-        >
-          {t.eyebrow}
-        </motion.span>
-
-        {/* Main headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 30 }}
-          transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      {/* ── Foreground: tagline + buttons centered ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 18 }}
+        transition={{ duration: 0.65, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 flex flex-col items-center gap-6 text-center"
+      >
+        <p
           style={{
-            fontFamily: '"Playfair Display", Georgia, serif',
-            fontSize: 'clamp(3.2rem, 9vw, 8.5rem)',
-            color: '#ffffff',
-            lineHeight: 1.0,
-            letterSpacing: '-0.025em',
-            margin: 0,
-            marginBottom: '0.08em',
-          }}
-        >
-          {t.line1}
-        </motion.h1>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 30 }}
-          transition={{ duration: 0.75, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            fontFamily: '"Playfair Display", Georgia, serif',
-            fontSize: 'clamp(3.2rem, 9vw, 8.5rem)',
-            lineHeight: 1.0,
-            letterSpacing: '-0.025em',
-            margin: 0,
-            marginBottom: '0.5em',
-            color: 'transparent',
-            WebkitTextStroke: '1.5px rgba(255,255,255,0.55)',
-          }}
-        >
-          {t.line2}
-        </motion.h1>
-
-        {/* Subline */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 16 }}
-          transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
-          style={{
-            fontSize: 'clamp(1.1rem, 2.5vw, 1.65rem)',
-            color: 'rgba(245,158,11,0.80)',
             fontFamily: '"Playfair Display", Georgia, serif',
             fontStyle: 'italic',
-            letterSpacing: '-0.01em',
-            marginBottom: '16px',
+            fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
+            color: '#ffffff',
+            letterSpacing: '0.01em',
+            lineHeight: 1.3,
           }}
         >
-          {t.sub}
-        </motion.p>
+          {sub}
+        </p>
 
-        {/* Body */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isActive ? 1 : 0 }}
-          transition={{ duration: 0.5, delay: 0.65, ease: 'easeOut' }}
-          style={{
-            fontSize: '15px',
-            color: 'rgba(255,255,255,0.50)',
-            maxWidth: '420px',
-            lineHeight: 1.7,
-            marginBottom: '40px',
-            fontFamily: 'Inter, system-ui, sans-serif',
-          }}
-        >
-          {t.body}
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.92 }}
-          transition={{ duration: 0.55, delay: 0.8, type: 'spring', stiffness: 300, damping: 26 }}
-          className="flex items-center gap-4 flex-wrap justify-center mb-16"
-        >
-          <NeonButton size="lg" onClick={onScrollDown}>
-            {t.cta1}
-          </NeonButton>
-          <NeonButton size="lg" variant="ghost" onClick={onOpenChat}>
-            {t.cta2}
-          </NeonButton>
-        </motion.div>
-
-        {/* Stats — two blocks */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 12 }}
-          transition={{ duration: 0.5, delay: 1.0, ease: 'easeOut' }}
-          className="flex items-stretch gap-4"
-          style={{
-            paddingTop: '24px',
-            borderTop: '1px solid rgba(255,255,255,0.07)',
-          }}
-        >
-          {/* Block 1: Automations */}
-          <div className="flex flex-col items-center justify-center px-8 py-4 rounded-2xl gap-1"
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onScrollDown}
+            data-cursor="hover"
             style={{
-              background: 'rgba(255,255,255,0.025)',
-              border: '1px solid rgba(255,255,255,0.07)',
-            }}>
-            <span className="text-white/90 font-serif text-3xl md:text-4xl font-bold tracking-tight">
-              {t.stat1Value}
-            </span>
-            <span className="text-white/38 text-[10px] tracking-[0.22em] uppercase">{t.stat1Label}</span>
-          </div>
+              background: '#ffffff',
+              color: '#0a0a0a',
+              border: 'none',
+              borderRadius: '999px',
+              padding: '15px 38px',
+              fontSize: '12px',
+              fontWeight: 700,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              cursor: 'none',
+              transition: 'opacity 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.80')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+          >
+            {cta1}
+          </button>
 
-          {/* Block 2: Editing */}
-          <div className="flex flex-col items-center justify-center px-8 py-4 rounded-2xl gap-1"
+          <button
+            onClick={onOpenChat}
+            data-cursor="hover"
             style={{
-              background: 'rgba(255,255,255,0.025)',
-              border: '1px solid rgba(255,255,255,0.07)',
-            }}>
-            <span className="text-white/90 font-serif text-3xl md:text-4xl font-bold tracking-tight">
-              {t.stat2Value}
-            </span>
-            <span className="text-white/38 text-[10px] tracking-[0.22em] uppercase">{t.stat2Label}</span>
-          </div>
-        </motion.div>
-      </div>
+              background: 'transparent',
+              color: 'rgba(255,255,255,0.85)',
+              border: '1.5px solid rgba(255,255,255,0.55)',
+              borderRadius: '999px',
+              padding: '14px 38px',
+              fontSize: '12px',
+              fontWeight: 500,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              cursor: 'none',
+              transition: 'border-color 0.2s, color 0.2s',
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.90)'
+              ;(e.currentTarget as HTMLElement).style.color = '#ffffff'
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.55)'
+              ;(e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.85)'
+            }}
+          >
+            {cta2}
+          </button>
+        </div>
+      </motion.div>
     </section>
   )
 }

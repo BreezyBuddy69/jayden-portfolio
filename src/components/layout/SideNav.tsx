@@ -1,15 +1,16 @@
 import { motion } from 'framer-motion'
 import translations, { type Language } from '../../i18n/translations'
 
-// 0:Hero | 1:Skills | 2:Automations | 3:Editing | 4:Testimonials | 5:About | 6:Contact
+// 0:Hero | 1:Skills | 2:Automations | 3:Editing | 4:Arsenal | 5:Testimonials | 6:About | 7:Contact
 const NAV_ITEMS = [
   { key: 'home',         idx: 0, sub: false },
   { key: 'skills',       idx: 1, sub: false },
   { key: 'automations',  idx: 2, sub: true  },
   { key: 'editing',      idx: 3, sub: true  },
-  { key: 'testimonials', idx: 4, sub: false },
-  { key: 'about',        idx: 5, sub: false },
-  { key: 'contact',      idx: 6, sub: false },
+  { key: 'arsenal',      idx: 4, sub: true  },
+  { key: 'testimonials', idx: 5, sub: false },
+  { key: 'about',        idx: 6, sub: false },
+  { key: 'contact',      idx: 7, sub: false },
 ]
 
 interface SideNavProps {
@@ -36,7 +37,6 @@ export function SideNav({ currentSection, onNavigate, language }: SideNavProps) 
             data-cursor="hover"
             layout
             onClick={() => onNavigate(idx)}
-            onHoverStart={() => onNavigate(idx)}
             className="relative flex items-center text-left rounded-full transition-colors duration-200"
             style={{
               background: 'none',
@@ -49,8 +49,8 @@ export function SideNav({ currentSection, onNavigate, language }: SideNavProps) 
               color: isActive
                 ? 'rgba(255,255,255,1)'
                 : sub
-                ? 'rgba(255,255,255,0.22)'
-                : 'rgba(255,255,255,0.32)',
+                ? 'rgba(255,255,255,0.55)'
+                : 'rgba(255,255,255,0.72)',
             }}
           >
             {isActive && (
@@ -58,8 +58,8 @@ export function SideNav({ currentSection, onNavigate, language }: SideNavProps) 
                 layoutId="sidenav-active"
                 className="absolute inset-0 rounded-full"
                 style={{
-                  background: 'rgba(245,158,11,0.08)',
-                  border: '1px solid rgba(245,158,11,0.30)',
+                  background: 'rgba(232,69,18,0.08)',
+                  border: '1px solid rgba(232,69,18,0.30)',
                 }}
                 transition={{ type: 'spring', damping: 22, stiffness: 260, mass: 0.8 }}
               />
@@ -69,7 +69,7 @@ export function SideNav({ currentSection, onNavigate, language }: SideNavProps) 
             {sub ? (
               <span
                 className="shrink-0 relative z-10 mr-2 text-[8px]"
-                style={{ color: isActive ? 'rgba(245,158,11,0.7)' : 'rgba(255,255,255,0.20)' }}
+                style={{ color: isActive ? 'rgba(232,69,18,0.7)' : 'rgba(255,255,255,0.20)' }}
               >
                 —
               </span>
@@ -77,7 +77,7 @@ export function SideNav({ currentSection, onNavigate, language }: SideNavProps) 
               <motion.span
                 layoutId="sidenav-dot"
                 className="w-1.5 h-1.5 rounded-full shrink-0 relative z-10 mr-2"
-                style={{ background: 'rgba(245,158,11,0.9)' }}
+                style={{ background: 'rgba(232,69,18,0.9)' }}
                 transition={{ type: 'spring', damping: 22, stiffness: 260, mass: 0.8 }}
               />
             ) : (

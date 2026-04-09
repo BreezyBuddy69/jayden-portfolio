@@ -16,23 +16,57 @@ interface ChatSectionProps {
 export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
   return (
     <section className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: '#080808' }}>
+      style={{ background: '#0a0a0a' }}>
       {/* Grain */}
       <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px' }} />
 
       {/* Ambient */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 60vw 50vh at 50% 50%, rgba(245,158,11,0.06) 0%, transparent 68%)' }} />
+        style={{ background: 'radial-gradient(ellipse 60vw 50vh at 50% 50%, rgba(232,69,18,0.06) 0%, transparent 68%)' }} />
 
-      <div className="relative z-10 w-full max-w-3xl mx-auto px-6 md:px-12 text-center">
+      {/* ── Background text: CUSTOMER SUPPORT + AI AGENT ── */}
+      <div
+        aria-hidden
+        className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none overflow-hidden gap-0"
+        style={{ lineHeight: 1 }}
+      >
+        {/* Line 1: CUSTOMER SUPPORT — solid fill */}
+        <span
+          className="font-anurati block"
+          style={{
+            fontSize: 'clamp(2.8rem, 6.5vw, 8rem)',
+            color: 'rgba(255,255,255,0.045)',
+            letterSpacing: '0.08em',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          CUSTOMER SUPPORT
+        </span>
+        {/* Line 2: AI AGENT — outline only */}
+        <span
+          className="font-anurati block"
+          style={{
+            fontSize: 'clamp(2.8rem, 6.5vw, 8rem)',
+            color: 'transparent',
+            WebkitTextStroke: '1.5px rgba(255,255,255,0.10)',
+            paintOrder: 'stroke fill',
+            letterSpacing: '0.08em',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          AI AGENT
+        </span>
+      </div>
+
+      <div className="relative z-10 w-full max-w-2xl mx-auto px-6 text-center">
         {/* Label */}
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4 }}
           className="block text-[10px] tracking-[0.32em] uppercase mb-5"
-          style={{ color: 'rgba(245,158,11,0.55)' }}
+          style={{ color: 'rgba(232,69,18,0.55)' }}
         >
           AI Demo
         </motion.span>
@@ -45,10 +79,10 @@ export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
           className="flex items-center justify-center mb-6"
         >
           <div className="relative w-16 h-16 rounded-2xl flex items-center justify-center"
-            style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.22)' }}>
-            <Bot className="w-8 h-8" style={{ color: 'rgba(245,158,11,0.80)' }} />
+            style={{ background: 'rgba(232,69,18,0.08)', border: '1px solid rgba(232,69,18,0.22)' }}>
+            <Bot className="w-8 h-8" style={{ color: 'rgba(232,69,18,0.80)' }} />
             <div className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full flex items-center justify-center"
-              style={{ background: 'rgba(8,8,8,0.95)', border: '1px solid rgba(245,158,11,0.35)' }}>
+              style={{ background: 'rgba(8,8,8,0.95)', border: '1px solid rgba(232,69,18,0.35)' }}>
               <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
             </div>
           </div>
@@ -94,7 +128,7 @@ export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
           ].map(({ icon: Icon, label }) => (
             <div key={label} className="flex items-center gap-1.5 text-[11px]"
               style={{ color: 'rgba(255,255,255,0.40)' }}>
-              <Icon className="w-3.5 h-3.5" style={{ color: 'rgba(245,158,11,0.55)' }} />
+              <Icon className="w-3.5 h-3.5" style={{ color: 'rgba(232,69,18,0.55)' }} />
               <span>{label}</span>
             </div>
           ))}
@@ -117,16 +151,16 @@ export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
               onClick={onOpenChat}
               className="px-4 py-2 rounded-full text-xs transition-all"
               style={{
-                background: 'rgba(245,158,11,0.06)',
-                border: '1px solid rgba(245,158,11,0.18)',
+                background: 'rgba(232,69,18,0.06)',
+                border: '1px solid rgba(232,69,18,0.18)',
                 color: 'rgba(255,255,255,0.60)',
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.background = 'rgba(245,158,11,0.12)'
+                (e.currentTarget as HTMLElement).style.background = 'rgba(232,69,18,0.12)'
                 ;(e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.85)'
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.background = 'rgba(245,158,11,0.06)'
+                (e.currentTarget as HTMLElement).style.background = 'rgba(232,69,18,0.06)'
                 ;(e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.60)'
               }}
             >
@@ -141,7 +175,7 @@ export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.8 }}
           className="text-[11px] tracking-[0.18em] uppercase"
-          style={{ color: 'rgba(245,158,11,0.45)' }}
+          style={{ color: 'rgba(232,69,18,0.45)' }}
         >
           Chat button → bottom right corner
         </motion.p>

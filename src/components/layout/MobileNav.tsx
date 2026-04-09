@@ -3,15 +3,16 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
 
-// 0:Hero | 1:Skills | 2:Automations | 3:Editing | 4:Testimonials | 5:About | 6:Contact
+// 0:Hero | 1:Skills | 2:Automations | 3:Editing | 4:Arsenal | 5:Testimonials | 6:About | 7:Contact
 const ITEMS = [
   { key: 'home',         idx: 0, sub: false },
   { key: 'skills',       idx: 1, sub: false },
   { key: 'automations',  idx: 2, sub: true  },
   { key: 'editing',      idx: 3, sub: true  },
-  { key: 'testimonials', idx: 4, sub: false },
-  { key: 'about',        idx: 5, sub: false },
-  { key: 'contact',      idx: 6, sub: false },
+  { key: 'arsenal',      idx: 4, sub: true  },
+  { key: 'testimonials', idx: 5, sub: false },
+  { key: 'about',        idx: 6, sub: false },
+  { key: 'contact',      idx: 7, sub: false },
 ]
 
 interface MobileNavProps {
@@ -27,12 +28,9 @@ export function MobileNav({ currentSection, onNavigate, language }: MobileNavPro
   return (
     <>
       <div
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-4 md:hidden"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-end px-5 py-4 md:hidden"
         style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, transparent 100%)' }}
       >
-        <span className="text-[11px] tracking-[0.22em] text-white/65 uppercase font-semibold">
-          Jayden Mikus
-        </span>
         <button
           data-cursor="hover"
           onClick={() => setOpen(v => !v)}
@@ -60,7 +58,13 @@ export function MobileNav({ currentSection, onNavigate, language }: MobileNavPro
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                onClick={() => { onNavigate(idx); setOpen(false) }}
+                onClick={() => {
+                  onNavigate(idx)
+                  setOpen(false)
+                  setTimeout(() => {
+                    document.getElementById(`section-${idx}`)?.scrollIntoView({ behavior: 'smooth' })
+                  }, 50)
+                }}
                 className="flex items-center gap-2"
                 style={{
                   background: 'none',

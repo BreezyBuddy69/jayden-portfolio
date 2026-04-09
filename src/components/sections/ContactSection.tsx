@@ -3,16 +3,97 @@ import { Mail, ArrowUpRight } from 'lucide-react'
 import { ScrambleText } from '../ui/ScrambleText'
 import translations, { type Language } from '../../i18n/translations'
 
+const ORANGE = '#E84512'
+const EMAIL = 'mikus.jayden@outlook.com'
+const YOUTUBE = 'https://www.youtube.com/@subspeedy'
+
 function YoutubeIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
-    <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor">
       <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
     </svg>
   )
 }
 
-const EMAIL = 'mikus.jayden@outlook.com'
-const YOUTUBE = 'https://www.youtube.com/@subspeedy'
+// Rising ember sparks from bottom
+function RisingEmbers() {
+  const embers = Array.from({ length: 22 }, (_, i) => ({
+    id: i,
+    left: 3 + ((i * 11) % 94),
+    delay: i * 0.42,
+    duration: 8 + ((i * 1.6) % 6),
+    size: 1.5 + (i % 3) * 0.5,
+    opacity: 0.2 + (i % 5) * 0.1,
+    drift: (i % 2 === 0 ? 1 : -1) * (8 + (i % 3) * 6),
+  }))
+
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {embers.map(e => (
+        <motion.div
+          key={e.id}
+          animate={{
+            y: [0, -(180 + (e.id * 20) % 140)],
+            x: [0, e.drift],
+            opacity: [0, e.opacity, e.opacity * 0.6, 0],
+          }}
+          transition={{ duration: e.duration, delay: e.delay, repeat: Infinity, ease: 'easeOut' }}
+          className="absolute rounded-full"
+          style={{
+            left: `${e.left}%`,
+            bottom: '8%',
+            width: e.size,
+            height: e.size,
+            background: `rgba(232,69,18,${e.opacity + 0.15})`,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+function DarkOrbsBg() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <motion.div
+        animate={{ x: [0, -35, 20, -10, 0], y: [0, 40, -30, 15, 0] }}
+        transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute pointer-events-none"
+        style={{
+          width: 700, height: 700,
+          top: '-20%', left: '-15%',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.10) 45%, transparent 70%)',
+          filter: 'blur(100px)',
+        }}
+      />
+      <motion.div
+        animate={{ x: [0, 40, -25, 10, 0], y: [0, -35, 45, -15, 0] }}
+        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+        className="absolute pointer-events-none"
+        style={{
+          width: 500, height: 500,
+          bottom: '-10%', right: '-10%',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.08) 50%, transparent 72%)',
+          filter: 'blur(85px)',
+        }}
+      />
+      <motion.div
+        animate={{ opacity: [0.6, 1, 0.6], x: [0, 20, -15, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 8 }}
+        className="absolute pointer-events-none"
+        style={{
+          width: 400, height: 400,
+          top: '20%', left: '35%',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(0,0,0,0.16) 0%, transparent 65%)',
+          filter: 'blur(70px)',
+        }}
+      />
+    </div>
+  )
+}
 
 interface ContactSectionProps {
   isActive: boolean
@@ -23,135 +104,208 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
   const t = translations[language].contact
 
   return (
-    <section className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: '#080808' }}>
-      {/* Grain */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px' }} />
+    <section
+      className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden"
+      style={{ background: '#E8600A' }}
+    >
+      {/* Two-block push animation — black panel slides in from left then retreats */}
+      <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
+        <motion.div
+          animate={{ x: ['-100%', '0%', '0%', '-100%', '-100%'] }}
+          transition={{
+            duration: 32,
+            times: [0, 0.17, 0.40, 0.57, 1],
+            repeat: Infinity,
+            ease: [0.76, 0, 0.24, 1],
+          }}
+          style={{
+            position: 'absolute',
+            top: 0, bottom: 0, left: 0,
+            width: '100%',
+            background: '#0a0a0a',
+          }}
+        />
+      </div>
 
-      {/* Large ambient glow */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 70vw 60vh at 50% 60%, rgba(245,158,11,0.08) 0%, transparent 65%)' }} />
+      {/* Grain */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.035]"
+        style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px', zIndex: 1 }} />
+
+      {/* Animated dark orbs */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}><DarkOrbsBg /></div>
+
+      {/* Rising sparks */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 2 }}><RisingEmbers /></div>
+
+      {/* Massive "LET'S GO." — moved higher, overflow clipped */}
+      <div
+        aria-hidden
+        className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none select-none"
+        style={{ zIndex: 1 }}
+      >
+        <div
+          className="art-text text-center"
+          style={{
+            fontSize: 'clamp(8rem, 22vw, 26rem)',
+            color: 'transparent',
+            WebkitTextStroke: '1px rgba(255,255,255,0.22)',
+            lineHeight: 0.82,
+            letterSpacing: '-0.05em',
+            transform: 'translateY(10%)',
+            whiteSpace: 'nowrap',
+            filter: 'drop-shadow(0 0 60px rgba(232,69,18,0.10))',
+          }}
+        >
+          LET'S GO.
+        </div>
+      </div>
+
+      {/* Thin top accent line */}
+      <motion.div
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={{ scaleX: isActive ? 1 : 0, opacity: isActive ? 1 : 0 }}
+        transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute top-0 left-0 right-0 pointer-events-none"
+        style={{
+          height: '1px',
+          background: 'linear-gradient(to right, transparent 0%, rgba(255,255,255,0.20) 30%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0.20) 70%, transparent 100%)',
+          transformOrigin: 'center',
+          zIndex: 3,
+        }}
+      />
 
       <div className="relative z-10 w-full max-w-3xl mx-auto px-6 md:pl-[190px] md:pr-12 text-center">
-        {/* Label */}
-        <motion.span
+
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4 }}
-          className="block text-[10px] tracking-[0.32em] uppercase mb-5"
-          style={{ color: 'rgba(245,158,11,0.55)' }}
+          className="text-[10px] tracking-[0.36em] uppercase mb-5"
+          style={{ color: 'rgba(255,255,255,0.55)' }}
         >
           {t.eyebrow}
-        </motion.span>
+        </motion.p>
 
-        {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 24 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           style={{
             fontFamily: '"Playfair Display", Georgia, serif',
-            fontSize: 'clamp(2.8rem, 7vw, 6rem)',
+            fontSize: 'clamp(3rem, 8vw, 7rem)',
             color: '#ffffff',
-            lineHeight: 1.0,
-            letterSpacing: '-0.03em',
-            margin: 0,
-            marginBottom: '24px',
+            lineHeight: 0.95,
+            letterSpacing: '-0.035em',
+            marginBottom: '20px',
           }}
         >
           {t.heading1}<br />
-          <span style={{ color: 'transparent', WebkitTextStroke: '1px rgba(245,158,11,0.55)' }}>
-            {t.heading2}
-          </span>
+          <span style={{
+            color: 'rgba(255,255,255,0.65)',
+          }}>{t.heading2}</span>
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          style={{ color: 'rgba(255,255,255,0.45)', fontSize: '15px', marginBottom: '48px', lineHeight: 1.7, maxWidth: '400px', margin: '0 auto 48px' }}
+          transition={{ duration: 0.5, delay: 0.28 }}
+          style={{ color: 'rgba(255,255,255,0.65)', fontSize: '14px', marginBottom: '48px', lineHeight: 1.7, maxWidth: '360px', margin: '0 auto 48px' }}
         >
           {t.desc}
         </motion.p>
 
-        {/* Contact cards */}
+        {/* Contact cards — glass morphism */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 16 }}
-          transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ duration: 0.6, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
-          {/* Email */}
           <a
             href={`mailto:${EMAIL}`}
             data-cursor="hover"
-            className="group flex items-center gap-3 px-6 py-4 rounded-xl transition-all"
+            className="group flex items-center gap-3 px-6 py-4 rounded-xl"
             style={{
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.09)',
+              background: 'rgba(255,255,255,0.07)',
+              border: '1px solid rgba(255,255,255,0.16)',
+              backdropFilter: 'blur(20px)',
               textDecoration: 'none',
+              transition: 'border-color 0.25s, background 0.25s, box-shadow 0.25s, transform 0.2s',
+              boxShadow: 'none',
             }}
             onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.border = '1px solid rgba(245,158,11,0.30)'
-              ;(e.currentTarget as HTMLElement).style.background = 'rgba(245,158,11,0.06)'
+              const el = e.currentTarget as HTMLElement
+              el.style.borderColor = 'rgba(255,255,255,0.32)'
+              el.style.background = 'rgba(255,255,255,0.14)'
+              el.style.boxShadow = '0 0 30px rgba(0,0,0,0.18)'
+              el.style.transform = 'translateY(-2px)'
             }}
             onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.border = '1px solid rgba(255,255,255,0.09)'
-              ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)'
+              const el = e.currentTarget as HTMLElement
+              el.style.borderColor = 'rgba(255,255,255,0.16)'
+              el.style.background = 'rgba(255,255,255,0.07)'
+              el.style.boxShadow = 'none'
+              el.style.transform = 'translateY(0)'
             }}
           >
-            <Mail className="w-5 h-5 flex-shrink-0" style={{ color: 'rgba(245,158,11,0.75)' }} />
-            <div className="text-left">
-              <p className="text-[10px] tracking-[0.16em] uppercase mb-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{t.emailLabel}</p>
-              <ScrambleText
-                text={EMAIL}
-                className="text-sm text-white/80 group-hover:text-white/95 transition-colors"
-              />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+              style={{ background: 'rgba(255,255,255,0.10)', border: '1px solid rgba(255,255,255,0.18)' }}>
+              <Mail className="w-3.5 h-3.5" style={{ color: 'rgba(255,255,255,0.75)' }} />
             </div>
-            <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-amber-400/70 transition-colors ml-1" />
+            <div className="text-left">
+              <p className="text-[9px] tracking-[0.18em] uppercase mb-0.5" style={{ color: 'rgba(255,255,255,0.45)' }}>{t.emailLabel}</p>
+              <ScrambleText text={EMAIL} className="text-sm text-white/75 group-hover:text-white/95 transition-colors" />
+            </div>
+            <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-colors ml-1" />
           </a>
 
-          {/* YouTube */}
           <a
             href={YOUTUBE}
             target="_blank"
             rel="noopener noreferrer"
             data-cursor="hover"
-            className="group flex items-center gap-3 px-6 py-4 rounded-xl transition-all"
+            className="group flex items-center gap-3 px-6 py-4 rounded-xl"
             style={{
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.09)',
+              background: 'rgba(255,255,255,0.07)',
+              border: '1px solid rgba(255,255,255,0.16)',
+              backdropFilter: 'blur(20px)',
               textDecoration: 'none',
+              transition: 'border-color 0.25s, background 0.25s, box-shadow 0.25s, transform 0.2s',
+              boxShadow: 'none',
             }}
             onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.border = '1px solid rgba(245,158,11,0.30)'
-              ;(e.currentTarget as HTMLElement).style.background = 'rgba(245,158,11,0.06)'
+              const el = e.currentTarget as HTMLElement
+              el.style.borderColor = 'rgba(255,255,255,0.32)'
+              el.style.background = 'rgba(255,255,255,0.14)'
+              el.style.boxShadow = '0 0 30px rgba(0,0,0,0.18)'
+              el.style.transform = 'translateY(-2px)'
             }}
             onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.border = '1px solid rgba(255,255,255,0.09)'
-              ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)'
+              const el = e.currentTarget as HTMLElement
+              el.style.borderColor = 'rgba(255,255,255,0.16)'
+              el.style.background = 'rgba(255,255,255,0.07)'
+              el.style.boxShadow = 'none'
+              el.style.transform = 'translateY(0)'
             }}
           >
-            <YoutubeIcon className="w-5 h-5 flex-shrink-0" style={{ color: 'rgba(245,158,11,0.75)' }} />
-            <div className="text-left">
-              <p className="text-[10px] tracking-[0.16em] uppercase mb-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{t.youtubeLabel}</p>
-              <ScrambleText
-                text="@subspeedy"
-                className="text-sm text-white/80 group-hover:text-white/95 transition-colors"
-              />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+              style={{ background: 'rgba(255,255,255,0.10)', border: '1px solid rgba(255,255,255,0.18)' }}>
+              <YoutubeIcon className="w-3.5 h-3.5" style={{ color: 'rgba(255,255,255,0.75)' }} />
             </div>
-            <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-amber-400/70 transition-colors ml-1" />
+            <div className="text-left">
+              <p className="text-[9px] tracking-[0.18em] uppercase mb-0.5" style={{ color: 'rgba(255,255,255,0.45)' }}>{t.youtubeLabel}</p>
+              <ScrambleText text="@subspeedy" className="text-sm text-white/75 group-hover:text-white/95 transition-colors" />
+            </div>
+            <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-colors ml-1" />
           </a>
         </motion.div>
 
-        {/* Footer line */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.8 }}
           className="mt-16 text-[10px] tracking-[0.22em] uppercase"
-          style={{ color: 'rgba(255,255,255,0.18)' }}
+          style={{ color: 'rgba(255,255,255,0.35)' }}
         >
           {t.footer}
         </motion.p>

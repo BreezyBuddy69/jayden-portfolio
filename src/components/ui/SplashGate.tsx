@@ -69,7 +69,7 @@ export function SplashGate({ onDone }: SplashGateProps) {
             aria-hidden
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'radial-gradient(ellipse 60vw 50vh at 50% 50%, rgba(245,158,11,0.07) 0%, transparent 70%)',
+              background: 'radial-gradient(ellipse 60vw 50vh at 50% 50%, rgba(232,69,18,0.07) 0%, transparent 70%)',
             }}
           />
 
@@ -111,7 +111,7 @@ export function SplashGate({ onDone }: SplashGateProps) {
                 marginTop: '16px',
                 fontSize: '11px',
                 letterSpacing: '0.32em',
-                color: 'rgba(245,158,11,0.65)',
+                color: 'rgba(232,69,18,0.65)',
                 textTransform: 'uppercase',
                 fontFamily: 'Inter, system-ui, sans-serif',
               }}
@@ -126,7 +126,7 @@ export function SplashGate({ onDone }: SplashGateProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: phase === 'reveal' ? 1 : 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            style={{ width: '1px', height: '48px', background: 'linear-gradient(to bottom, rgba(245,158,11,0.4), transparent)' }}
+            style={{ width: '1px', height: '48px', background: 'linear-gradient(to bottom, rgba(232,69,18,0.4), transparent)' }}
           />
         </motion.div>
       ) : null}

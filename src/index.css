@@ -1,4 +1,5 @@
 @import url('https://fonts.cdnfonts.com/css/anurati');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,7 +13,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #080808;
+  background: #0a0a0a;
   color: #ffffff;
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,7 +25,7 @@ html, body {
   min-height: 100vh;
 }
 
-/* ── Custom Cursor — Amber ── */
+/* ── Custom Cursor — Orange ── */
 .cursor-root {
   position: fixed;
   top: 0;
@@ -33,17 +34,18 @@ html, body {
   pointer-events: none;
   opacity: 0;
   will-change: transform;
+  mix-blend-mode: difference;
 }
 
 .cursor-dot {
   position: absolute;
   top: 0;
   left: 0;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: rgba(245, 158, 11, 0.95);
-  box-shadow: 0 0 8px rgba(245, 158, 11, 0.7);
+  background: white;
+  mix-blend-mode: difference;
   will-change: transform, opacity;
 }
 
@@ -51,23 +53,25 @@ html, body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: 1.5px solid rgba(245, 158, 11, 0.65);
+  border: 1.5px solid white;
+  mix-blend-mode: difference;
   opacity: 0;
   will-change: transform, opacity;
 }
 
 .cursor-text {
   position: absolute;
-  top: 22px;
+  top: 24px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.12em;
-  color: rgba(245, 158, 11, 0.9);
+  color: white;
+  mix-blend-mode: difference;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
@@ -76,12 +80,12 @@ html, body {
 /* ── Chat scrollbar ── */
 .chat-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(245, 158, 11, 0.28) transparent;
+  scrollbar-color: rgba(232, 69, 18, 0.28) transparent;
 }
 .chat-scroll::-webkit-scrollbar { width: 3px; }
 .chat-scroll::-webkit-scrollbar-track { background: transparent; }
 .chat-scroll::-webkit-scrollbar-thumb {
-  background: rgba(245, 158, 11, 0.28);
+  background: rgba(232, 69, 18, 0.28);
   border-radius: 2px;
 }
 
@@ -106,4 +110,101 @@ html, body {
 /* ── Hide native cursor on desktop ── */
 @media (hover: hover) {
   *, *::before, *::after { cursor: none !important; }
+}
+
+/* ── Testimonials ticker ── */
+@keyframes ticker-rtl {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  gap: 12px;
+  padding: 8px 12px;
+  animation: ticker-rtl 38s linear infinite;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Giant artistic text ── */
+.art-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  user-select: none;
+}
+
+/* ── 3D extruded text (like BUILD image) ── */
+.text-3d-dark {
+  text-shadow:
+    1px 1px 0 rgba(255,255,255,0.08),
+    2px 2px 0 rgba(255,255,255,0.07),
+    3px 3px 0 rgba(255,255,255,0.065),
+    4px 4px 0 rgba(255,255,255,0.06),
+    5px 5px 0 rgba(255,255,255,0.055),
+    6px 6px 0 rgba(255,255,255,0.05),
+    7px 7px 0 rgba(255,255,255,0.045),
+    8px 8px 0 rgba(255,255,255,0.04),
+    9px 9px 0 rgba(255,255,255,0.035),
+    10px 10px 0 rgba(255,255,255,0.03),
+    12px 12px 0 rgba(255,255,255,0.025),
+    14px 14px 0 rgba(255,255,255,0.02),
+    16px 16px 0 rgba(255,255,255,0.015),
+    20px 20px 0 rgba(255,255,255,0.01),
+    24px 24px 30px rgba(0,0,0,0.6);
+}
+
+.text-3d-outline-dark {
+  text-shadow:
+    1px 1px 0 rgba(232,96,10,0.35),
+    2px 2px 0 rgba(232,96,10,0.32),
+    3px 3px 0 rgba(200,70,5,0.28),
+    4px 4px 0 rgba(180,55,3,0.24),
+    5px 5px 0 rgba(160,45,2,0.20),
+    6px 6px 0 rgba(140,38,1,0.17),
+    8px 8px 0 rgba(120,30,0,0.13),
+    10px 10px 0 rgba(100,22,0,0.10),
+    14px 14px 0 rgba(80,15,0,0.07),
+    18px 18px 25px rgba(0,0,0,0.55);
+}
+
+/* ── 3D text on orange background ── */
+.text-3d-on-orange {
+  text-shadow:
+    1px 1px 0 rgba(0,0,0,0.50),
+    2px 2px 0 rgba(0,0,0,0.47),
+    3px 3px 0 rgba(0,0,0,0.44),
+    4px 4px 0 rgba(0,0,0,0.40),
+    5px 5px 0 rgba(0,0,0,0.36),
+    6px 6px 0 rgba(0,0,0,0.32),
+    8px 8px 0 rgba(0,0,0,0.27),
+    10px 10px 0 rgba(0,0,0,0.22),
+    14px 14px 0 rgba(0,0,0,0.16),
+    18px 18px 0 rgba(0,0,0,0.11),
+    24px 24px 0 rgba(0,0,0,0.07),
+    30px 30px 0 rgba(0,0,0,0.04);
+}
+
+.text-3d-outline-on-orange {
+  text-shadow:
+    1px 1px 0 rgba(0,0,0,0.50),
+    2px 2px 0 rgba(0,0,0,0.46),
+    3px 3px 0 rgba(0,0,0,0.42),
+    4px 4px 0 rgba(0,0,0,0.38),
+    5px 5px 0 rgba(0,0,0,0.34),
+    6px 6px 0 rgba(0,0,0,0.28),
+    8px 8px 0 rgba(0,0,0,0.22),
+    10px 10px 0 rgba(0,0,0,0.18),
+    14px 14px 0 rgba(0,0,0,0.12),
+    20px 20px 0 rgba(0,0,0,0.07),
+    28px 28px 45px rgba(0,0,0,0.42);
+}
+
+/* ── Section noise grain ── */
+.grain {
+  background-image: url(/gallery/noise.png);
+  background-size: 200px;
 }
