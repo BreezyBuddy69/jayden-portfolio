@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import { type Language } from '../../i18n/translations'
+import { OrangeFlowBg } from '../ui/OrangeFlowBg'
 
-const ORANGE = '#E8600A'
+const ORANGE = '#eb5e28'
 
 interface HeroSectionProps {
   isActive: boolean
@@ -20,6 +21,7 @@ export function HeroSection({ isActive, onScrollDown, onOpenChat, language }: He
       className="relative w-full h-full overflow-hidden flex items-center justify-center"
       style={{ background: ORANGE }}
     >
+      <OrangeFlowBg />
       <div aria-hidden className="absolute inset-0 pointer-events-none grain opacity-[0.04]" />
 
       {/* ── Background words ── */}
@@ -45,7 +47,7 @@ export function HeroSection({ isActive, onScrollDown, onOpenChat, language }: He
             style={{
               display: 'block',
               fontSize: 'clamp(7rem, 22vw, 26rem)',
-              color: '#0a0a0a',
+              color: '#252422',
               fontWeight: 900,
               lineHeight: 0.90,
               whiteSpace: 'nowrap',
@@ -110,7 +112,7 @@ export function HeroSection({ isActive, onScrollDown, onOpenChat, language }: He
             data-cursor="hover"
             style={{
               background: '#ffffff',
-              color: '#0a0a0a',
+              color: '#252422',
               border: 'none',
               borderRadius: '999px',
               padding: '15px 38px',

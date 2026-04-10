@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
+import { OrangeFlowBg } from '../ui/OrangeFlowBg'
 
 const YOUTUBE_URL = 'https://www.youtube.com/@subspeedy'
 const HALO_URL = 'https://halovisionai.cloud'
@@ -236,25 +237,14 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
   return (
     <section
       className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: '#E8600A' }}
+      style={{ background: '#eb5e28' }}
     >
-      {/* Diagonal black — upper-left half */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: '#0a0a0a',
-          clipPath: 'polygon(0 0, 100% 0, 0 62%)',
-          zIndex: 1,
-        }}
-      />
+      {/* Flowing background animation */}
+      <OrangeFlowBg />
 
       {/* Grain */}
       <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px', zIndex: 2 }} />
-
-      {/* Animated dark orbs */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 2 }}><DarkOrbsBg /></div>
 
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:pl-[190px] md:pr-12 overflow-y-auto py-4" style={{ maxHeight: '100%' }}>
         {/* Label */}
@@ -419,14 +409,12 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
         animate={{ opacity: isActive ? 1 : 0 }}
         transition={{ duration: 0.6, delay: 0.44 }}
         className="relative w-full overflow-hidden"
-        style={{ marginTop: '-8px', paddingBottom: '16px', zIndex: 10 }}
+        style={{
+          marginTop: '-8px', paddingBottom: '16px', zIndex: 10,
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%)',
+        }}
       >
-        {/* Left fade — blends over the diagonal split (dark on top-left, orange on bottom-left) */}
-        <div className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none"
-          style={{ width: '22%', background: 'linear-gradient(to right, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.50) 50%, transparent 100%)' }} />
-        {/* Right fade — orange to transparent */}
-        <div className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
-          style={{ width: '28%', background: 'linear-gradient(to left, #E8600A 0%, rgba(232,96,10,0.97) 25%, rgba(232,96,10,0.80) 55%, rgba(232,96,10,0.30) 80%, transparent 100%)' }} />
 
         <div className="ticker-track" style={{ gap: '12px' }}>
           {looped.map((r, i) => {

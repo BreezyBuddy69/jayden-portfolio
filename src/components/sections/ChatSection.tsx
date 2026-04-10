@@ -16,7 +16,7 @@ interface ChatSectionProps {
 export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
   return (
     <section className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: '#0a0a0a' }}>
+      style={{ background: '#252422' }}>
       {/* Grain */}
       <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px' }} />

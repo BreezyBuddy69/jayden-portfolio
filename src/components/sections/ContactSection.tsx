@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
 import { Mail, ArrowUpRight } from 'lucide-react'
-import { ScrambleText } from '../ui/ScrambleText'
 import translations, { type Language } from '../../i18n/translations'
+import { OrangeFlowBg } from '../ui/OrangeFlowBg'
 
-const ORANGE = '#E84512'
+const ORANGE = '#eb5e28'
 const EMAIL = 'mikus.jayden@outlook.com'
 const YOUTUBE = 'https://www.youtube.com/@subspeedy'
 
@@ -106,33 +106,14 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
   return (
     <section
       className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: '#E8600A' }}
+      style={{ background: '#eb5e28' }}
     >
-      {/* Two-block push animation — black panel slides in from left then retreats */}
-      <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
-        <motion.div
-          animate={{ x: ['-100%', '0%', '0%', '-100%', '-100%'] }}
-          transition={{
-            duration: 32,
-            times: [0, 0.17, 0.40, 0.57, 1],
-            repeat: Infinity,
-            ease: [0.76, 0, 0.24, 1],
-          }}
-          style={{
-            position: 'absolute',
-            top: 0, bottom: 0, left: 0,
-            width: '100%',
-            background: '#0a0a0a',
-          }}
-        />
-      </div>
+      {/* Flowing background animation */}
+      <OrangeFlowBg />
 
       {/* Grain */}
       <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.035]"
         style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px', zIndex: 1 }} />
-
-      {/* Animated dark orbs */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}><DarkOrbsBg /></div>
 
       {/* Rising sparks */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 2 }}><RisingEmbers /></div>
@@ -254,7 +235,7 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
             </div>
             <div className="text-left">
               <p className="text-[9px] tracking-[0.18em] uppercase mb-0.5" style={{ color: 'rgba(255,255,255,0.45)' }}>{t.emailLabel}</p>
-              <ScrambleText text={EMAIL} className="text-sm text-white/75 group-hover:text-white/95 transition-colors" />
+              <span className="text-sm text-white/75 group-hover:text-white/95 transition-colors">{EMAIL}</span>
             </div>
             <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-colors ml-1" />
           </a>
@@ -294,7 +275,7 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
             </div>
             <div className="text-left">
               <p className="text-[9px] tracking-[0.18em] uppercase mb-0.5" style={{ color: 'rgba(255,255,255,0.45)' }}>{t.youtubeLabel}</p>
-              <ScrambleText text="@subspeedy" className="text-sm text-white/75 group-hover:text-white/95 transition-colors" />
+              <span className="text-sm text-white/75 group-hover:text-white/95 transition-colors">@subspeedy</span>
             </div>
             <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-colors ml-1" />
           </a>

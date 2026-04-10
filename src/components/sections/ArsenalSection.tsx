@@ -120,7 +120,7 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
   return (
     <section
       className="relative w-full h-full flex flex-col justify-center overflow-hidden"
-      style={{ background: '#0a0a0a' }}
+      style={{ background: '#252422' }}
     >
       {/* Aurora background */}
       <AuroraArsenal />

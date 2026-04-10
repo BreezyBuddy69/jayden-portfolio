@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import translations, { type Language } from '../../i18n/translations'
+import { OrangeFlowBg } from '../ui/OrangeFlowBg'
 
-const ORANGE = '#E84512'
+const ORANGE = '#eb5e28'
 
 // Floating ember sparks — float upward and fade out
 function FloatingParticles() {
@@ -94,39 +95,43 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
   return (
     <section
       className="relative w-full h-full flex flex-col justify-center overflow-hidden"
-      style={{ background: '#E8600A' }}
+      style={{ background: '#eb5e28' }}
     >
-      {/* Grain texture */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.035]"
-        style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px' }} />
+      {/* Flowing background animation */}
+      <OrangeFlowBg />
 
-      {/* Animated dark orbs */}
-      <DarkOrbsBg />
+      {/* Extra dark overlay for more contrast */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 90% 80% at 50% 50%, transparent 35%, rgba(37,36,34,0.28) 100%)', zIndex: 1 }} />
+
+      {/* Grain texture */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px', zIndex: 1 }} />
 
       {/* Floating spark particles */}
       <FloatingParticles />
 
-      {/* Giant "JAYDEN" art text — centered, animated */}
+      {/* Giant "JAYDEN" in Anurati — centered, animated */}
       <div aria-hidden className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none select-none flex justify-center">
         <motion.div
-          className="art-text"
+          className="font-anurati"
           style={{
-            fontSize: 'clamp(10rem, 28vw, 32rem)',
+            fontSize: 'clamp(8rem, 22vw, 28rem)',
             color: 'transparent',
-            WebkitTextStroke: `3px rgba(0,0,0,0.35)`,
+            WebkitTextStroke: `3px rgba(37,36,34,0.55)`,
             lineHeight: 0.85,
-            letterSpacing: '-0.05em',
+            letterSpacing: '0.04em',
             whiteSpace: 'nowrap',
-            translateY: '5%',
+            transform: 'translateY(5%)',
           }}
           animate={{
-            opacity: [0.45, 0.88, 0.45],
-            x: [-25, 25, -25],
-            scale: [0.975, 1.025, 0.975],
+            opacity: [0.50, 0.90, 0.50],
+            x: [-20, 20, -20],
+            scale: [0.98, 1.02, 0.98],
             filter: [
-              'drop-shadow(0 0 0px rgba(0,0,0,0))',
-              'drop-shadow(0 0 55px rgba(0,0,0,0.18))',
-              'drop-shadow(0 0 0px rgba(0,0,0,0))',
+              'drop-shadow(0 0 0px rgba(37,36,34,0))',
+              'drop-shadow(0 0 50px rgba(37,36,34,0.30))',
+              'drop-shadow(0 0 0px rgba(37,36,34,0))',
             ],
           }}
           transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut' }}
@@ -216,7 +221,7 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
               animate={{ opacity: isActive ? 1 : 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
               className="text-[10px] tracking-[0.32em] uppercase mb-5"
-              style={{ color: 'rgba(0,0,0,0.55)' }}
+              style={{ color: 'rgba(37,36,34,0.75)' }}
             >
               {t.eyebrow}
             </motion.p>
@@ -244,7 +249,7 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: isActive ? 1 : 0 }}
               transition={{ duration: 0.5, delay: 0.35 }}
-              style={{ color: 'rgba(0,0,0,0.65)', fontSize: '15px', lineHeight: 1.8, marginBottom: '32px', maxWidth: '360px' }}
+              style={{ color: 'rgba(37,36,34,0.80)', fontSize: '15px', lineHeight: 1.8, marginBottom: '32px', maxWidth: '360px' }}
             >
               {t.p1}
             </motion.p>

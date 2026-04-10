@@ -62,7 +62,7 @@ export function SplashGate({ onDone }: SplashGateProps) {
           exit={{ opacity: 0, scale: 1.02 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="fixed inset-0 z-[300] flex flex-col items-center justify-center"
-          style={{ background: '#080808' }}
+          style={{ background: '#252422' }}
         >
           {/* Ambient amber glow */}
           <div

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import translations, { type Language } from '../../i18n/translations'
 
-const ORANGE = '#E8600A'
+const ORANGE = '#eb5e28'
 
 interface SkillsSectionProps {
   isActive: boolean
@@ -27,7 +27,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
   return (
     <section
       className="relative w-full h-full flex flex-col overflow-hidden"
-      style={{ background: '#0a0a0a' }}
+      style={{ background: '#252422' }}
     >
       <div className="flex flex-col md:flex-row flex-1 min-h-0 relative">
 
@@ -55,7 +55,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
           data-cursor="hover"
           className="relative flex-1 flex flex-col justify-start overflow-hidden text-left"
           style={{
-            background: leftOrange ? ORANGE : '#0a0a0a',
+            background: leftOrange ? ORANGE : '#252422',
             border: 'none',
             borderRight: '1px solid rgba(255,255,255,0.06)',
             cursor: 'none',
@@ -88,7 +88,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
             </p>
             <h3 className="art-text" style={{
               fontSize: 'clamp(3rem, 6vw, 6.5rem)',
-              color: leftOrange ? '#0a0a0a' : '#ffffff',
+              color: leftOrange ? '#252422' : '#ffffff',
               marginBottom: '20px',
               lineHeight: 0.9,
               transition: 'color 0.55s cubic-bezier(0.16,1,0.3,1)',
@@ -104,7 +104,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
             </p>
             <div className="mt-10 w-11 h-11 rounded-full flex items-center justify-center" style={{
               border: leftOrange ? '1px solid rgba(0,0,0,0.30)' : '1px solid rgba(255,255,255,0.25)',
-              color: leftOrange ? '#0a0a0a' : '#ffffff',
+              color: leftOrange ? '#252422' : '#ffffff',
               fontSize: '20px',
               transition: 'border-color 0.55s, color 0.55s',
             }}>→</div>
@@ -152,7 +152,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
             </p>
             <h3 className="art-text" style={{
               fontSize: 'clamp(3rem, 6vw, 6.5rem)',
-              color: rightOrange ? '#0a0a0a' : '#ffffff',
+              color: rightOrange ? '#252422' : '#ffffff',
               marginBottom: '20px',
               lineHeight: 0.9,
               transition: 'color 0.55s cubic-bezier(0.16,1,0.3,1)',
@@ -168,7 +168,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
             </p>
             <div className="mt-10 w-11 h-11 rounded-full flex items-center justify-center" style={{
               border: rightOrange ? '1px solid rgba(0,0,0,0.30)' : '1px solid rgba(255,255,255,0.25)',
-              color: rightOrange ? '#0a0a0a' : '#ffffff',
+              color: rightOrange ? '#252422' : '#ffffff',
               fontSize: '20px',
               transition: 'border-color 0.55s, color 0.55s',
             }}>→</div>

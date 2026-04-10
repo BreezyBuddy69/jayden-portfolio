@@ -126,7 +126,7 @@ export default function App() {
 
   return (
     <ChatProvider>
-      <div className="relative w-screen h-screen overflow-hidden" style={{ background: '#080808' }}>
+      <div className="relative w-screen h-screen overflow-hidden" style={{ background: '#252422' }}>
         <Cursor />
 
         <AnimatePresence>

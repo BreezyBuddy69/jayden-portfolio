@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
+import { OrangeFlowBg } from '../ui/OrangeFlowBg'
 
 const CHANNEL_URL = 'https://www.youtube.com/@subspeedy'
 const STIFFNESS = 480, DAMPING = 30, MASS = 0.35
@@ -91,8 +92,9 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
     <section
       ref={sectionRef}
       className="relative w-full h-full overflow-hidden"
-      style={{ background: '#E8600A' }}
+      style={{ background: '#eb5e28' }}
     >
+      <OrangeFlowBg />
       {/* Spring cursor */}
       <div
         ref={buttonRef}

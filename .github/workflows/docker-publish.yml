@@ -50,3 +50,38 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          no-cache: true
+
+      - name: Deploy to VPS
+        if: github.event_name != 'pull_request'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /opt/jayden-portfolio || mkdir -p /opt/jayden-portfolio && cd /opt/jayden-portfolio
+            cat > docker-compose.yml << 'EOF'
+            services:
+              app:
+                image: ghcr.io/breezybuddy69/jayden-portfolio:main
+                container_name: jayden-portfolio-app
+                restart: unless-stopped
+                networks:
+                  - traefik-proxy
+                labels:
+                  - "traefik.enable=true"
+                  - "traefik.docker.network=traefik-proxy"
+                  - "traefik.http.routers.jayden-portfolio.rule=Host(`jayden-mikus.halovisionai.cloud`)"
+                  - "traefik.http.routers.jayden-portfolio.entrypoints=websecure"
+                  - "traefik.http.routers.jayden-portfolio.tls=true"
+                  - "traefik.http.routers.jayden-portfolio.tls.certresolver=letsencrypt"
+                  - "traefik.http.services.jayden-portfolio.loadbalancer.server.port=80"
+            networks:
+              traefik-proxy:
+                external: true
+            EOF
+            docker pull ghcr.io/breezybuddy69/jayden-portfolio:main
+            docker compose down --remove-orphans
+            docker compose up -d
+            docker compose logs --tail=20

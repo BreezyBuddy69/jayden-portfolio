@@ -5,8 +5,9 @@ import translations, { type Language } from '../../i18n/translations'
 import { useChatContext } from '../../contexts/ChatContext'
 import { TypingMessage } from '../chat/TypingMessage'
 import { ThinkingProcess } from '../chat/ThinkingProcess'
+import { OrangeFlowBg } from '../ui/OrangeFlowBg'
 
-const ORANGE = '#E8600A'
+const ORANGE = '#eb5e28'
 const HALO_URL = 'https://halovisionai.cloud'
 const CHATBOT_URL = 'https://n8n.halovisionai.cloud/webhook/jayden-portfolio-chat'
 
@@ -156,18 +157,22 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
       className="relative w-full h-full overflow-hidden"
       style={{ background: ORANGE }}
     >
-      {/* AUTOMATIONS outlined bg — fills viewport width */}
-      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none select-none" style={{ overflow: 'hidden' }}>
+      {/* Flowing background animation */}
+      <OrangeFlowBg />
+
+      {/* AUTOMATIONS outlined bg — sized to fit viewport width exactly */}
+      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none select-none" style={{ overflow: 'visible' }}>
         <span className="font-anurati text-3d-outline-on-orange" style={{
-          fontSize: '17vw',
+          fontSize: 'clamp(4rem, 12.5vw, 20rem)',
           color: 'transparent',
-          WebkitTextStroke: '4px rgba(0,0,0,0.38)',
+          WebkitTextStroke: '3px rgba(0,0,0,0.38)',
           paintOrder: 'stroke fill',
           whiteSpace: 'nowrap',
-          letterSpacing: '0.08em',
+          letterSpacing: '0.03em',
           lineHeight: 1,
           display: 'block',
           opacity: 0.55,
+          maxWidth: '98vw',
         }}>
           AUTOMATIONS
         </span>
