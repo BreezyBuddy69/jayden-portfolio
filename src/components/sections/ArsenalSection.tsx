@@ -214,7 +214,7 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
             fontFamily: '"Playfair Display", Georgia, serif',
             fontStyle: 'italic',
             fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)',
-            color: 'rgba(255,255,255,0.28)',
+            color: 'rgba(255,255,255,0.55)',
             letterSpacing: '-0.025em',
             marginBottom: '28px',
             lineHeight: 1.05,
@@ -247,11 +247,14 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
                   customSize
                   className="w-full flex flex-col gap-3 cursor-default"
                   style={{
-                    background: isHov ? 'rgba(15,13,12,0.82)' : 'rgba(15,13,12,0.72)',
-                    border: isHov ? `1px solid ${ORANGE}55` : '1px solid rgba(255,255,255,0.10)',
+                    background: isHov ? 'rgba(68,52,36,0.95)' : 'rgba(55,42,28,0.88)',
+                    border: isHov ? `1.5px solid ${ORANGE}90` : '1.5px solid rgba(255,255,255,0.28)',
                     backdropFilter: 'blur(12px)',
                     padding: '20px',
                     transition: 'background 0.3s, border-color 0.3s',
+                    boxShadow: isHov
+                      ? `0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px ${ORANGE}22`
+                      : '0 4px 24px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.06) inset',
                   }}
                 >
                   {/* Icon */}
@@ -261,17 +264,17 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
                       border: `1px solid ${isHov ? ORANGE + '55' : ORANGE + '28'}`,
                       transition: 'background 0.3s, border-color 0.3s',
                     }}>
-                    <Icon className="w-4 h-4" style={{ color: isHov ? card.accent : 'rgba(255,255,255,0.35)', transition: 'color 0.3s' }} />
+                    <Icon className="w-4 h-4" style={{ color: isHov ? card.accent : 'rgba(255,255,255,0.85)', transition: 'color 0.3s' }} />
                   </div>
 
                   {/* Text */}
                   <div>
                     <p className="font-semibold text-sm mb-0.5" style={{ color: 'rgba(255,255,255,0.95)' }}>{title}</p>
                     <p className="text-[10px] tracking-[0.14em] uppercase mb-2"
-                      style={{ color: isHov ? `${ORANGE}CC` : 'rgba(255,255,255,0.50)', transition: 'color 0.3s' }}>
+                      style={{ color: isHov ? `${ORANGE}CC` : 'rgba(255,255,255,0.76)', transition: 'color 0.3s' }}>
                       {sub}
                     </p>
-                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.68)' }}>{desc}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.88)' }}>{desc}</p>
                   </div>
 
                   {/* Bottom accent line on hover */}

@@ -242,7 +242,7 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
             fontFamily: '"Playfair Display", Georgia, serif',
             fontStyle: 'italic',
             fontSize: 'clamp(1.8rem, 4vw, 3.2rem)',
-            color: 'rgba(255,255,255,0.30)',
+            color: 'rgba(255,255,255,0.82)',
             letterSpacing: '-0.025em',
             lineHeight: 1.05,
             marginBottom: '10px',
@@ -256,7 +256,7 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 0.24 }}
           className="text-xs mb-5"
-          style={{ color: 'rgba(255,255,255,0.40)', maxWidth: '380px', lineHeight: 1.75 }}
+          style={{ color: 'rgba(255,255,255,0.88)', maxWidth: '380px', lineHeight: 1.75 }}
         >
           {t.desc}
         </motion.p>
@@ -275,9 +275,10 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
               customSize
               className="w-full group cursor-pointer"
               style={{
-                background: 'rgba(235,94,40,0.06)',
-                border: `1px solid ${ORANGE}28`,
-                backdropFilter: 'blur(20px)',
+                background: 'rgba(62,46,30,0.92)',
+                border: `1.5px solid ${ORANGE}65`,
+                backdropFilter: 'blur(16px)',
+                boxShadow: '0 6px 28px rgba(0,0,0,0.40)',
               }}
             >
               <a
@@ -293,9 +294,9 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-semibold mb-0.5" style={{ color: 'rgba(255,255,255,0.85)' }}>{t.ytHeading}</p>
-                  <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.35)' }}>{t.ytSub}</p>
+                  <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.85)' }}>{t.ytSub}</p>
                 </div>
-                <div className="flex items-center gap-1.5 text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                <div className="flex items-center gap-1.5 text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.85)' }}>
                   <span className="group-hover:opacity-100 transition-opacity opacity-70">{t.ytCta}</span>
                   <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
@@ -315,9 +316,10 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
               customSize
               className="w-full group cursor-pointer"
               style={{
-                background: 'rgba(235,94,40,0.06)',
-                border: `1px solid ${ORANGE}28`,
-                backdropFilter: 'blur(20px)',
+                background: 'rgba(62,46,30,0.92)',
+                border: `1.5px solid ${ORANGE}65`,
+                backdropFilter: 'blur(16px)',
+                boxShadow: '0 6px 28px rgba(0,0,0,0.40)',
               }}
             >
               <a
@@ -333,9 +335,9 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-semibold mb-0.5" style={{ color: 'rgba(255,255,255,0.85)' }}>{t.haloHeading}</p>
-                  <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.35)' }}>{t.haloSub}</p>
+                  <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.85)' }}>{t.haloSub}</p>
                 </div>
-                <div className="flex items-center gap-1.5 text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                <div className="flex items-center gap-1.5 text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.85)' }}>
                   <span className="group-hover:opacity-100 transition-opacity opacity-70">{t.haloCta}</span>
                   <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
@@ -350,7 +352,7 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.42 }}
           className="text-[10px] tracking-[0.22em] uppercase mb-3"
-          style={{ color: 'rgba(255,255,255,0.25)' }}
+          style={{ color: 'rgba(255,255,255,0.55)' }}
         >
           {t.reviewsHeading}
         </motion.p>
@@ -382,10 +384,10 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
                 className="flex-shrink-0 group cursor-pointer"
                 style={{
                   width: '220px',
-                  background: 'rgba(235,94,40,0.05)',
-                  border: `1px solid ${ORANGE}28`,
-                  backdropFilter: 'blur(20px)',
-                  boxShadow: `0 4px 20px rgba(0,0,0,0.25), 0 0 8px ${ORANGE}0A`,
+                  background: 'rgba(38,28,20,0.85)',
+                  border: `1.5px solid ${ORANGE}65`,
+                  backdropFilter: 'blur(16px)',
+                  boxShadow: `0 6px 24px rgba(0,0,0,0.45), 0 0 12px ${ORANGE}18`,
                 }}
               >
                 <a
@@ -401,7 +403,7 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
                   <div className="flex items-end justify-between mt-1">
                     <div>
                       <p className="text-[11px] font-semibold" style={{ color: 'rgba(255,255,255,0.88)' }}>{r.name}</p>
-                      <p className="text-[10px] tracking-[0.10em] uppercase" style={{ color: 'rgba(255,255,255,0.30)' }}>{r.role}</p>
+                      <p className="text-[10px] tracking-[0.10em] uppercase" style={{ color: 'rgba(255,255,255,0.82)' }}>{r.role}</p>
                     </div>
                     <div className="flex items-center gap-1 opacity-40 group-hover:opacity-100 transition-opacity">
                       <span className="text-[9px] tracking-widest uppercase" style={{ color: ORANGE }}>{r.source}</span>

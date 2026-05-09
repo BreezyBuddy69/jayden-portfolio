@@ -95,7 +95,7 @@ export function Header({ onNavigate, language, onLanguageChange }: HeaderProps) 
               <motion.button
                 key={lang}
                 data-cursor="hover"
-                className="flex items-center gap-1.5 text-xs font-medium tracking-widest text-white/35 hover:text-white/75 transition-colors duration-150"
+                className="flex items-center gap-1.5 text-xs font-medium tracking-widest text-white/85 hover:text-white/90 transition-colors duration-150"
                 initial={{ opacity: 0, maxWidth: 0, marginLeft: 0 }}
                 animate={{ opacity: 1, maxWidth: 60, marginLeft: i === 0 ? 10 : 0 }}
                 exit={{ opacity: 0, maxWidth: 0, marginLeft: 0 }}
@@ -103,7 +103,7 @@ export function Header({ onNavigate, language, onLanguageChange }: HeaderProps) 
                 style={{ overflow: 'hidden', whiteSpace: 'nowrap', paddingRight: 6, background: 'none', border: 'none', cursor: 'pointer' }}
                 onClick={() => { onLanguageChange(lang); setLangHover(false) }}
               >
-                <span className="text-white/20">·</span>
+                <span className="text-white/76">·</span>
                 {LANG_LABELS[lang]}
               </motion.button>
             ))}
@@ -138,10 +138,10 @@ export function Header({ onNavigate, language, onLanguageChange }: HeaderProps) 
               exit={{ y: 10, opacity: 0 }}
               transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="text-[10px] font-mono tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.25)' }}>
+              <span className="text-[10px] font-mono tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.55)' }}>
                 {CITIES[cityIdx].label}
               </span>
-              <span className="text-xs font-mono tracking-wider" style={{ color: 'rgba(255,255,255,0.40)' }}>
+              <span className="text-xs font-mono tracking-wider" style={{ color: 'rgba(255,255,255,0.88)' }}>
                 {cityTime}
               </span>
             </motion.div>

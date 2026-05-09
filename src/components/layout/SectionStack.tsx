@@ -20,12 +20,12 @@ function ScrollHint({ show }: { show: boolean }) {
           exit={{ opacity: 0, y: 4 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          <span className="text-white/45 text-[9px] tracking-[0.25em] uppercase">scroll</span>
+          <span className="text-white/72 text-[9px] tracking-[0.25em] uppercase">scroll</span>
           <motion.div
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <ChevronDown className="w-4 h-4 text-white/40" />
+            <ChevronDown className="w-4 h-4 text-white/68" />
           </motion.div>
         </motion.div>
       )}
@@ -117,7 +117,7 @@ export function SectionStack({ currentSection, children, onSectionChange }: Sect
         })}
       </div>
       <ScrollHint show={showHint && !isMobile && currentSection !== 2 && currentSection !== 3} />
-      <div className="fixed z-50 text-white/20 text-[10px] font-mono tracking-widest hidden md:block"
+      <div className="fixed z-50 text-white/76 text-[10px] font-mono tracking-widest hidden md:block"
         style={{ bottom: '1.5rem', right: '1.5rem' }}>
         {String(currentSection + 1).padStart(2, '0')} / {String(children.length).padStart(2, '0')}
       </div>

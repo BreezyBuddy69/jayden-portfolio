@@ -240,7 +240,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                     fontFamily: '"Playfair Display", Georgia, serif',
                     fontStyle: 'italic',
                     fontSize: 'clamp(2.6rem, 5.2vw, 4.8rem)',
-                    color: 'rgba(255,255,255,0.35)',
+                    color: 'rgba(255,255,255,0.85)',
                     letterSpacing: '-0.03em',
                     lineHeight: 1.0,
                     fontWeight: 700,
@@ -264,7 +264,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                 ].map(({ n, l }) => (
                   <div key={l}>
                     <p className="font-serif font-bold" style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2.2rem)', color: ORANGE }}>{n}</p>
-                    <p className="text-[10px] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.38)' }}>{l}</p>
+                    <p className="text-[10px] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.85)' }}>{l}</p>
                   </div>
                 ))}
               </motion.div>
@@ -274,7 +274,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ duration: 0.5, delay: 0.38 }}
-                style={{ color: 'rgba(255,255,255,0.60)', fontSize: 'clamp(13px, 1.3vw, 16px)', lineHeight: 1.8, maxWidth: '38rem' }}
+                style={{ color: 'rgba(255,255,255,0.82)', fontSize: 'clamp(13px, 1.3vw, 16px)', lineHeight: 1.8, maxWidth: '38rem' }}
               >
                 {(t as any).desc}
               </motion.p>
@@ -293,13 +293,14 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                     transition={{ duration: 0.4, delay: 0.48 + i * 0.07 }}
                     className="flex-1 rounded-xl px-4 py-3.5"
                     style={{
-                      background: `rgba(235,94,40,0.06)`,
-                      border: `1px solid ${ORANGE}22`,
+                      background: 'rgba(60,44,28,0.92)',
+                      border: `1.5px solid ${ORANGE}65`,
                       minWidth: '150px',
+                      boxShadow: `0 4px 22px rgba(0,0,0,0.50), 0 0 10px ${ORANGE}18`,
                     }}
                   >
                     <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 'clamp(12px, 1.05vw, 14px)', fontWeight: 700, marginBottom: 4 }}>{s.title}</p>
-                    <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: 'clamp(10px, 0.88vw, 12px)', lineHeight: 1.6 }}>{s.desc}</p>
+                    <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 'clamp(10px, 0.88vw, 12px)', lineHeight: 1.6 }}>{s.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -317,7 +318,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
                     transition={{ duration: 0.4, delay: 0.48 + i * 0.07 }}
                     className="rounded-xl overflow-hidden"
-                    style={{ background: `rgba(235,94,40,0.06)`, border: `1px solid ${ORANGE}22` }}
+                    style={{ background: 'rgba(60,44,28,0.92)', border: `1.5px solid ${ORANGE}65`, boxShadow: `0 4px 22px rgba(0,0,0,0.50)` }}
                   >
                     <button
                       className="w-full flex items-center justify-between px-4 py-3"
@@ -325,7 +326,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                       onClick={() => setExpandedCard(expandedCard === i ? null : i)}
                     >
                       <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: 14, fontWeight: 700, margin: 0 }}>{s.title}</p>
-                      <span style={{ color: 'rgba(255,255,255,0.30)', fontSize: 12, transition: 'transform 0.2s', display: 'block', transform: expandedCard === i ? 'rotate(180deg)' : 'rotate(0deg)' }}>▾</span>
+                      <span style={{ color: 'rgba(255,255,255,0.82)', fontSize: 12, transition: 'transform 0.2s', display: 'block', transform: expandedCard === i ? 'rotate(180deg)' : 'rotate(0deg)' }}>▾</span>
                     </button>
                     <AnimatePresence>
                       {expandedCard === i && (
@@ -336,7 +337,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                           transition={{ duration: 0.25, ease: 'easeInOut' }}
                           style={{ overflow: 'hidden' }}
                         >
-                          <p style={{ color: 'rgba(255,255,255,0.42)', fontSize: 13, lineHeight: 1.6, padding: '0 16px 12px' }}>{s.desc}</p>
+                          <p style={{ color: 'rgba(255,255,255,0.70)', fontSize: 13, lineHeight: 1.6, padding: '0 16px 12px' }}>{s.desc}</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -421,10 +422,10 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
               animate={{ y: [0, 4, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <span style={{ fontSize: 8, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase', marginBottom: 2 }}>
+              <span style={{ fontSize: 8, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase', marginBottom: 2 }}>
                 scroll or type
               </span>
-              <ChevronDown className="w-3.5 h-3.5" style={{ color: 'rgba(255,255,255,0.25)' }} />
+              <ChevronDown className="w-3.5 h-3.5" style={{ color: 'rgba(255,255,255,0.55)' }} />
             </motion.div>
 
             <div
@@ -453,7 +454,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                 <Send className="w-3.5 h-3.5" style={{ color: ORANGE }} />
               </button>
             </div>
-            <p style={{ fontSize: 9, letterSpacing: '0.20em', color: 'rgba(255,255,255,0.22)', textTransform: 'uppercase', marginTop: 8 }}>
+            <p style={{ fontSize: 9, letterSpacing: '0.20em', color: 'rgba(255,255,255,0.52)', textTransform: 'uppercase', marginTop: 8 }}>
               AI Chatbot — trained on Jayden's knowledge
             </p>
           </motion.div>
@@ -498,14 +499,14 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
             <div className="flex items-center justify-between mb-5 shrink-0 max-w-2xl mx-auto w-full relative z-10">
               <div className="flex items-center gap-2.5">
                 <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'rgba(255,255,255,0.80)' }} />
-                <span style={{ fontSize: 10, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.60)', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 10, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.82)', textTransform: 'uppercase' }}>
                   AI Chatbot — trained on Jayden's knowledge
                 </span>
               </div>
               <button
                 onClick={() => setChatFull(false)}
                 className="text-[9px] tracking-[0.20em] uppercase hover:opacity-100 flex items-center gap-1.5"
-                style={{ color: 'rgba(255,255,255,0.45)', letterSpacing: '0.22em', background: 'none', border: 'none', cursor: 'pointer' }}
+                style={{ color: 'rgba(255,255,255,0.72)', letterSpacing: '0.22em', background: 'none', border: 'none', cursor: 'pointer' }}
               >
                 ↑ collapse
               </button>
@@ -525,7 +526,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                       >
                         {msg.role === 'user' ? (
                           <div className="max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed"
-                            style={{ background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(12px)' }}>
+                            style={{ background: 'rgba(50,38,28,0.85)', border: '1px solid rgba(255,255,255,0.22)', color: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)' }}>
                             {msg.content}
                           </div>
                         ) : (
@@ -540,7 +541,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                   </AnimatePresence>
                   {isLoading && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-                      <div style={{ color: 'rgba(255,255,255,0.65)' }}><ThinkingProcess /></div>
+                      <div style={{ color: 'rgba(255,255,255,0.85)' }}><ThinkingProcess /></div>
                     </motion.div>
                   )}
                 </div>
@@ -557,7 +558,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                   />
                   <button onClick={handleSend} disabled={!input.trim() || isLoading}
                     className="shrink-0 flex items-center justify-center rounded-full transition-opacity disabled:opacity-30"
-                    style={{ width: 36, height: 36, background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.22)', backdropFilter: 'blur(8px)' }}>
+                    style={{ width: 36, height: 36, background: 'rgba(235,94,40,0.18)', border: '1px solid rgba(235,94,40,0.55)', backdropFilter: 'blur(8px)' }}>
                     <Send className="w-4 h-4 text-white" />
                   </button>
                 </div>

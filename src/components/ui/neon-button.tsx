@@ -11,7 +11,7 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-[rgba(235,94,40,0.10)] hover:bg-[rgba(235,94,40,0.18)] border-[rgba(235,94,40,0.45)] hover:border-[rgba(235,94,40,0.80)]',
         solid: 'bg-[#eb5e28] hover:bg-[#d4521f] border-transparent text-white',
-        ghost: 'border-[rgba(255,255,255,0.18)] bg-transparent hover:border-[rgba(255,255,255,0.38)] hover:bg-[rgba(255,255,255,0.06)]',
+        ghost: 'border-[rgba(255,255,255,0.18)] bg-transparent hover:border-[rgba(255,255,255,0.85)] hover:bg-[rgba(255,255,255,0.06)]',
       },
       size: {
         default: 'px-7 py-[14px] text-[12px]',

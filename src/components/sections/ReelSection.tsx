@@ -97,7 +97,7 @@ export function ReelSection({ isActive }: ReelSectionProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          style={{ color: 'rgba(255,255,255,0.42)', fontSize: '15px', marginBottom: '40px', maxWidth: '480px', lineHeight: 1.65 }}
+          style={{ color: 'rgba(255,255,255,0.70)', fontSize: '15px', marginBottom: '40px', maxWidth: '480px', lineHeight: 1.65 }}
         >
           1,000,000+ views across 25 videos in 4 months. Aesthetic edits crafted on DaVinci Resolve,
           built to make people feel something.
@@ -131,7 +131,7 @@ export function ReelSection({ isActive }: ReelSectionProps) {
                 </div>
                 <div>
                   <p className="text-white/85 font-semibold text-lg mb-0.5">@subspeedy</p>
-                  <p className="text-white/40 text-sm">YouTube Channel</p>
+                  <p className="text-white/68 text-sm">YouTube Channel</p>
                 </div>
               </div>
 
@@ -144,7 +144,7 @@ export function ReelSection({ isActive }: ReelSectionProps) {
                 ].map(({ n, l }) => (
                   <div key={l} className="text-center">
                     <p className="text-white/90 font-serif text-2xl font-bold">{n}</p>
-                    <p className="text-white/38 text-[10px] tracking-[0.18em] uppercase">{l}</p>
+                    <p className="text-white/85 text-[10px] tracking-[0.18em] uppercase">{l}</p>
                   </div>
                 ))}
               </div>

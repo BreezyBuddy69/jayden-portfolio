@@ -170,7 +170,7 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
                 }}
               >
                 <p className="text-white/85 text-sm font-semibold font-serif">17 y/o</p>
-                <p className="text-[10px] tracking-[0.14em] uppercase" style={{ color: 'rgba(255,255,255,0.60)' }}>
+                <p className="text-[10px] tracking-[0.14em] uppercase" style={{ color: 'rgba(255,255,255,0.82)' }}>
                   {t.badge}
                 </p>
               </motion.div>
@@ -183,10 +183,11 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
             customSize
             className="w-full"
             style={{
-              background: 'rgba(10,8,7,0.35)',
-              border: '1px solid rgba(235,94,40,0.12)',
-              backdropFilter: 'blur(2px)',
+              background: 'rgba(58,44,30,0.90)',
+              border: '1.5px solid rgba(235,94,40,0.45)',
+              backdropFilter: 'blur(8px)',
               padding: '24px 20px',
+              boxShadow: '0 8px 40px rgba(0,0,0,0.40)',
             }}
           >
             <div className="relative" style={{ zIndex: 1 }}>
@@ -196,7 +197,7 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
               animate={{ opacity: isActive ? 1 : 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
               className="text-[10px] tracking-[0.34em] uppercase mb-4"
-              style={{ color: 'rgba(255,255,255,0.65)' }}
+              style={{ color: 'rgba(255,255,255,0.85)' }}
             >
               {t.eyebrow}
             </motion.p>

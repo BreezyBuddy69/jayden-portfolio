@@ -133,7 +133,7 @@ export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.6, delay: 0.85 }}
           style={{
-            color: 'rgba(255,255,255,0.48)',
+            color: 'rgba(255,255,255,0.74)',
             fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
             lineHeight: 1.75,
             maxWidth: '42ch',
@@ -171,7 +171,7 @@ export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
                 <Icon className="w-4 h-4" style={{ color: ORANGE }} />
               </div>
               <span className="text-[12px] font-semibold text-white/85 leading-tight">{label}</span>
-              <span className="text-[10px] text-white/38">{sub}</span>
+              <span className="text-[10px] text-white/85">{sub}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -201,7 +201,7 @@ export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
           >
             <div style={{ width: 1, height: 20, background: 'rgba(255,255,255,0.4)' }} />
             <ArrowRight
-              className="w-3 h-3 text-white/40"
+              className="w-3 h-3 text-white/68"
               style={{ transform: 'rotate(90deg)' }}
             />
           </motion.div>

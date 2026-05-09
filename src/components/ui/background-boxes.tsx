@@ -1,26 +1,75 @@
-import React from "react";
+import React, { memo } from "react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-// CSS-only grid — replaces the 15,000-element motion.div version.
-// Same visual: skewed orange grid pattern, zero DOM cost.
-const BoxesCore = ({ className }: { className?: string }) => {
+const COLORS = [
+  "rgba(235, 94, 40, 0.92)",
+  "rgba(235, 94, 40, 0.70)",
+  "rgba(255, 130, 60, 0.82)",
+  "rgba(255, 160, 80, 0.72)",
+  "rgba(200, 65, 18, 0.88)",
+  "rgba(255, 200, 90, 0.62)",
+  "rgba(235, 94, 40, 0.52)",
+  "rgba(180, 55, 18, 0.78)",
+  "rgba(255, 145, 50, 0.68)",
+];
+
+const getRandomColor = () => COLORS[Math.floor(Math.random() * COLORS.length)];
+
+// Each cell is memoized — only re-renders when hovered
+const GridCell = memo(function GridCell({ showPlus }: { showPlus: boolean }) {
+  return (
+    <motion.div
+      whileHover={{ backgroundColor: getRandomColor(), transition: { duration: 0 } }}
+      className="w-16 h-8 border-r border-t relative"
+      style={{ borderColor: "rgba(235,94,40,0.13)" }}
+    >
+      {showPlus && (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="absolute h-6 w-10 -top-[14px] -left-[22px] pointer-events-none"
+          style={{ color: "rgba(235,94,40,0.18)", strokeWidth: "1px" }}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+        </svg>
+      )}
+    </motion.div>
+  );
+});
+
+// 50×50 = 2500 cells (was 150×100 = 15,000 — that caused the black screen)
+// Coverage is still full-screen after the skew/scale transform
+const OUTER = 50;
+const INNER = 50;
+
+export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
   return (
     <div
-      className={className}
       style={{
-        transform: 'translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) translateZ(0)',
-        position: 'absolute',
-        left: '25%',
-        top: '-25%',
-        width: '250%',
-        height: '250%',
-        backgroundImage: `
-          linear-gradient(rgba(235,94,40,0.13) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(235,94,40,0.13) 1px, transparent 1px)
-        `,
-        backgroundSize: '64px 32px',
-        pointerEvents: 'none',
+        transform: `translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) translateZ(0)`,
       }}
-    />
+      className={cn(
+        "absolute left-1/4 p-4 -top-1/4 flex -translate-x-1/2 -translate-y-1/2 w-full h-full z-0",
+        className
+      )}
+      {...rest}
+    >
+      {Array.from({ length: OUTER }, (_, i) => (
+        <div
+          key={i}
+          className="w-16 h-8 border-l relative"
+          style={{ borderColor: "rgba(235,94,40,0.13)" }}
+        >
+          {Array.from({ length: INNER }, (_, j) => (
+            <GridCell key={j} showPlus={j % 2 === 0 && i % 2 === 0} />
+          ))}
+        </div>
+      ))}
+    </div>
   );
 };
 

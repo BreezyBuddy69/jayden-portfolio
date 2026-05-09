@@ -232,24 +232,25 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
             href={`mailto:${EMAIL}`}
             className="group flex items-center gap-3 px-6 py-4 rounded-xl"
             style={{
-              background: 'rgba(235,94,40,0.08)',
-              border: '1px solid rgba(235,94,40,0.30)',
+              background: 'rgba(62,46,30,0.92)',
+              border: '1.5px solid rgba(235,94,40,0.65)',
               backdropFilter: 'blur(20px)',
               textDecoration: 'none',
+              boxShadow: '0 6px 28px rgba(0,0,0,0.45)',
               transition: 'border-color 0.25s, background 0.25s, box-shadow 0.25s, transform 0.2s',
             }}
             onMouseEnter={e => {
               const el = e.currentTarget as HTMLElement
-              el.style.borderColor = 'rgba(235,94,40,0.60)'
-              el.style.background = 'rgba(235,94,40,0.18)'
-              el.style.boxShadow = '0 0 30px rgba(235,94,40,0.12)'
+              el.style.borderColor = 'rgba(235,94,40,0.80)'
+              el.style.background = 'rgba(55,38,24,0.92)'
+              el.style.boxShadow = '0 0 36px rgba(235,94,40,0.22)'
               el.style.transform = 'translateY(-2px)'
             }}
             onMouseLeave={e => {
               const el = e.currentTarget as HTMLElement
-              el.style.borderColor = 'rgba(235,94,40,0.30)'
-              el.style.background = 'rgba(235,94,40,0.08)'
-              el.style.boxShadow = 'none'
+              el.style.borderColor = 'rgba(235,94,40,0.50)'
+              el.style.background = 'rgba(38,28,20,0.85)'
+              el.style.boxShadow = '0 6px 28px rgba(0,0,0,0.45)'
               el.style.transform = 'translateY(0)'
             }}
           >
@@ -258,10 +259,10 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
               <Mail className="w-3.5 h-3.5" style={{ color: 'rgba(255,255,255,0.75)' }} />
             </div>
             <div className="text-left">
-              <p className="text-[9px] tracking-[0.18em] uppercase mb-0.5" style={{ color: 'rgba(255,255,255,0.65)' }}>{t.emailLabel}</p>
-              <span className="text-sm text-white/75 group-hover:text-white/95 transition-colors">{EMAIL}</span>
+              <p className="text-[9px] tracking-[0.18em] uppercase mb-0.5" style={{ color: 'rgba(255,255,255,0.85)' }}>{t.emailLabel}</p>
+              <span className="text-sm text-white/90 group-hover:text-white/95 transition-colors">{EMAIL}</span>
             </div>
-            <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-colors ml-1" />
+            <ArrowUpRight className="w-4 h-4 text-white/76 group-hover:text-white/82 transition-colors ml-1" />
           </a>
         </motion.div>
 
@@ -270,7 +271,7 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.85 }}
           className="mt-14 text-[10px] tracking-[0.22em] uppercase"
-          style={{ color: 'rgba(255,255,255,0.50)' }}
+          style={{ color: 'rgba(255,255,255,0.76)' }}
         >
           {t.footer}
         </motion.p>

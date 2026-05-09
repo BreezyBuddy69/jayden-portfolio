@@ -30,9 +30,9 @@ export function NeonButton({ children, onClick, className = '', size = 'md', var
         onClick={onClick}
         className={`relative rounded-full font-medium tracking-wide overflow-hidden flex items-center gap-2.5 ${sizeClass} ${className}`}
         style={{
-          color: hovered ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.60)',
+          color: hovered ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.82)',
           background: 'transparent',
-          border: `1px solid ${hovered ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.15)'}`,
+          border: `1px solid ${hovered ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.15)'}`,
           transition: 'color 0.3s ease, border-color 0.3s ease',
         }}
       >

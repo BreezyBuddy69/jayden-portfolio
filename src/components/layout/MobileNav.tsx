@@ -72,7 +72,7 @@ export function MobileNav({ currentSection, onNavigate, language }: MobileNavPro
                   color: currentSection === idx
                     ? 'rgba(245,158,11,0.95)'
                     : sub
-                    ? 'rgba(255,255,255,0.40)'
+                    ? 'rgba(255,255,255,0.88)'
                     : 'rgba(255,255,255,0.70)',
                   fontSize: sub ? '14px' : '22px',
                   fontFamily: sub ? 'Inter, sans-serif' : 'Georgia, serif',

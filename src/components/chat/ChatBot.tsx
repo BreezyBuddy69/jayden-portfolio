@@ -222,7 +222,7 @@ export function ChatBot({ forceOpen, onForceOpenConsumed, language = 'en' }: Cha
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               className="absolute top-0 left-0 right-0 h-1/2 rounded-t-full pointer-events-none"
-              style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.50), rgba(255,255,255,0.06))' }}
+              style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.76), rgba(255,255,255,0.06))' }}
             />
           )}
         </AnimatePresence>
@@ -263,7 +263,7 @@ export function ChatBot({ forceOpen, onForceOpenConsumed, language = 'en' }: Cha
                   <span className="text-xs font-semibold text-white/90 tracking-wide">Jayden's AI</span>
                 </div>
                 <button data-cursor="hover" onClick={closeChat}
-                  className="w-6 h-6 rounded-full flex items-center justify-center text-white/38 hover:text-white/75 hover:bg-white/08 transition-colors">
+                  className="w-6 h-6 rounded-full flex items-center justify-center text-white/85 hover:text-white/90 hover:bg-white/08 transition-colors">
                   <X className="w-3.5 h-3.5" />
                 </button>
               </div>

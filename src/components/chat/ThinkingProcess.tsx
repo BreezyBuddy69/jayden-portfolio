@@ -62,9 +62,9 @@ export function ThinkingProcess() {
 
   return (
     <div className="flex items-center gap-2 py-1">
-      <Icon className="w-3 h-3 text-white/35 shrink-0" />
+      <Icon className="w-3 h-3 text-white/85 shrink-0" />
       <span className="inline-flex items-center min-h-[1em]">
-        <span className="text-white/38 text-xs italic">{displayed}</span>
+        <span className="text-white/85 text-xs italic">{displayed}</span>
         <span className="inline-block w-0.5 h-3 bg-amber-500/50 animate-pulse ml-[2px]" />
       </span>
     </div>

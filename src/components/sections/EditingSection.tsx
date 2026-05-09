@@ -285,7 +285,7 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
                     fontFamily: '"Playfair Display", Georgia, serif',
                     fontStyle: 'italic',
                     fontSize: 'clamp(2.6rem, 5.2vw, 4.8rem)',
-                    color: 'rgba(255,255,255,0.35)',
+                    color: 'rgba(255,255,255,0.85)',
                     letterSpacing: '-0.03em',
                     lineHeight: 1.0,
                     fontWeight: 700,
@@ -309,7 +309,7 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
                 ].map(({ n, l }) => (
                   <div key={l}>
                     <p className="font-serif font-bold" style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2.2rem)', color: ORANGE }}>{n}</p>
-                    <p className="text-[10px] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.38)' }}>{l}</p>
+                    <p className="text-[10px] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.85)' }}>{l}</p>
                   </div>
                 ))}
               </motion.div>
@@ -319,7 +319,7 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ duration: 0.5, delay: 0.38 }}
-                style={{ color: 'rgba(255,255,255,0.60)', fontSize: 'clamp(13px, 1.3vw, 16px)', lineHeight: 1.8, maxWidth: '38rem' }}
+                style={{ color: 'rgba(255,255,255,0.82)', fontSize: 'clamp(13px, 1.3vw, 16px)', lineHeight: 1.8, maxWidth: '38rem' }}
               >
                 {t.desc}
               </motion.p>
@@ -334,8 +334,9 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
                     transition={{ duration: 0.4, delay: 0.44 + i * 0.07 }}
                     className="rounded-full px-4 py-2"
                     style={{
-                      background: `rgba(235,94,40,0.08)`,
-                      border: `1px solid ${ORANGE}28`,
+                      background: `rgba(235,94,40,0.14)`,
+                      border: `1.5px solid ${ORANGE}68`,
+                      boxShadow: `0 2px 10px rgba(0,0,0,0.30)`,
                     }}
                   >
                     <p style={{ color: 'rgba(255,255,255,0.80)', fontSize: 'clamp(11px, 1.05vw, 13px)', fontWeight: 600, letterSpacing: '0.06em' }}>{f.label}</p>
@@ -353,23 +354,24 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
                 transition={{ duration: 0.4, delay: 0.58 }}
                 className="inline-flex items-center gap-2.5 group w-fit px-5 py-3 rounded-xl font-semibold"
                 style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.10)',
-                  color: 'rgba(255,255,255,0.85)',
+                  background: 'rgba(60,44,28,0.92)',
+                  border: `1.5px solid ${ORANGE}68`,
+                  color: 'rgba(255,255,255,0.92)',
                   textDecoration: 'none',
                   fontSize: 'clamp(12px, 1.05vw, 14px)',
                   backdropFilter: 'blur(8px)',
                   transition: 'background 0.2s, border-color 0.2s, box-shadow 0.2s',
+                  boxShadow: '0 4px 18px rgba(0,0,0,0.38)',
                 }}
                 onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)'
-                  ;(e.currentTarget as HTMLElement).style.borderColor = `${ORANGE}55`
-                  ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 24px ${ORANGE}22`
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(55,38,24,0.92)'
+                  ;(e.currentTarget as HTMLElement).style.borderColor = `${ORANGE}80`
+                  ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 24px ${ORANGE}30`
                 }}
                 onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.05)'
-                  ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.10)'
-                  ;(e.currentTarget as HTMLElement).style.boxShadow = 'none'
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(38,28,20,0.82)'
+                  ;(e.currentTarget as HTMLElement).style.borderColor = `${ORANGE}50`
+                  ;(e.currentTarget as HTMLElement).style.boxShadow = '0 4px 18px rgba(0,0,0,0.38)'
                 }}
               >
                 <span>{t.cta}</span>

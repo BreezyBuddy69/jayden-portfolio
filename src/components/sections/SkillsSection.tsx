@@ -39,14 +39,14 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
           transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           <div style={{
-            background: 'rgba(255,255,255,0.07)',
+            background: 'rgba(38,28,20,0.80)',
             borderRadius: 999,
             padding: '8px 22px',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255,255,255,0.10)',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+            border: '1px solid rgba(255,255,255,0.22)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.40)',
           }}>
-            <p style={{ fontSize: 9, letterSpacing: '0.30em', color: 'rgba(255,255,255,0.50)', textTransform: 'uppercase', margin: 0 }}>
+            <p style={{ fontSize: 9, letterSpacing: '0.30em', color: 'rgba(255,255,255,0.76)', textTransform: 'uppercase', margin: 0 }}>
               {t.hint}
             </p>
           </div>
@@ -104,7 +104,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
 
           <div className="relative z-10 p-8 md:pr-14" style={{ paddingTop: 'clamp(120px, 16vh, 200px)', paddingLeft: 'clamp(56px, 13vw, 190px)' }}>
             <p className="text-[9px] tracking-[0.34em] uppercase mb-4" style={{
-              color: leftOrange ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.35)',
+              color: leftOrange ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.85)',
               transition: 'color 0.55s cubic-bezier(0.16,1,0.3,1)',
             }}>
               {t.automationsTag}
@@ -119,14 +119,14 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
               {t.automationsTitle}
             </h3>
             <p style={{
-              color: leftOrange ? 'rgba(0,0,0,0.58)' : 'rgba(255,255,255,0.45)',
+              color: leftOrange ? 'rgba(0,0,0,0.58)' : 'rgba(255,255,255,0.72)',
               fontSize: '14px', lineHeight: 1.7, maxWidth: '300px',
               transition: 'color 0.55s cubic-bezier(0.16,1,0.3,1)',
             }}>
               {t.automationsDesc}
             </p>
             <div className="mt-10 w-11 h-11 rounded-full flex items-center justify-center" style={{
-              border: leftOrange ? '1px solid rgba(0,0,0,0.30)' : '1px solid rgba(255,255,255,0.25)',
+              border: leftOrange ? '1px solid rgba(0,0,0,0.30)' : '1px solid rgba(255,255,255,0.55)',
               color: leftOrange ? '#252422' : '#ffffff',
               fontSize: '20px',
               transition: 'border-color 0.55s, color 0.55s',
@@ -185,7 +185,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
 
           <div className="relative z-10 p-8 md:p-14" style={{ paddingTop: 'clamp(120px, 16vh, 200px)' }}>
             <p className="text-[9px] tracking-[0.34em] uppercase mb-4" style={{
-              color: rightOrange ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.35)',
+              color: rightOrange ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.85)',
               transition: 'color 0.55s cubic-bezier(0.16,1,0.3,1)',
             }}>
               {t.editingTag}
@@ -200,14 +200,14 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
               {t.editingTitle}
             </h3>
             <p style={{
-              color: rightOrange ? 'rgba(0,0,0,0.58)' : 'rgba(255,255,255,0.45)',
+              color: rightOrange ? 'rgba(0,0,0,0.58)' : 'rgba(255,255,255,0.72)',
               fontSize: '14px', lineHeight: 1.7, maxWidth: '300px',
               transition: 'color 0.55s cubic-bezier(0.16,1,0.3,1)',
             }}>
               {t.editingDesc}
             </p>
             <div className="mt-10 w-11 h-11 rounded-full flex items-center justify-center" style={{
-              border: rightOrange ? '1px solid rgba(0,0,0,0.30)' : '1px solid rgba(255,255,255,0.25)',
+              border: rightOrange ? '1px solid rgba(0,0,0,0.30)' : '1px solid rgba(255,255,255,0.55)',
               color: rightOrange ? '#252422' : '#ffffff',
               fontSize: '20px',
               transition: 'border-color 0.55s, color 0.55s',
