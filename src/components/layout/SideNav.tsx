@@ -41,7 +41,7 @@ export function SideNav({ currentSection, onNavigate, language }: SideNavProps) 
             style={{
               background: 'none',
               border: 'none',
-              cursor: 'none',
+              cursor: 'pointer',
               paddingLeft: sub ? '20px' : '12px',
               paddingRight: '12px',
               paddingTop: sub ? '4px' : '6px',

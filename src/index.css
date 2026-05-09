@@ -25,57 +25,6 @@ html, body {
   min-height: 100vh;
 }
 
-/* ── Custom Cursor — Orange ── */
-.cursor-root {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0;
-  will-change: transform;
-  mix-blend-mode: difference;
-}
-
-.cursor-dot {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
-  mix-blend-mode: difference;
-  will-change: transform, opacity;
-}
-
-.cursor-ring {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1.5px solid white;
-  mix-blend-mode: difference;
-  opacity: 0;
-  will-change: transform, opacity;
-}
-
-.cursor-text {
-  position: absolute;
-  top: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: white;
-  mix-blend-mode: difference;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-}
 
 /* ── Chat scrollbar ── */
 .chat-scroll {
@@ -107,10 +56,6 @@ html, body {
   html, body, #root { overflow: auto; }
 }
 
-/* ── Hide native cursor on desktop ── */
-@media (hover: hover) {
-  *, *::before, *::after { cursor: none !important; }
-}
 
 /* ── Testimonials ticker ── */
 @keyframes ticker-rtl {

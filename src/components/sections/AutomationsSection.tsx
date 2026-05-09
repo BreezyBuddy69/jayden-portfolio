@@ -5,9 +5,10 @@ import translations, { type Language } from '../../i18n/translations'
 import { useChatContext } from '../../contexts/ChatContext'
 import { TypingMessage } from '../chat/TypingMessage'
 import { ThinkingProcess } from '../chat/ThinkingProcess'
-import { OrangeFlowBg } from '../ui/OrangeFlowBg'
 
 const ORANGE = '#eb5e28'
+const DARK = '#0f0d0c'
+
 const HALO_URL = 'https://halovisionai.cloud'
 const CHATBOT_URL = 'https://n8n.halovisionai.cloud/webhook/jayden-portfolio-chat'
 
@@ -17,7 +18,9 @@ function renderText(content: string) {
     if (part.startsWith('**') && part.endsWith('**')) {
       return <strong key={i} style={{ color: 'rgba(255,255,255,0.97)', fontWeight: 650 }}>{part.slice(2, -2)}</strong>
     }
-    return part.split('\n').flatMap((line, j, arr) => j < arr.length - 1 ? [line, <br key={`${i}-${j}`} />] : [line])
+    return part.split('\n').flatMap((line, j, arr) =>
+      j < arr.length - 1 ? [line, <br key={`${i}-${j}`} />] : [line]
+    )
   })
 }
 
@@ -26,7 +29,6 @@ interface AutomationsSectionProps {
   language: Language
 }
 
-// ── Typewriter placeholder hook ──────────────────────────────────────────────
 const PLACEHOLDERS = [
   'Ask me about automation…',
   'What workflows can Jayden build?',
@@ -45,11 +47,8 @@ function useTypewriterPlaceholder(active: boolean) {
   useEffect(() => {
     if (!active) return
     const phrase = PLACEHOLDERS[phraseIdx]
-
     if (pauseRef.current) return
-
     const delay = deleting ? 38 : charIdx === phrase.length ? 1400 : 68
-
     const t = setTimeout(() => {
       if (!deleting && charIdx === phrase.length) {
         pauseRef.current = true
@@ -64,11 +63,9 @@ function useTypewriterPlaceholder(active: boolean) {
       setCharIdx(i => deleting ? i - 1 : i + 1)
       setText(phrase.slice(0, deleting ? charIdx - 1 : charIdx + 1))
     }, delay)
-
     return () => clearTimeout(t)
   }, [active, charIdx, deleting, phraseIdx])
 
-  // reset when section becomes inactive
   useEffect(() => {
     if (!active) { setText(''); setCharIdx(0); setDeleting(false); setPhraseIdx(0); pauseRef.current = false }
   }, [active])
@@ -87,32 +84,25 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const seenMsgIdsRef = useRef<Set<number>>(new Set())
+  const sectionRef = useRef<HTMLElement>(null)
 
-  // Reset on section leave
   useEffect(() => {
     if (!isActive) { setChatFull(false) }
   }, [isActive])
 
-  // Scroll to bottom of chat when messages arrive
   useEffect(() => {
     const el = scrollRef.current
     if (!el || !chatFull) return
     requestAnimationFrame(() => { el.scrollTop = el.scrollHeight })
   }, [messages, isLoading, chatFull])
 
-  // Scroll DOWN to expand chat (desktop only)
-  const sectionRef = useRef<HTMLElement>(null)
   useEffect(() => {
     if (typeof window === 'undefined' || window.matchMedia('(hover: none)').matches) return
     if (!isActive || chatFull) return
     const el = sectionRef.current
     if (!el) return
     const handleWheel = (e: WheelEvent) => {
-      if (e.deltaY > 0) {
-        e.stopPropagation()
-        e.preventDefault()
-        setChatFull(true)
-      }
+      if (e.deltaY > 0) { e.stopPropagation(); e.preventDefault(); setChatFull(true) }
     }
     el.addEventListener('wheel', handleWheel, { passive: false, capture: true })
     return () => el.removeEventListener('wheel', handleWheel, { capture: true } as EventListenerOptions)
@@ -125,10 +115,8 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
     setUserMsgCount(c => c + 1)
     addMessage({ role: 'user', content: text })
     setIsLoading(true)
-
     const history = messages.slice(-9).map(m => ({ role: m.role, content: m.content }))
     history.push({ role: 'user', content: text })
-
     try {
       const controller = new AbortController()
       const timeout = setTimeout(() => controller.abort(), 60000)
@@ -155,30 +143,39 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
     <section
       ref={sectionRef}
       className="relative w-full h-full overflow-hidden"
-      style={{ background: ORANGE }}
+      style={{ background: 'transparent' }}
     >
-      {/* Flowing background animation */}
-      <OrangeFlowBg />
+      {/* ── Center dark vignette — keeps text readable ── */}
+      <div aria-hidden className="absolute inset-0 z-[1] pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 70% 85% at 50% 50%, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 60%, transparent 100%)',
+      }} />
 
-      {/* AUTOMATIONS outlined bg — sized to fit viewport width exactly */}
-      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none select-none" style={{ overflow: 'visible' }}>
-        <span className="font-anurati text-3d-outline-on-orange" style={{
-          fontSize: 'clamp(4rem, 12.5vw, 20rem)',
-          color: 'transparent',
-          WebkitTextStroke: '3px rgba(0,0,0,0.38)',
-          paintOrder: 'stroke fill',
-          whiteSpace: 'nowrap',
-          letterSpacing: '0.03em',
-          lineHeight: 1,
-          display: 'block',
-          opacity: 0.55,
-          maxWidth: '98vw',
-        }}>
+      {/* ── "AUTOMATIONS" watermark — hides when chat opens ── */}
+      <div
+        aria-hidden
+        className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none select-none z-[2]"
+        style={{ lineHeight: 0 }}
+      >
+        <motion.div
+          className="font-anurati text-center"
+          style={{
+            fontSize: 'clamp(3.8rem, 10vw, 13.5rem)',
+            color: 'transparent',
+            WebkitTextStroke: '2px rgba(255,255,255,0.10)',
+            lineHeight: 0.90,
+            whiteSpace: 'nowrap',
+            letterSpacing: '0.10em',
+            transform: 'translateY(32%)',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isActive && !chatFull ? 1 : 0 }}
+          transition={{ duration: 1.8, delay: 0.4 }}
+        >
           AUTOMATIONS
-        </span>
+        </motion.div>
       </div>
 
-      {/* Content layer — fades out when chat is fullscreen */}
+      {/* ── Content layer — fades out when chat is fullscreen ── */}
       <AnimatePresence>
         {!chatFull && (
           <motion.div
@@ -190,52 +187,94 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="w-full max-w-5xl mx-auto px-6 md:pl-[190px] md:pr-12 flex flex-col gap-5">
+            <div className="w-full max-w-5xl mx-auto px-6 md:pl-[190px] md:pr-12 flex flex-col gap-4">
+
+              {/* Eyebrow */}
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ duration: 0.5 }}
-                className="block text-[11px] tracking-[0.32em] uppercase"
-                style={{ color: 'rgba(255,255,255,0.65)' }}
+                className="block text-[10px] tracking-[0.34em] uppercase"
+                style={{ color: `${ORANGE}CC` }}
               >
                 {t.eyebrow}
               </motion.span>
 
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 20 }}
-                transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              {/* Orange accent line */}
+              <motion.div
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{ scaleX: isActive ? 1 : 0, opacity: isActive ? 1 : 0 }}
+                transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
                 style={{
-                  fontFamily: '"Playfair Display", Georgia, serif',
-                  fontSize: 'clamp(3rem, 6vw, 5.5rem)',
-                  color: '#ffffff',
-                  letterSpacing: '-0.025em',
-                  lineHeight: 1.05,
-                  fontWeight: 700,
+                  width: 48, height: 2, background: ORANGE, borderRadius: 2,
+                  transformOrigin: 'left center',
+                  boxShadow: `0 0 14px ${ORANGE}88`,
+                  marginTop: -8,
                 }}
-              >
-                {t.heading1}<br />{t.heading2}
-              </motion.h2>
+              />
 
+              {/* Heading — two lines, hero stagger */}
+              <div style={{ marginTop: 4 }}>
+                <motion.h2
+                  initial={{ opacity: 0, y: 32 }}
+                  animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 32 }}
+                  transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    fontFamily: '"Playfair Display", Georgia, serif',
+                    fontSize: 'clamp(2.6rem, 5.2vw, 4.8rem)',
+                    color: '#ffffff',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1.0,
+                    fontWeight: 700,
+                    marginBottom: '0.08em',
+                    textShadow: '0 2px 40px rgba(0,0,0,0.5)',
+                  }}
+                >
+                  {t.heading1}
+                </motion.h2>
+                <motion.h2
+                  initial={{ opacity: 0, y: 32 }}
+                  animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 32 }}
+                  transition={{ duration: 0.8, delay: 0.20, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    fontFamily: '"Playfair Display", Georgia, serif',
+                    fontStyle: 'italic',
+                    fontSize: 'clamp(2.6rem, 5.2vw, 4.8rem)',
+                    color: 'rgba(255,255,255,0.35)',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1.0,
+                    fontWeight: 700,
+                  }}
+                >
+                  {t.heading2}
+                </motion.h2>
+              </div>
+
+              {/* Stats */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isActive ? 1 : 0 }}
-                transition={{ duration: 0.5, delay: 0.22 }}
+                transition={{ duration: 0.5, delay: 0.30 }}
                 className="flex flex-wrap gap-8"
               >
-                {[{ n: (t as any).stat1n, l: (t as any).stat1l }, { n: (t as any).stat2n, l: (t as any).stat2l }, { n: (t as any).stat3n, l: (t as any).stat3l }].map(({ n, l }) => (
+                {[
+                  { n: (t as any).stat1n, l: (t as any).stat1l },
+                  { n: (t as any).stat2n, l: (t as any).stat2l },
+                  { n: (t as any).stat3n, l: (t as any).stat3l },
+                ].map(({ n, l }) => (
                   <div key={l}>
-                    <p className="font-serif font-bold" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#ffffff' }}>{n}</p>
-                    <p className="text-[11px] tracking-[0.16em] uppercase" style={{ color: 'rgba(255,255,255,0.55)' }}>{l}</p>
+                    <p className="font-serif font-bold" style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2.2rem)', color: ORANGE }}>{n}</p>
+                    <p className="text-[10px] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.38)' }}>{l}</p>
                   </div>
                 ))}
               </motion.div>
 
+              {/* Description */}
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isActive ? 1 : 0 }}
-                transition={{ duration: 0.5, delay: 0.30 }}
-                style={{ color: 'rgba(255,255,255,0.80)', fontSize: 'clamp(14px, 1.4vw, 18px)', lineHeight: 1.7, maxWidth: '38rem' }}
+                transition={{ duration: 0.5, delay: 0.38 }}
+                style={{ color: 'rgba(255,255,255,0.60)', fontSize: 'clamp(13px, 1.3vw, 16px)', lineHeight: 1.8, maxWidth: '38rem' }}
               >
                 {(t as any).desc}
               </motion.p>
@@ -251,17 +290,21 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                     key={s.title}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
-                    transition={{ duration: 0.4, delay: 0.5 + i * 0.07 }}
+                    transition={{ duration: 0.4, delay: 0.48 + i * 0.07 }}
                     className="flex-1 rounded-xl px-4 py-3.5"
-                    style={{ background: 'rgba(0,0,0,0.22)', border: '1px solid rgba(0,0,0,0.40)', minWidth: '160px' }}
+                    style={{
+                      background: `rgba(235,94,40,0.06)`,
+                      border: `1px solid ${ORANGE}22`,
+                      minWidth: '150px',
+                    }}
                   >
-                    <p style={{ color: 'rgba(255,255,255,0.90)', fontSize: 'clamp(12px, 1.1vw, 15px)', fontWeight: 700, marginBottom: 4 }}>{s.title}</p>
-                    <p style={{ color: 'rgba(255,255,255,0.60)', fontSize: 'clamp(10px, 0.9vw, 13px)', lineHeight: 1.5 }}>{s.desc}</p>
+                    <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 'clamp(12px, 1.05vw, 14px)', fontWeight: 700, marginBottom: 4 }}>{s.title}</p>
+                    <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: 'clamp(10px, 0.88vw, 12px)', lineHeight: 1.6 }}>{s.desc}</p>
                   </motion.div>
                 ))}
               </div>
 
-              {/* Mobile: collapsible accordion cards */}
+              {/* Mobile: accordion */}
               <div className="flex flex-col gap-2 md:hidden">
                 {[
                   { title: t.aiAgentsTitle, desc: t.aiAgentsDesc },
@@ -272,17 +315,17 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                     key={s.title}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
-                    transition={{ duration: 0.4, delay: 0.5 + i * 0.07 }}
+                    transition={{ duration: 0.4, delay: 0.48 + i * 0.07 }}
                     className="rounded-xl overflow-hidden"
-                    style={{ background: 'rgba(0,0,0,0.22)', border: '1px solid rgba(0,0,0,0.40)' }}
+                    style={{ background: `rgba(235,94,40,0.06)`, border: `1px solid ${ORANGE}22` }}
                   >
                     <button
                       className="w-full flex items-center justify-between px-4 py-3"
                       style={{ background: 'none', border: 'none', textAlign: 'left' }}
                       onClick={() => setExpandedCard(expandedCard === i ? null : i)}
                     >
-                      <p style={{ color: 'rgba(255,255,255,0.90)', fontSize: 14, fontWeight: 700, margin: 0 }}>{s.title}</p>
-                      <span style={{ color: 'rgba(255,255,255,0.50)', fontSize: 12, transition: 'transform 0.2s', display: 'block', transform: expandedCard === i ? 'rotate(180deg)' : 'rotate(0deg)' }}>▾</span>
+                      <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: 14, fontWeight: 700, margin: 0 }}>{s.title}</p>
+                      <span style={{ color: 'rgba(255,255,255,0.30)', fontSize: 12, transition: 'transform 0.2s', display: 'block', transform: expandedCard === i ? 'rotate(180deg)' : 'rotate(0deg)' }}>▾</span>
                     </button>
                     <AnimatePresence>
                       {expandedCard === i && (
@@ -293,7 +336,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                           transition={{ duration: 0.25, ease: 'easeInOut' }}
                           style={{ overflow: 'hidden' }}
                         >
-                          <p style={{ color: 'rgba(255,255,255,0.60)', fontSize: 13, lineHeight: 1.5, padding: '0 16px 12px' }}>{s.desc}</p>
+                          <p style={{ color: 'rgba(255,255,255,0.42)', fontSize: 13, lineHeight: 1.6, padding: '0 16px 12px' }}>{s.desc}</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -301,49 +344,54 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                 ))}
               </div>
 
+              {/* Halo link — glass-on-dark with orange glow */}
               <motion.a
                 href={HALO_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                data-cursor="hover"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ duration: 0.4, delay: 0.62 }}
                 className="inline-flex items-center gap-3 group w-fit"
-                style={{
-                  textDecoration: 'none',
-                  position: 'relative',
-                }}
+                style={{ textDecoration: 'none', position: 'relative' }}
               >
-                {/* Glow layer */}
                 <div style={{
-                  position: 'absolute', inset: '-2px',
-                  borderRadius: '16px',
-                  background: 'linear-gradient(135deg, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.50) 100%)',
-                  filter: 'blur(6px)',
-                  opacity: 0.9,
-                  zIndex: 0,
+                  position: 'absolute', inset: '-2px', borderRadius: '14px',
+                  background: `radial-gradient(ellipse, ${ORANGE}55 0%, ${ORANGE}22 100%)`,
+                  filter: 'blur(8px)', opacity: 0.6, zIndex: 0,
                 }} />
                 <div
-                  className="relative flex items-center gap-3 px-6 py-3.5 rounded-2xl font-semibold"
+                  className="relative flex items-center gap-3 px-5 py-3 rounded-xl font-semibold"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(20,8,0,0.85) 100%)',
-                    border: '1px solid rgba(0,0,0,0.70)',
-                    boxShadow: '0 0 24px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.06)',
-                    color: '#ffffff',
-                    fontSize: 'clamp(13px, 1.1vw, 15px)',
+                    background: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(255,255,255,0.10)',
+                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.06)`,
+                    color: 'rgba(255,255,255,0.88)',
+                    fontSize: 'clamp(12px, 1.05vw, 14px)',
                     backdropFilter: 'blur(12px)',
-                    transition: 'box-shadow 0.2s, border-color 0.2s',
+                    transition: 'border-color 0.2s, background 0.2s, box-shadow 0.2s',
                     zIndex: 1,
                   }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 36px rgba(0,0,0,0.60), inset 0 1px 0 rgba(255,255,255,0.10)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,0,0,0.90)' }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 24px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.06)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,0,0,0.70)' }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = `${ORANGE}55`
+                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)'
+                    ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 24px ${ORANGE}22, inset 0 1px 0 rgba(255,255,255,0.10)`
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.10)'
+                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.05)'
+                    ;(e.currentTarget as HTMLElement).style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.06)'
+                  }}
                 >
-                  <div style={{ width: 20, height: 20, borderRadius: 6, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontSize: 7, fontWeight: 800, color: 'rgba(255,255,255,0.70)', letterSpacing: '0.02em' }}>HAL</span>
+                  <div style={{
+                    width: 20, height: 20, borderRadius: 6,
+                    background: `${ORANGE}22`, border: `1px solid ${ORANGE}55`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: ORANGE, letterSpacing: '0.02em' }}>HAL</span>
                   </div>
                   <span>halovisionai.cloud</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <ExternalLink className="w-3.5 h-3.5 opacity-45 group-hover:opacity-80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
               </motion.a>
             </div>
@@ -351,7 +399,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
         )}
       </AnimatePresence>
 
-      {/* ── Input peek — always at bottom of section, independent of chat layer ── */}
+      {/* ── Input peek — always at bottom ── */}
       <AnimatePresence>
         {!chatFull && (
           <motion.div
@@ -362,68 +410,57 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
             transition={{ duration: 0.35 }}
             className="absolute bottom-0 left-0 right-0 z-30 flex flex-col items-center"
             style={{
-              paddingBottom: '1.5rem',
-              paddingTop: '2rem',
-              paddingLeft: 'clamp(24px, 5vw, 48px)',
-              paddingRight: 'clamp(24px, 5vw, 48px)',
-              background: 'linear-gradient(to top, rgba(0,0,0,0.28) 0%, transparent 100%)',
+              paddingBottom: '1.5rem', paddingTop: '2rem',
+              paddingLeft: 'clamp(24px, 5vw, 48px)', paddingRight: 'clamp(24px, 5vw, 48px)',
+              background: `linear-gradient(to top, ${DARK}EE 0%, transparent 100%)`,
               pointerEvents: 'auto',
             }}
           >
-            {/* Scroll hint — above input */}
             <motion.div
               className="flex flex-col items-center mb-3 pointer-events-none"
               animate={{ y: [0, 4, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <span style={{ fontSize: 8, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', marginBottom: 2 }}>
+              <span style={{ fontSize: 8, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase', marginBottom: 2 }}>
                 scroll or type
               </span>
-              <ChevronDown className="w-3.5 h-3.5" style={{ color: 'rgba(255,255,255,0.40)' }} />
+              <ChevronDown className="w-3.5 h-3.5" style={{ color: 'rgba(255,255,255,0.25)' }} />
             </motion.div>
 
-            {/* Input bar */}
             <div
               className="flex items-center gap-3 w-full max-w-xl"
-              style={{ borderBottom: '1.5px solid rgba(255,255,255,0.55)', paddingBottom: 12, paddingRight: 'clamp(0px, 12vw, 72px)' }}
+              style={{ borderBottom: `1.5px solid rgba(255,255,255,0.14)`, paddingBottom: 12, paddingRight: 'clamp(0px, 12vw, 72px)' }}
             >
-              <div className="w-2 h-2 rounded-full bg-amber-300 animate-pulse shrink-0" />
+              <div className="w-2 h-2 rounded-full shrink-0 animate-pulse" style={{ background: ORANGE }} />
               <input
                 ref={inputRef}
                 value={input}
                 onChange={e => setInput(e.target.value.slice(0, 3000))}
                 onKeyDown={e => {
-                  if (e.key === 'Enter' && input.trim()) {
-                    setChatFull(true)
-                    setTimeout(() => handleSend(), 80)
-                  }
+                  if (e.key === 'Enter' && input.trim()) { setChatFull(true); setTimeout(() => handleSend(), 80) }
                 }}
                 onFocus={() => setChatFull(true)}
                 placeholder={placeholder || 'Ask the AI…'}
                 className="flex-1 bg-transparent outline-none"
-                style={{ color: 'rgba(255,255,255,0.92)', caretColor: '#fff', fontSize: 15 }}
-                data-cursor="hover"
+                style={{ color: 'rgba(255,255,255,0.88)', caretColor: ORANGE, fontSize: 15 }}
               />
               <button
-                data-cursor="hover"
                 onClick={() => { setChatFull(true); setTimeout(() => handleSend(), 80) }}
                 disabled={!input.trim() || isLoading}
                 className="shrink-0 flex items-center justify-center rounded-full transition-opacity disabled:opacity-30"
-                style={{ width: 34, height: 34, background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(0,0,0,0.50)' }}
+                style={{ width: 34, height: 34, background: `${ORANGE}1E`, border: `1px solid ${ORANGE}44` }}
               >
-                <Send className="w-3.5 h-3.5 text-white" />
+                <Send className="w-3.5 h-3.5" style={{ color: ORANGE }} />
               </button>
             </div>
-
-            {/* Label */}
-            <p style={{ fontSize: 9, letterSpacing: '0.20em', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', marginTop: 8 }}>
+            <p style={{ fontSize: 9, letterSpacing: '0.20em', color: 'rgba(255,255,255,0.22)', textTransform: 'uppercase', marginTop: 8 }}>
               AI Chatbot — trained on Jayden's knowledge
             </p>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ── Fullscreen chat ── */}
+      {/* ── Fullscreen chat — orange burst on dark section ── */}
       <AnimatePresence>
         {chatFull && (
           <motion.div
@@ -434,72 +471,49 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0 z-30 flex flex-col"
             style={{
-              paddingTop: '5rem',
-              paddingBottom: '2.5rem',
-              paddingLeft: 'clamp(24px, 5vw, 48px)',
-              paddingRight: 'clamp(24px, 5vw, 48px)',
-              background: ORANGE,
-              pointerEvents: 'auto',
-              overflow: 'hidden',
+              paddingTop: '5rem', paddingBottom: '2.5rem',
+              paddingLeft: 'clamp(24px, 5vw, 48px)', paddingRight: 'clamp(24px, 5vw, 48px)',
+              background: 'transparent', pointerEvents: 'auto', overflow: 'hidden',
             }}
           >
-            {/* JAYDEN'S / AI AGENT background text — two lines, centered */}
+            {/* Background text */}
             <div aria-hidden className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none overflow-hidden">
               <div style={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', padding: '0 12px', maxWidth: '100%' }}>
                 <span className="font-anurati" style={{
-                  fontSize: 'min(18vw, 14vh)',
-                  color: 'transparent',
-                  WebkitTextStroke: '4px rgba(0,0,0,0.35)',
-                  paintOrder: 'stroke fill',
-                  whiteSpace: 'nowrap',
-                  letterSpacing: '0.08em',
-                  lineHeight: 1,
-                }}>
-                  JAYDEN'S
-                </span>
+                  fontSize: 'min(18vw, 14vh)', color: 'transparent',
+                  WebkitTextStroke: '3px rgba(255,255,255,0.10)',
+                  whiteSpace: 'nowrap', letterSpacing: '0.08em', lineHeight: 1,
+                }}>JAYDEN'S</span>
               </div>
               <div style={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', padding: '0 12px', maxWidth: '100%' }}>
                 <span className="font-anurati" style={{
-                  fontSize: 'min(14vw, 10vh)',
-                  color: 'transparent',
-                  WebkitTextStroke: '4px rgba(0,0,0,0.35)',
-                  paintOrder: 'stroke fill',
-                  whiteSpace: 'nowrap',
-                  letterSpacing: '0.08em',
-                  lineHeight: 1,
-                }}>
-                  AI AGENT
-                </span>
+                  fontSize: 'min(14vw, 10vh)', color: 'transparent',
+                  WebkitTextStroke: '3px rgba(255,255,255,0.10)',
+                  whiteSpace: 'nowrap', letterSpacing: '0.08em', lineHeight: 1,
+                }}>AI AGENT</span>
               </div>
             </div>
 
-            {/* Header row — centered */}
-            <div className="flex items-center justify-between mb-5 shrink-0 max-w-2xl mx-auto w-full">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-5 shrink-0 max-w-2xl mx-auto w-full relative z-10">
               <div className="flex items-center gap-2.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
-                <span style={{ fontSize: 10, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.50)', textTransform: 'uppercase' }}>
+                <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'rgba(255,255,255,0.80)' }} />
+                <span style={{ fontSize: 10, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.60)', textTransform: 'uppercase' }}>
                   AI Chatbot — trained on Jayden's knowledge
                 </span>
               </div>
               <button
-                data-cursor="hover"
                 onClick={() => setChatFull(false)}
-                className="text-[9px] tracking-[0.20em] uppercase transition-opacity hover:opacity-100 flex items-center gap-1.5"
-                style={{ color: 'rgba(255,255,255,0.45)', letterSpacing: '0.22em' }}
+                className="text-[9px] tracking-[0.20em] uppercase hover:opacity-100 flex items-center gap-1.5"
+                style={{ color: 'rgba(255,255,255,0.45)', letterSpacing: '0.22em', background: 'none', border: 'none', cursor: 'pointer' }}
               >
                 ↑ collapse
               </button>
             </div>
 
-            {/* ── Chat content — centered ── */}
-            <div className="flex flex-1 min-h-0 max-w-2xl mx-auto w-full">
+            <div className="flex flex-1 min-h-0 max-w-2xl mx-auto w-full relative z-10">
               <div className="flex flex-col flex-1 min-h-0">
-                {/* Messages */}
-                <div
-                  ref={scrollRef}
-                  className="flex-1 overflow-y-auto flex flex-col gap-4 pr-2"
-                  style={{ minHeight: 0, scrollbarWidth: 'none' }}
-                >
+                <div ref={scrollRef} className="flex-1 overflow-y-auto flex flex-col gap-4 pr-2" style={{ minHeight: 0, scrollbarWidth: 'none' }}>
                   <AnimatePresence initial={false}>
                     {messages.map((msg) => (
                       <motion.div
@@ -510,47 +524,28 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                         className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
                         {msg.role === 'user' ? (
-                          <div
-                            className="max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed"
-                            style={{
-                              background: 'rgba(0,0,0,0.28)',
-                              border: '1px solid rgba(0,0,0,0.40)',
-                              color: 'rgba(255,255,255,0.92)',
-                              backdropFilter: 'blur(8px)',
-                            }}
-                          >
+                          <div className="max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed"
+                            style={{ background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(12px)' }}>
                             {msg.content}
                           </div>
                         ) : (
-                          <div
-                            className="max-w-[90%] text-sm leading-relaxed"
-                            style={{ color: 'rgba(255,255,255,0.90)' }}
-                          >
+                          <div className="max-w-[90%] text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.90)' }}>
                             {msg.isNew && !seenMsgIdsRef.current.has(msg.id) ? (
-                              <TypingMessage
-                                text={msg.content}
-                                scrollRef={scrollRef}
-                                onComplete={() => { seenMsgIdsRef.current.add(msg.id); markDone(msg.id) }}
-                              />
+                              <TypingMessage text={msg.content} scrollRef={scrollRef} onComplete={() => { seenMsgIdsRef.current.add(msg.id); markDone(msg.id) }} />
                             ) : renderText(msg.content)}
                           </div>
                         )}
                       </motion.div>
                     ))}
                   </AnimatePresence>
-
                   {isLoading && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-                      <div style={{ color: 'rgba(255,255,255,0.70)' }}>
-                        <ThinkingProcess />
-                      </div>
+                      <div style={{ color: 'rgba(255,255,255,0.65)' }}><ThinkingProcess /></div>
                     </motion.div>
                   )}
                 </div>
-
-                {/* Input */}
                 <div className="mt-5 shrink-0 flex items-center gap-3"
-                  style={{ borderBottom: '1px solid rgba(255,255,255,0.28)', paddingBottom: 10 }}>
+                  style={{ borderBottom: '1px solid rgba(255,255,255,0.18)', paddingBottom: 10 }}>
                   <input
                     value={input}
                     onChange={e => setInput(e.target.value.slice(0, userMsgCount === 0 ? 3000 : 750))}
@@ -558,16 +553,11 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                     placeholder="Ask me anything about Jayden…"
                     className="flex-1 bg-transparent outline-none text-sm"
                     style={{ color: 'rgba(255,255,255,0.88)', caretColor: '#fff', fontSize: 14 }}
-                    data-cursor="hover"
                     autoFocus
                   />
-                  <button
-                    data-cursor="hover"
-                    onClick={handleSend}
-                    disabled={!input.trim() || isLoading}
+                  <button onClick={handleSend} disabled={!input.trim() || isLoading}
                     className="shrink-0 flex items-center justify-center rounded-full transition-opacity disabled:opacity-30"
-                    style={{ width: 36, height: 36, background: 'rgba(0,0,0,0.28)', border: '1px solid rgba(0,0,0,0.40)' }}
-                  >
+                    style={{ width: 36, height: 36, background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.22)', backdropFilter: 'blur(8px)' }}>
                     <Send className="w-4 h-4 text-white" />
                   </button>
                 </div>

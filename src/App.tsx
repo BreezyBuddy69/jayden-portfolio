@@ -1,11 +1,14 @@
 import { useState, useCallback } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import { GrainGradient } from '@paper-design/shaders-react'
 
 import { ChatProvider } from './contexts/ChatContext'
 import { useMediaQuery } from './hooks/useMediaQuery'
 import { useSectionScroll } from './hooks/useSectionScroll'
 
-import { Cursor } from './components/ui/Cursor'
+import { isLowEndDevice } from './hooks/useIsLowEnd'
+
+const LOW_END = isLowEndDevice()
 import { SplashGate } from './components/ui/SplashGate'
 import { SectionStack } from './components/layout/SectionStack'
 import { Header } from './components/layout/Header'
@@ -35,6 +38,13 @@ const SECTION_MAP: Record<string, number> = {
   testimonials: 5,
   about: 6,
   contact: 7,
+}
+
+function getShaderColors(section: number): string[] {
+  if (section === 2) return ['hsl(14, 100%, 57%)', 'hsl(45, 100%, 51%)', 'hsl(340, 82%, 52%)']
+  if (section === 3) return ['hsl(358, 85%, 52%)', 'hsl(290, 65%, 50%)', 'hsl(22, 90%, 52%)']
+  if (section === 4) return ['hsl(30, 80%, 48%)', 'hsl(340, 65%, 42%)', 'hsl(215, 55%, 40%)']
+  return ['hsl(0, 0%, 4%)', 'hsl(0, 0%, 6%)', 'hsl(0, 0%, 3%)']
 }
 
 function getSplashSeen() {
@@ -127,8 +137,23 @@ export default function App() {
   return (
     <ChatProvider>
       <div className="relative w-screen h-screen overflow-hidden" style={{ background: '#252422' }}>
-        <Cursor />
-
+        {/* Global shader — runs continuously, colors shift per section (2 = orange, 3 = crimson, 4 = amber) */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <GrainGradient
+            style={{ height: '100%', width: '100%' }}
+            colorBack="hsl(0, 0%, 0%)"
+            softness={0.76}
+            intensity={0.45}
+            noise={0}
+            shape="corners"
+            offsetX={0}
+            offsetY={0}
+            scale={1}
+            rotation={0}
+            speed={1}
+            colors={getShaderColors(currentSection)}
+          />
+        </div>
         <AnimatePresence>
           {!splashDone && <SplashGate key="splash" onDone={handleSplashDone} />}
         </AnimatePresence>

@@ -27,24 +27,30 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
   return (
     <section
       className="relative w-full h-full flex flex-col overflow-hidden"
-      style={{ background: '#252422' }}
+      style={{ background: '#1a1714' }}
     >
       <div className="flex flex-col md:flex-row flex-1 min-h-0 relative">
 
         {/* Center hint pill */}
-        <div className="hidden md:flex absolute inset-0 items-center justify-center z-20 pointer-events-none">
+        <motion.div
+          className="hidden md:flex absolute inset-0 items-center justify-center z-20 pointer-events-none"
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.85 }}
+          transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div style={{
-            background: 'rgba(255,255,255,0.08)',
+            background: 'rgba(255,255,255,0.07)',
             borderRadius: 999,
-            padding: '8px 20px',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255,255,255,0.12)',
+            padding: '8px 22px',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(255,255,255,0.10)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
           }}>
-            <p style={{ fontSize: 10, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.60)', textTransform: 'uppercase', margin: 0 }}>
-              Klicke auf einem
+            <p style={{ fontSize: 9, letterSpacing: '0.30em', color: 'rgba(255,255,255,0.50)', textTransform: 'uppercase', margin: 0 }}>
+              {t.hint}
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* ── LEFT: AUTOMATIONS ── */}
         <motion.button
@@ -55,22 +61,39 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
           data-cursor="hover"
           className="relative flex-1 flex flex-col justify-start overflow-hidden text-left"
           style={{
-            background: leftOrange ? ORANGE : '#252422',
+            background: leftOrange ? ORANGE : '#0f0d0c',
             border: 'none',
             borderRight: '1px solid rgba(255,255,255,0.06)',
-            cursor: 'none',
+            cursor: 'pointer',
             padding: '0',
             transition: 'background 0.55s cubic-bezier(0.16,1,0.3,1)',
           }}
           onMouseEnter={() => setActiveBlock('left')}
         >
+          {/* Grain overlay */}
+          <div aria-hidden className="absolute inset-0 pointer-events-none grain opacity-[0.05] z-[1]" />
+          {/* Orange bottom glow when dark */}
+          {!leftOrange && (
+            <div aria-hidden className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]" style={{
+              height: '50%',
+              background: `radial-gradient(ellipse 80% 60% at 50% 100%, ${ORANGE}22 0%, transparent 70%)`,
+              filter: 'blur(20px)',
+            }} />
+          )}
+          {/* Orange grid lines on dark state */}
+          {!leftOrange && (
+            <div aria-hidden className="absolute inset-0 pointer-events-none z-[1]" style={{
+              backgroundImage: `linear-gradient(${ORANGE}0C 1px, transparent 1px), linear-gradient(90deg, ${ORANGE}0C 1px, transparent 1px)`,
+              backgroundSize: '48px 24px',
+            }} />
+          )}
           {/* Giant number — fills block */}
           <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
             <span style={{
               fontFamily: '"Playfair Display", Georgia, serif',
               fontSize: 'clamp(22rem, 55vw, 70rem)',
               color: 'transparent',
-              WebkitTextStroke: leftOrange ? '2px rgba(0,0,0,0.22)' : '2px rgba(255,255,255,0.22)',
+              WebkitTextStroke: leftOrange ? '2px rgba(0,0,0,0.22)' : `2px ${ORANGE}30`,
               whiteSpace: 'nowrap',
               lineHeight: 0.85,
               transition: '-webkit-text-stroke 0.55s cubic-bezier(0.16,1,0.3,1)',
@@ -120,21 +143,38 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
           data-cursor="hover"
           className="relative flex-1 flex flex-col justify-start overflow-hidden text-left"
           style={{
-            background: rightOrange ? ORANGE : '#111111',
+            background: rightOrange ? ORANGE : '#0f0d0c',
             border: 'none',
-            cursor: 'none',
+            cursor: 'pointer',
             padding: '0',
             transition: 'background 0.55s cubic-bezier(0.16,1,0.3,1)',
           }}
           onMouseEnter={() => setActiveBlock('right')}
         >
+          {/* Grain overlay */}
+          <div aria-hidden className="absolute inset-0 pointer-events-none grain opacity-[0.05] z-[1]" />
+          {/* Orange bottom glow when dark */}
+          {!rightOrange && (
+            <div aria-hidden className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]" style={{
+              height: '50%',
+              background: `radial-gradient(ellipse 80% 60% at 50% 100%, ${ORANGE}22 0%, transparent 70%)`,
+              filter: 'blur(20px)',
+            }} />
+          )}
+          {/* Orange grid lines on dark state */}
+          {!rightOrange && (
+            <div aria-hidden className="absolute inset-0 pointer-events-none z-[1]" style={{
+              backgroundImage: `linear-gradient(${ORANGE}0C 1px, transparent 1px), linear-gradient(90deg, ${ORANGE}0C 1px, transparent 1px)`,
+              backgroundSize: '48px 24px',
+            }} />
+          )}
           {/* Giant number */}
           <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
             <span style={{
               fontFamily: '"Playfair Display", Georgia, serif',
               fontSize: 'clamp(22rem, 55vw, 70rem)',
               color: 'transparent',
-              WebkitTextStroke: rightOrange ? '2px rgba(0,0,0,0.22)' : '2px rgba(255,255,255,0.22)',
+              WebkitTextStroke: rightOrange ? '2px rgba(0,0,0,0.22)' : `2px ${ORANGE}30`,
               whiteSpace: 'nowrap',
               lineHeight: 0.85,
               transition: '-webkit-text-stroke 0.55s cubic-bezier(0.16,1,0.3,1)',

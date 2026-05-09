@@ -13,6 +13,24 @@ const PLACEHOLDERS: Record<Language, string> = {
 }
 
 const CHATBOT_URL = 'https://n8n.halovisionai.cloud/webhook/jayden-portfolio-chat'
+const DAILY_LIMIT = 30
+const COOLDOWN_MS = 2500
+
+function getDailyCount(): number {
+  try {
+    const today = new Date().toDateString()
+    if (localStorage.getItem('chat_day') !== today) {
+      localStorage.setItem('chat_day', today)
+      localStorage.setItem('chat_n', '0')
+      return 0
+    }
+    return parseInt(localStorage.getItem('chat_n') ?? '0', 10)
+  } catch { return 0 }
+}
+
+function bumpDailyCount() {
+  try { localStorage.setItem('chat_n', String(getDailyCount() + 1)) } catch { /**/ }
+}
 
 function renderText(content: string) {
   const parts = content.split(/(\*\*[^*]+\*\*)/)
@@ -45,6 +63,7 @@ export function ChatBot({ forceOpen, onForceOpenConsumed, language = 'en' }: Cha
   const rafRef = useRef<number>(0)
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([])
   const seenMsgIdsRef = useRef<Set<number>>(new Set())
+  const lastSentRef = useRef<number>(0)
 
   const openChat = useCallback(() => {
     seenMsgIdsRef.current = new Set(messages.map(m => m.id))
@@ -110,6 +129,14 @@ export function ChatBot({ forceOpen, onForceOpenConsumed, language = 'en' }: Cha
 
   const handleSendMessage = async (text: string) => {
     if (!text.trim() || isLoading) return
+    const now = Date.now()
+    if (now - lastSentRef.current < COOLDOWN_MS) return
+    if (getDailyCount() >= DAILY_LIMIT) {
+      addMessage({ role: 'assistant', content: "You've reached today's message limit. Come back tomorrow!" })
+      return
+    }
+    lastSentRef.current = now
+    bumpDailyCount()
     setUserMsgCount(c => c + 1)
     addMessage({ role: 'user', content: text })
     setIsLoading(true)

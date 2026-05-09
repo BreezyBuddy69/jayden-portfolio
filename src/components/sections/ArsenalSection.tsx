@@ -1,7 +1,11 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Code2, Server, Bot, TrendingUp, Target, Lightbulb } from 'lucide-react'
 import { type Language } from '../../i18n/translations'
+import { GlowCard } from '../ui/spotlight-card'
+
+const ORANGE = '#eb5e28'
+const DARK = '#0f0d0c'
 
 const CARDS = [
   {
@@ -57,60 +61,40 @@ const CARDS_DE = [
   { title: 'Anders gebaut', sub: 'Autodidakt · Andersdenkend · 17', desc: 'Die meisten 17-Jährigen überlegen noch, was sie wollen. Ich weiß es bereits. Ich will Dinge bauen, die zählen — und bewusst anders sein.' },
 ]
 
+function MouseOrb() {
+  const rawX = useMotionValue(0.5)
+  const rawY = useMotionValue(0.5)
+  const x = useSpring(rawX, { stiffness: 80, damping: 30 })
+  const y = useSpring(rawY, { stiffness: 80, damping: 30 })
+  const left = useTransform(x, [0, 1], ['10%', '80%'])
+  const top  = useTransform(y, [0, 1], ['10%', '80%'])
+
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      rawX.set(e.clientX / window.innerWidth)
+      rawY.set(e.clientY / window.innerHeight)
+    }
+    window.addEventListener('mousemove', move)
+    return () => window.removeEventListener('mousemove', move)
+  }, [rawX, rawY])
+
+  return (
+    <motion.div
+      style={{ left, top, position: 'absolute', translateX: '-50%', translateY: '-50%' }}
+      className="pointer-events-none"
+    >
+      <div style={{
+        width: 480, height: 480, borderRadius: '50%',
+        background: `radial-gradient(circle, ${ORANGE}60 0%, ${ORANGE}20 45%, transparent 70%)`,
+        filter: 'blur(65px)',
+      }} />
+    </motion.div>
+  )
+}
+
 interface ArsenalSectionProps {
   isActive: boolean
   language: Language
-}
-
-// Lightweight aurora animation — two conic gradient layers rotating at different speeds
-function AuroraArsenal() {
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
-      {/* Slow outer ring — CW */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-        className="absolute pointer-events-none"
-        style={{
-          width: '170%', height: '170%',
-          top: '-35%', left: '-35%',
-          background: 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(232,69,18,0.09) 50deg, rgba(180,40,5,0.06) 90deg, transparent 130deg, rgba(255,100,30,0.07) 200deg, transparent 270deg, rgba(180,60,10,0.06) 320deg, transparent 360deg)',
-        }}
-      />
-      {/* Medium ring — CCW, offset phase */}
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 90, repeat: Infinity, ease: 'linear' }}
-        className="absolute pointer-events-none"
-        style={{
-          width: '130%', height: '130%',
-          top: '-15%', left: '-15%',
-          background: 'conic-gradient(from 80deg at 48% 52%, transparent 0deg, rgba(255,80,20,0.07) 65deg, transparent 140deg, rgba(200,50,10,0.07) 220deg, transparent 300deg)',
-        }}
-      />
-      {/* Static center glow */}
-      <div className="absolute pointer-events-none" style={{
-        width: '55%', height: '55%',
-        top: '22%', left: '22%',
-        borderRadius: '50%',
-        background: 'radial-gradient(ellipse, rgba(232,69,18,0.08) 0%, transparent 65%)',
-        filter: 'blur(40px)',
-      }} />
-      {/* Ember accent — bottom left */}
-      <motion.div
-        animate={{ x: [0, 30, -20, 0], y: [0, -20, 30, 0] }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute pointer-events-none"
-        style={{
-          width: 400, height: 400,
-          bottom: '-10%', left: '-5%',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,80,20,0.08) 0%, transparent 65%)',
-          filter: 'blur(70px)',
-        }}
-      />
-    </div>
-  )
 }
 
 export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
@@ -120,54 +104,104 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
   return (
     <section
       className="relative w-full h-full flex flex-col justify-center overflow-hidden"
-      style={{ background: '#252422' }}
+      style={{ background: 'transparent' }}
     >
-      {/* Aurora background */}
-      <AuroraArsenal />
+      {/* ── Radial vignette ── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none" style={{
+        background: `radial-gradient(ellipse 80% 75% at 50% 50%, transparent 0%, ${DARK}88 50%, ${DARK}ee 100%)`,
+      }} />
 
-      {/* Grain */}
-      <div aria-hidden className="absolute inset-0 z-[2] pointer-events-none opacity-[0.03]"
-        style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px' }} />
-
-      {/* Background "MORE" text */}
-      <div aria-hidden className="absolute inset-0 z-[3] flex items-center justify-center pointer-events-none select-none overflow-hidden">
-        <span className="font-anurati" style={{
-          fontSize: 'min(22vw, 20vh)',
-          color: 'transparent',
-          WebkitTextStroke: '2px rgba(255,255,255,0.05)',
-          paintOrder: 'stroke fill',
-          whiteSpace: 'nowrap',
-          letterSpacing: '0.08em',
-          lineHeight: 1,
-        }}>
-          MORE
-        </span>
+      {/* ── Mouse-following glow orb ── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
+        <MouseOrb />
       </div>
 
+      {/* ── Ambient glows + grain ── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        {/* Bottom strong orange pool */}
+        <div style={{
+          position: 'absolute', bottom: '-5%', left: '50%', transform: 'translateX(-50%)',
+          width: 850, height: 340, borderRadius: '50%',
+          background: `radial-gradient(ellipse, ${ORANGE}40 0%, ${ORANGE}14 45%, transparent 70%)`,
+          filter: 'blur(65px)',
+        }} />
+        {/* Top-left accent */}
+        <div style={{
+          position: 'absolute', top: '-8%', left: '-5%',
+          width: 420, height: 420, borderRadius: '50%',
+          background: `radial-gradient(circle, ${ORANGE}20 0%, transparent 70%)`,
+          filter: 'blur(50px)',
+        }} />
+        {/* Right-center mid-section warm */}
+        <div style={{
+          position: 'absolute', top: '40%', right: '-5%',
+          width: 300, height: 300, borderRadius: '50%',
+          background: `radial-gradient(circle, ${ORANGE}16 0%, transparent 70%)`,
+          filter: 'blur(55px)',
+        }} />
+        <div aria-hidden className="absolute inset-0 grain opacity-[0.05]" />
+      </div>
+
+      {/* ── "MORE" watermark ── */}
+      <div aria-hidden className="absolute inset-0 z-[2] flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <motion.span
+          className="font-anurati"
+          style={{
+            fontSize: 'min(24vw, 22vh)',
+            color: 'transparent',
+            WebkitTextStroke: `2px ${ORANGE}20`,
+            whiteSpace: 'nowrap',
+            letterSpacing: '0.12em',
+            lineHeight: 1,
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isActive ? 1 : 0 }}
+          transition={{ duration: 1.8, delay: 0.5 }}
+        >
+          MORE
+        </motion.span>
+      </div>
+
+      {/* ── Cards ── */}
       <div className="relative z-[10] w-full max-w-5xl mx-auto px-6 md:pl-[190px] md:pr-12 overflow-y-auto" style={{ maxHeight: '100%', paddingTop: '5rem', paddingBottom: '2rem' }}>
-        {/* Label */}
+
+        {/* Eyebrow */}
         <motion.span
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -12 }}
           transition={{ duration: 0.5 }}
-          className="block text-[10px] tracking-[0.32em] uppercase mb-4"
-          style={{ color: 'rgba(232,69,18,0.60)' }}
+          className="block text-[10px] tracking-[0.34em] uppercase mb-3"
+          style={{ color: `${ORANGE}AA` }}
         >
           {language === 'de' ? 'Weitere Skills' : language === 'fr' ? 'Autres compétences' : 'More Skills'}
         </motion.span>
+
+        {/* Orange accent line */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: isActive ? 1 : 0, opacity: isActive ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            width: 48, height: 2, background: ORANGE, borderRadius: 2,
+            transformOrigin: 'left center',
+            boxShadow: `0 0 14px ${ORANGE}88`,
+            marginBottom: 20,
+          }}
+        />
 
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 20 }}
-          transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           style={{
             fontFamily: '"Playfair Display", Georgia, serif',
-            fontSize: 'clamp(2.2rem, 5vw, 4rem)',
+            fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)',
             color: '#ffffff',
             letterSpacing: '-0.025em',
-            marginBottom: '6px',
+            marginBottom: '4px',
             lineHeight: 1.05,
+            textShadow: '0 2px 30px rgba(0,0,0,0.5)',
           }}
         >
           {language === 'de' ? 'Das steckt' : language === 'fr' ? 'Ce que' : 'The full'}
@@ -175,11 +209,12 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 20 }}
-          transition={{ duration: 0.65, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
           style={{
             fontFamily: '"Playfair Display", Georgia, serif',
-            fontSize: 'clamp(2.2rem, 5vw, 4rem)',
-            color: 'rgba(255,255,255,0.40)',
+            fontStyle: 'italic',
+            fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)',
+            color: 'rgba(255,255,255,0.28)',
             letterSpacing: '-0.025em',
             marginBottom: '28px',
             lineHeight: 1.05,
@@ -203,42 +238,56 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
                 key={card.title}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 24 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.5, delay: 0.24 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
-                data-cursor="hover"
-                className="relative rounded-xl p-5 flex flex-col gap-3 overflow-hidden"
-                style={{
-                  background: isHov ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.025)',
-                  border: isHov ? '1px solid rgba(232,69,18,0.28)' : '1px solid rgba(255,255,255,0.07)',
-                  transition: 'background 0.3s, border-color 0.3s',
-                }}
               >
-                {/* Icon */}
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                <GlowCard
+                  glowColor="orange"
+                  customSize
+                  className="w-full flex flex-col gap-3 cursor-default"
                   style={{
-                    background: isHov ? 'rgba(232,69,18,0.12)' : 'rgba(255,255,255,0.04)',
-                    border: `1px solid ${isHov ? 'rgba(232,69,18,0.25)' : 'rgba(255,255,255,0.07)'}`,
+                    background: isHov ? 'rgba(15,13,12,0.82)' : 'rgba(15,13,12,0.72)',
+                    border: isHov ? `1px solid ${ORANGE}55` : '1px solid rgba(255,255,255,0.10)',
+                    backdropFilter: 'blur(12px)',
+                    padding: '20px',
                     transition: 'background 0.3s, border-color 0.3s',
-                  }}>
-                  <Icon className="w-4 h-4" style={{ color: isHov ? card.accent : 'rgba(255,255,255,0.40)', transition: 'color 0.3s' }} />
-                </div>
+                  }}
+                >
+                  {/* Icon */}
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{
+                      background: isHov ? `${ORANGE}28` : `${ORANGE}0E`,
+                      border: `1px solid ${isHov ? ORANGE + '55' : ORANGE + '28'}`,
+                      transition: 'background 0.3s, border-color 0.3s',
+                    }}>
+                    <Icon className="w-4 h-4" style={{ color: isHov ? card.accent : 'rgba(255,255,255,0.35)', transition: 'color 0.3s' }} />
+                  </div>
 
-                {/* Text */}
-                <div>
-                  <p className="text-white/85 font-semibold text-sm mb-0.5">{title}</p>
-                  <p className="text-[10px] tracking-[0.14em] uppercase mb-2"
-                    style={{ color: isHov ? 'rgba(232,69,18,0.60)' : 'rgba(255,255,255,0.28)', transition: 'color 0.3s' }}>
-                    {sub}
-                  </p>
-                  <p className="text-white/40 text-xs leading-relaxed">{desc}</p>
-                </div>
+                  {/* Text */}
+                  <div>
+                    <p className="font-semibold text-sm mb-0.5" style={{ color: 'rgba(255,255,255,0.95)' }}>{title}</p>
+                    <p className="text-[10px] tracking-[0.14em] uppercase mb-2"
+                      style={{ color: isHov ? `${ORANGE}CC` : 'rgba(255,255,255,0.50)', transition: 'color 0.3s' }}>
+                      {sub}
+                    </p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.68)' }}>{desc}</p>
+                  </div>
 
-                {/* Bottom accent line on hover */}
-                {isHov && (
-                  <div className="absolute bottom-0 left-0 right-0 h-px pointer-events-none"
-                    style={{ background: 'linear-gradient(90deg, transparent, rgba(232,69,18,0.45), transparent)' }} />
-                )}
+                  {/* Bottom accent line on hover */}
+                  {isHov && (
+                    <div className="absolute bottom-0 left-0 right-0 h-px pointer-events-none"
+                      style={{ background: `linear-gradient(90deg, transparent, ${ORANGE}55, transparent)` }} />
+                  )}
+
+                  {/* Corner glow on hover */}
+                  {isHov && (
+                    <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none" style={{
+                      background: `radial-gradient(circle at top right, ${ORANGE}12 0%, transparent 70%)`,
+                      borderRadius: '0 12px 0 0',
+                    }} />
+                  )}
+                </GlowCard>
               </motion.div>
             )
           })}

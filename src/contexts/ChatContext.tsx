@@ -22,7 +22,7 @@ let nextId = 1
 const GREETING: ChatMessage = {
   id: nextId++,
   role: 'assistant',
-  content: "Hey — I'm Jayden's AI. Ask me anything about him, his work, or what he can build for you.",
+  content: "Hey 👋 Ich bin Jaydons KI-Agent — ein Live-Beispiel für das, was wir für Ihr Unternehmen bauen können.\n\nWir legen eine intelligente Schicht aus KI und Automatisierungen um Ihre Prozesse: Sie sparen Zeit, senken Kosten und gewinnen mehr Kunden — vollständig automatisiert.\n\nWas macht Ihr Unternehmen?",
 }
 
 export function ChatProvider({ children }: { children: ReactNode }) {

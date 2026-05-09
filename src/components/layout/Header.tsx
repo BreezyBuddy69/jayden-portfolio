@@ -100,7 +100,7 @@ export function Header({ onNavigate, language, onLanguageChange }: HeaderProps) 
                 animate={{ opacity: 1, maxWidth: 60, marginLeft: i === 0 ? 10 : 0 }}
                 exit={{ opacity: 0, maxWidth: 0, marginLeft: 0 }}
                 transition={{ duration: 0.45, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                style={{ overflow: 'hidden', whiteSpace: 'nowrap', paddingRight: 6, background: 'none', border: 'none', cursor: 'none' }}
+                style={{ overflow: 'hidden', whiteSpace: 'nowrap', paddingRight: 6, background: 'none', border: 'none', cursor: 'pointer' }}
                 onClick={() => { onLanguageChange(lang); setLangHover(false) }}
               >
                 <span className="text-white/20">·</span>
@@ -116,7 +116,7 @@ export function Header({ onNavigate, language, onLanguageChange }: HeaderProps) 
         <button
           data-cursor="hover"
           onClick={() => onNavigate(0)}
-          style={{ background: 'none', border: 'none', cursor: 'none' }}
+          style={{ background: 'none', border: 'none', cursor: 'pointer' }}
         >
           <ScrambleText
             text="PORTFOLIO"

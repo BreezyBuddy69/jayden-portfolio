@@ -1,8 +1,12 @@
-import { motion } from 'framer-motion'
+import React, { useEffect } from 'react'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
-import { OrangeFlowBg } from '../ui/OrangeFlowBg'
+import { BackgroundPaths } from '../ui/background-paths'
+import { GlowCard } from '../ui/spotlight-card'
 
+const ORANGE = '#eb5e28'
+const DARK = '#0f0d0c'
 const YOUTUBE_URL = 'https://www.youtube.com/@subspeedy'
 const HALO_URL = 'https://halovisionai.cloud'
 
@@ -14,151 +18,34 @@ function YoutubeIcon({ className, style }: { className?: string; style?: React.C
   )
 }
 
-// Floating spark particles
-function FloatingParticles() {
-  const particles = Array.from({ length: 16 }, (_, i) => ({
-    id: i,
-    left: 4 + ((i * 14) % 92),
-    bottom: 10 + ((i * 9) % 25),
-    delay: i * 0.6,
-    duration: 8 + ((i * 1.3) % 5),
-    size: 1 + (i % 3) * 0.5,
-    opacity: 0.2 + (i % 4) * 0.1,
-    drift: (i % 2 === 0 ? 1 : -1) * (6 + (i % 4) * 5),
-  }))
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {particles.map(p => (
-        <motion.div
-          key={p.id}
-          animate={{
-            y: [0, -(90 + (p.id * 22) % 110)],
-            x: [0, p.drift],
-            opacity: [0, p.opacity, p.opacity * 0.5, 0],
-          }}
-          transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: 'easeOut' }}
-          className="absolute rounded-full"
-          style={{
-            left: `${p.left}%`,
-            bottom: `${p.bottom}%`,
-            width: p.size,
-            height: p.size,
-            background: `rgba(232,69,18,${p.opacity + 0.15})`,
-          }}
-        />
-      ))}
-    </div>
-  )
-}
+function MouseOrb() {
+  const rawX = useMotionValue(0.5)
+  const rawY = useMotionValue(0.5)
+  const x = useSpring(rawX, { stiffness: 80, damping: 30 })
+  const y = useSpring(rawY, { stiffness: 80, damping: 30 })
+  const left = useTransform(x, [0, 1], ['10%', '80%'])
+  const top  = useTransform(y, [0, 1], ['10%', '80%'])
 
-// Animated dark blobs on orange background
-function DarkOrbsBg() {
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      <motion.div
-        animate={{ x: [0, 40, -25, 0], y: [0, -30, 20, 0] }}
-        transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute pointer-events-none"
-        style={{
-          width: 650, height: 650,
-          top: '-15%', left: '-12%',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.10) 45%, transparent 70%)',
-          filter: 'blur(100px)',
-        }}
-      />
-      <motion.div
-        animate={{ x: [0, -45, 30, 0], y: [0, 35, -50, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
-        className="absolute pointer-events-none"
-        style={{
-          width: 550, height: 550,
-          bottom: '-12%', right: '-10%',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.08) 50%, transparent 72%)',
-          filter: 'blur(90px)',
-        }}
-      />
-      <motion.div
-        animate={{ x: [0, 25, -35, 0], y: [0, 40, -25, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 10 }}
-        className="absolute pointer-events-none"
-        style={{
-          width: 380, height: 380,
-          top: '25%', left: '38%',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,0,0,0.15) 0%, transparent 65%)',
-          filter: 'blur(70px)',
-        }}
-      />
-    </div>
-  )
-}
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      rawX.set(e.clientX / window.innerWidth)
+      rawY.set(e.clientY / window.innerHeight)
+    }
+    window.addEventListener('mousemove', move)
+    return () => window.removeEventListener('mousemove', move)
+  }, [rawX, rawY])
 
-// Background: drifting ember orbs — deep black base, smoldering orange glow
-function EmberOrbsBg() {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {/* Deep black base with warm undertone */}
-      <div className="absolute inset-0" style={{ background: '#080604' }} />
-
-      {/* Orb 1 — large deep-orange, top-center */}
-      <motion.div
-        animate={{ x: [0, 55, -35, 15, 0], y: [0, -45, 25, -20, 0] }}
-        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute pointer-events-none"
-        style={{
-          width: 600, height: 600,
-          top: '-15%', left: '20%',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(210,60,10,0.22) 0%, rgba(160,40,5,0.10) 45%, transparent 72%)',
-          filter: 'blur(80px)',
-        }}
-      />
-      {/* Orb 2 — ember orange, bottom-left */}
-      <motion.div
-        animate={{ x: [0, -60, 30, -15, 0], y: [0, 35, -55, 25, 0] }}
-        transition={{ duration: 32, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute pointer-events-none"
-        style={{
-          width: 440, height: 440,
-          bottom: '-8%', left: '0%',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(232,69,18,0.18) 0%, rgba(180,45,5,0.08) 50%, transparent 72%)',
-          filter: 'blur(90px)',
-        }}
-      />
-      {/* Orb 3 — amber accent, right */}
-      <motion.div
-        animate={{ x: [0, 40, -25, 0], y: [0, -35, 50, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute pointer-events-none"
-        style={{
-          width: 340, height: 340,
-          top: '25%', right: '-5%',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,110,20,0.14) 0%, rgba(200,70,10,0.06) 50%, transparent 72%)',
-          filter: 'blur(65px)',
-        }}
-      />
-      {/* Orb 4 — tiny hot-core, center */}
-      <motion.div
-        animate={{ x: [0, -20, 35, 0], y: [0, 40, -25, 0] }}
-        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
-        className="absolute pointer-events-none"
-        style={{
-          width: 180, height: 180,
-          top: '40%', left: '45%',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,140,40,0.12) 0%, transparent 65%)',
-          filter: 'blur(40px)',
-        }}
-      />
-      {/* Subtle warm vignette */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgba(4,2,1,0.70) 100%)',
+    <motion.div
+      style={{ left, top, position: 'absolute', translateX: '-50%', translateY: '-50%' }}
+      className="pointer-events-none"
+    >
+      <div style={{
+        width: 480, height: 480, borderRadius: '50%',
+        background: `radial-gradient(circle, ${ORANGE}60 0%, ${ORANGE}22 45%, transparent 70%)`,
+        filter: 'blur(65px)',
       }} />
-    </div>
+    </motion.div>
   )
 }
 
@@ -230,46 +117,119 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ isActive, language }: TestimonialsSectionProps) {
   const t = translations[language].testimonials
-
-  // Duplicate reviews for seamless loop
   const looped = [...REVIEWS, ...REVIEWS]
 
   return (
     <section
       className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: '#eb5e28' }}
+      style={{ background: DARK }}
     >
-      {/* Flowing background animation */}
-      <OrangeFlowBg />
+      {/* ── Animated paths background (mirrored vs About/Contact) ── */}
+      <div className="absolute inset-0 z-0">
+        <BackgroundPaths mirrored />
+      </div>
 
-      {/* Grain */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.04]"
-        style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px', zIndex: 2 }} />
+      {/* ── Radial vignette ── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none" style={{
+        background: `radial-gradient(ellipse 78% 72% at 50% 44%, transparent 0%, ${DARK}88 50%, ${DARK}ee 100%)`,
+      }} />
 
+      {/* ── Mouse-following glow orb ── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
+        <MouseOrb />
+      </div>
+
+      {/* ── Ambient glows + grain ── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        {/* Bottom strong orange pool */}
+        <div style={{
+          position: 'absolute', bottom: '-5%', left: '50%', transform: 'translateX(-50%)',
+          width: 950, height: 360, borderRadius: '50%',
+          background: `radial-gradient(ellipse, ${ORANGE}42 0%, ${ORANGE}16 45%, transparent 70%)`,
+          filter: 'blur(65px)',
+        }} />
+        {/* Top-right orange accent */}
+        <div style={{
+          position: 'absolute', top: '-8%', right: '-5%',
+          width: 450, height: 450, borderRadius: '50%',
+          background: `radial-gradient(circle, ${ORANGE}20 0%, transparent 70%)`,
+          filter: 'blur(50px)',
+        }} />
+        {/* Left-mid accent */}
+        <div style={{
+          position: 'absolute', top: '35%', left: '-6%',
+          width: 280, height: 280, borderRadius: '50%',
+          background: `radial-gradient(circle, ${ORANGE}16 0%, transparent 70%)`,
+          filter: 'blur(55px)',
+        }} />
+        <div aria-hidden className="absolute inset-0 grain opacity-[0.055]" />
+      </div>
+
+      {/* ── "REVIEWS" watermark — bottom ── */}
+      <div
+        aria-hidden
+        className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none select-none z-[2]"
+        style={{ lineHeight: 0 }}
+      >
+        <motion.div
+          className="font-anurati text-center"
+          style={{
+            fontSize: 'clamp(5.5rem, 14vw, 19rem)',
+            color: 'transparent',
+            WebkitTextStroke: `2px ${ORANGE}22`,
+            lineHeight: 0.90,
+            whiteSpace: 'nowrap',
+            letterSpacing: '0.12em',
+            transform: 'translateY(30%)',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isActive ? 1 : 0 }}
+          transition={{ duration: 1.8, delay: 0.4 }}
+        >
+          REVIEWS
+        </motion.div>
+      </div>
+
+      {/* ── Content ── */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:pl-[190px] md:pr-12 overflow-y-auto py-4" style={{ maxHeight: '100%' }}>
-        {/* Label */}
+
+        {/* Eyebrow */}
         <motion.span
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -12 }}
           transition={{ duration: 0.5 }}
-          className="block text-[10px] tracking-[0.32em] uppercase mb-3"
-          style={{ color: 'rgba(255,255,255,0.50)' }}
+          className="block text-[10px] tracking-[0.34em] uppercase mb-3"
+          style={{ color: `${ORANGE}CC` }}
         >
           {t.eyebrow}
         </motion.span>
+
+        {/* Orange accent line */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: isActive ? 1 : 0, opacity: isActive ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            width: 48, height: 2, background: ORANGE, borderRadius: 2,
+            transformOrigin: 'left center',
+            boxShadow: `0 0 14px ${ORANGE}88`,
+            marginBottom: 16,
+          }}
+        />
 
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 20 }}
-          transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, delay: 0.10, ease: [0.16, 1, 0.3, 1] }}
           style={{
             fontFamily: '"Playfair Display", Georgia, serif',
             fontSize: 'clamp(1.8rem, 4vw, 3.2rem)',
             color: '#ffffff',
             letterSpacing: '-0.025em',
             lineHeight: 1.05,
-            marginBottom: '6px',
+            marginBottom: '4px',
+            textShadow: '0 2px 30px rgba(0,0,0,0.5)',
           }}
         >
           {t.heading1}
@@ -277,14 +237,15 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 20 }}
-          transition={{ duration: 0.65, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
           style={{
             fontFamily: '"Playfair Display", Georgia, serif',
+            fontStyle: 'italic',
             fontSize: 'clamp(1.8rem, 4vw, 3.2rem)',
-            color: 'rgba(255,255,255,0.55)',
+            color: 'rgba(255,255,255,0.30)',
             letterSpacing: '-0.025em',
             lineHeight: 1.05,
-            marginBottom: '8px',
+            marginBottom: '10px',
           }}
         >
           {t.heading2}
@@ -293,181 +254,162 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-xs mb-6"
-          style={{ color: 'rgba(255,255,255,0.55)', maxWidth: '400px', lineHeight: 1.7 }}
+          transition={{ duration: 0.5, delay: 0.24 }}
+          className="text-xs mb-5"
+          style={{ color: 'rgba(255,255,255,0.40)', maxWidth: '380px', lineHeight: 1.75 }}
         >
           {t.desc}
         </motion.p>
 
         {/* Channel / website cards */}
-        <div className="flex flex-col sm:flex-row gap-3 mb-7">
+        <div className="flex flex-col sm:flex-row gap-3 mb-6">
           {/* YouTube card */}
-          <motion.a
-            href={YOUTUBE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="hover"
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 16 }}
-            transition={{ duration: 0.6, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-4 p-4 rounded-2xl group flex-1"
-            style={{
-              background: 'rgba(255,255,255,0.10)',
-              border: '1px solid rgba(255,255,255,0.22)',
-              backdropFilter: 'blur(24px)',
-              WebkitBackdropFilter: 'blur(24px)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.18)',
-              textDecoration: 'none',
-              transition: 'background 0.2s, border-color 0.2s, box-shadow 0.2s',
-            }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.40)'
-              ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.18)'
-              ;(e.currentTarget as HTMLElement).style.boxShadow = '0 12px 40px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.25)'
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.22)'
-              ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.10)'
-              ;(e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.18)'
-            }}
+            transition={{ duration: 0.6, delay: 0.30, ease: [0.16, 1, 0.3, 1] }}
+            className="flex-1"
           >
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }}>
-              <YoutubeIcon className="w-5 h-5" style={{ color: 'rgba(255,255,255,0.70)' }} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-white/80 text-xs font-semibold mb-0.5">{t.ytHeading}</p>
-              <p className="text-white/50 text-[10px]">{t.ytSub}</p>
-            </div>
-            <div className="flex items-center gap-1.5 text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.60)' }}>
-              <span className="group-hover:text-white transition-colors">{t.ytCta}</span>
-              <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </div>
-          </motion.a>
+            <GlowCard
+              glowColor="orange"
+              customSize
+              className="w-full group cursor-pointer"
+              style={{
+                background: 'rgba(235,94,40,0.06)',
+                border: `1px solid ${ORANGE}28`,
+                backdropFilter: 'blur(20px)',
+              }}
+            >
+              <a
+                href={YOUTUBE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 w-full"
+                style={{ textDecoration: 'none' }}
+              >
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)' }}>
+                  <YoutubeIcon className="w-5 h-5" style={{ color: ORANGE }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold mb-0.5" style={{ color: 'rgba(255,255,255,0.85)' }}>{t.ytHeading}</p>
+                  <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.35)' }}>{t.ytSub}</p>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                  <span className="group-hover:opacity-100 transition-opacity opacity-70">{t.ytCta}</span>
+                  <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
+              </a>
+            </GlowCard>
+          </motion.div>
 
-          {/* halovisionai.cloud card */}
-          <motion.a
-            href={HALO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="hover"
+          {/* Halo card */}
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 16 }}
-            transition={{ duration: 0.6, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-4 p-4 rounded-2xl group flex-1"
-            style={{
-              background: 'rgba(255,255,255,0.10)',
-              border: '1px solid rgba(255,255,255,0.22)',
-              backdropFilter: 'blur(24px)',
-              WebkitBackdropFilter: 'blur(24px)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.18)',
-              textDecoration: 'none',
-              transition: 'background 0.2s, border-color 0.2s, box-shadow 0.2s',
-            }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.40)'
-              ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.18)'
-              ;(e.currentTarget as HTMLElement).style.boxShadow = '0 12px 40px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.25)'
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.22)'
-              ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.10)'
-              ;(e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.18)'
-            }}
+            transition={{ duration: 0.6, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
+            className="flex-1"
           >
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }}>
-              <span className="text-[10px] font-bold tracking-tight" style={{ color: 'rgba(255,255,255,0.70)' }}>HAL</span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-white/80 text-xs font-semibold mb-0.5">{t.haloHeading}</p>
-              <p className="text-white/50 text-[10px]">{t.haloSub}</p>
-            </div>
-            <div className="flex items-center gap-1.5 text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.60)' }}>
-              <span className="group-hover:text-white transition-colors">{t.haloCta}</span>
-              <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </div>
-          </motion.a>
+            <GlowCard
+              glowColor="orange"
+              customSize
+              className="w-full group cursor-pointer"
+              style={{
+                background: 'rgba(235,94,40,0.06)',
+                border: `1px solid ${ORANGE}28`,
+                backdropFilter: 'blur(20px)',
+              }}
+            >
+              <a
+                href={HALO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 w-full"
+                style={{ textDecoration: 'none' }}
+              >
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: `${ORANGE}18`, border: `1px solid ${ORANGE}44` }}>
+                  <span className="text-[10px] font-bold tracking-tight" style={{ color: ORANGE }}>HAL</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold mb-0.5" style={{ color: 'rgba(255,255,255,0.85)' }}>{t.haloHeading}</p>
+                  <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.35)' }}>{t.haloSub}</p>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                  <span className="group-hover:opacity-100 transition-opacity opacity-70">{t.haloCta}</span>
+                  <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
+              </a>
+            </GlowCard>
+          </motion.div>
         </div>
 
         {/* Reviews label */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
-          transition={{ duration: 0.4, delay: 0.38 }}
+          transition={{ duration: 0.4, delay: 0.42 }}
           className="text-[10px] tracking-[0.22em] uppercase mb-3"
-          style={{ color: 'rgba(255,255,255,0.40)' }}
+          style={{ color: 'rgba(255,255,255,0.25)' }}
         >
           {t.reviewsHeading}
         </motion.p>
       </div>
 
-      {/* ── Scrolling ticker — outside the padded container so it spans full width ── */}
+      {/* ── Scrolling ticker — full width ── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isActive ? 1 : 0 }}
-        transition={{ duration: 0.6, delay: 0.44 }}
-        className="relative w-full overflow-hidden"
+        transition={{ duration: 0.6, delay: 0.48 }}
+        className="relative w-full overflow-hidden z-10"
         style={{
-          marginTop: '-8px', paddingBottom: '16px', zIndex: 10,
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%)',
-          maskImage: 'linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%)',
+          marginTop: '-8px', paddingBottom: '16px',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
         }}
       >
-
-        <div className="ticker-track" style={{ gap: '12px' }}>
+        <div className="ticker-track" style={{ gap: '10px' }}>
           {looped.map((r, i) => {
             const truncated = r.text.length > MAX_CHARS
               ? r.text.slice(0, MAX_CHARS).trimEnd() + '…'
               : r.text
 
             return (
-              <a
+              <GlowCard
                 key={i}
-                href={r.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cursor="hover"
-                className="group flex-shrink-0 flex flex-col gap-2 p-3.5 rounded-xl"
+                glowColor="orange"
+                customSize
+                className="flex-shrink-0 group cursor-pointer"
                 style={{
                   width: '220px',
-                  background: 'rgba(255,255,255,0.10)',
-                  border: '1px solid rgba(255,255,255,0.18)',
+                  background: 'rgba(235,94,40,0.05)',
+                  border: `1px solid ${ORANGE}28`,
                   backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.15)',
-                  textDecoration: 'none',
-                  transition: 'border-color 0.2s, background 0.2s, box-shadow 0.2s',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.32)'
-                  ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.18)'
-                  ;(e.currentTarget as HTMLElement).style.boxShadow = '0 8px 28px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.22)'
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.18)'
-                  ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.10)'
-                  ;(e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.15)'
+                  boxShadow: `0 4px 20px rgba(0,0,0,0.25), 0 0 8px ${ORANGE}0A`,
                 }}
               >
-                {/* Quote text */}
-                <p className="text-white/70 text-[11px] leading-relaxed flex-1">
-                  "{truncated}"
-                </p>
-
-                {/* Footer */}
-                <div className="flex items-end justify-between mt-1">
-                  <div>
-                    <p className="text-white/85 text-[11px] font-semibold">{r.name}</p>
-                    <p className="text-[10px] tracking-[0.10em] uppercase" style={{ color: 'rgba(255,255,255,0.45)' }}>{r.role}</p>
+                <a
+                  href={r.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col gap-2 p-3.5 w-full h-full"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <p className="text-[11px] leading-relaxed flex-1" style={{ color: 'rgba(255,255,255,0.72)' }}>
+                    "{truncated}"
+                  </p>
+                  <div className="flex items-end justify-between mt-1">
+                    <div>
+                      <p className="text-[11px] font-semibold" style={{ color: 'rgba(255,255,255,0.88)' }}>{r.name}</p>
+                      <p className="text-[10px] tracking-[0.10em] uppercase" style={{ color: 'rgba(255,255,255,0.30)' }}>{r.role}</p>
+                    </div>
+                    <div className="flex items-center gap-1 opacity-40 group-hover:opacity-100 transition-opacity">
+                      <span className="text-[9px] tracking-widest uppercase" style={{ color: ORANGE }}>{r.source}</span>
+                      <ExternalLink className="w-2.5 h-2.5" style={{ color: ORANGE }} />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="text-[9px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.55)' }}>{r.source}</span>
-                    <ExternalLink className="w-2.5 h-2.5" style={{ color: 'rgba(255,255,255,0.55)' }} />
-                  </div>
-                </div>
-              </a>
+                </a>
+              </GlowCard>
             )
           })}
         </div>
