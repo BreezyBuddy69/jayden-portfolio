@@ -1,4 +1,5 @@
-﻿import { useState, useEffect } from 'react'
+﻿import { ORANGE } from '../../lib/utils';
+import { useState, useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Code2, Server, Bot, TrendingUp, Target, Lightbulb } from 'lucide-react'
 import { type Language } from '../../i18n/translations'
@@ -299,3 +300,4 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
     </section>
   )
 }
+

@@ -1,4 +1,5 @@
-﻿import { useState } from 'react'
+﻿import { ORANGE } from '../../lib/utils';
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import translations, { type Language } from '../../i18n/translations'
 
@@ -236,3 +237,4 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
     </section>
   )
 }
+

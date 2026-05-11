@@ -1,4 +1,5 @@
-﻿import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+﻿import { ORANGE } from '../../lib/utils';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { type Language } from '../../i18n/translations'
 import { Boxes } from '../ui/background-boxes'
@@ -253,3 +254,4 @@ export function HeroSection({ isActive, onScrollDown, onOpenChat, language }: He
     </section>
   )
 }
+

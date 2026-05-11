@@ -1,4 +1,5 @@
-﻿import { useRef, useEffect, useState } from 'react'
+﻿import { ORANGE } from '../../lib/utils';
+import { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, Send, ChevronDown } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
@@ -570,3 +571,4 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
     </section>
   )
 }
+

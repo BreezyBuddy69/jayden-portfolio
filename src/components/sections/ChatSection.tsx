@@ -1,4 +1,5 @@
-﻿import { motion } from 'framer-motion'
+﻿import { ORANGE } from '../../lib/utils';
+import { motion } from 'framer-motion'
 import { Bot, Clock, TrendingUp, Zap, ArrowRight } from 'lucide-react'
 import { GrainGradient } from '@paper-design/shaders-react'
 import { NeonButton } from '../ui/neon-button'
@@ -210,3 +211,4 @@ export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
     </section>
   )
 }
+

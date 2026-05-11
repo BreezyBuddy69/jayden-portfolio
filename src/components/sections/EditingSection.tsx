@@ -1,4 +1,5 @@
-﻿import { useRef, useEffect, useState } from 'react'
+﻿import { ORANGE } from '../../lib/utils';
+import { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
@@ -456,3 +457,4 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
     </section>
   )
 }
+

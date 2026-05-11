@@ -1,4 +1,5 @@
-﻿import React, { useEffect } from 'react'
+﻿import { ORANGE } from '../../lib/utils';
+import React, { useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
@@ -419,3 +420,4 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
     </section>
   )
 }
+
