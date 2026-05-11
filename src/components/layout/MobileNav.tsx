@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
@@ -70,7 +70,7 @@ export function MobileNav({ currentSection, onNavigate, language }: MobileNavPro
                   background: 'none',
                   border: 'none',
                   color: currentSection === idx
-                    ? 'rgba(245,158,11,0.95)'
+                    ? 'rgba(139, 92, 246,0.95)'
                     : sub
                     ? 'rgba(255,255,255,0.88)'
                     : 'rgba(255,255,255,0.70)',
@@ -80,7 +80,7 @@ export function MobileNav({ currentSection, onNavigate, language }: MobileNavPro
                 }}
               >
                 {sub && (
-                  <span style={{ color: 'rgba(245,158,11,0.40)', fontSize: '10px' }}>—</span>
+                  <span style={{ color: 'rgba(139, 92, 246,0.40)', fontSize: '10px' }}>—</span>
                 )}
                 {nav[key as keyof typeof nav]}
               </motion.button>

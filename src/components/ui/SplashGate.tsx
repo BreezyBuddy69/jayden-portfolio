@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+﻿import { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -62,14 +62,14 @@ export function SplashGate({ onDone }: SplashGateProps) {
           exit={{ opacity: 0, scale: 1.02 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="fixed inset-0 z-[300] flex flex-col items-center justify-center"
-          style={{ background: '#252422' }}
+          style={{ background: '#0D0B1A' }}
         >
           {/* Ambient amber glow */}
           <div
             aria-hidden
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'radial-gradient(ellipse 60vw 50vh at 50% 50%, rgba(232,69,18,0.07) 0%, transparent 70%)',
+              background: 'radial-gradient(ellipse 60vw 50vh at 50% 50%, rgba(139, 92, 246,0.07) 0%, transparent 70%)',
             }}
           />
 
@@ -111,7 +111,7 @@ export function SplashGate({ onDone }: SplashGateProps) {
                 marginTop: '16px',
                 fontSize: '11px',
                 letterSpacing: '0.32em',
-                color: 'rgba(232,69,18,0.65)',
+                color: 'rgba(139, 92, 246,0.65)',
                 textTransform: 'uppercase',
                 fontFamily: 'Inter, system-ui, sans-serif',
               }}
@@ -126,7 +126,7 @@ export function SplashGate({ onDone }: SplashGateProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: phase === 'reveal' ? 1 : 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            style={{ width: '1px', height: '48px', background: 'linear-gradient(to bottom, rgba(232,69,18,0.4), transparent)' }}
+            style={{ width: '1px', height: '48px', background: 'linear-gradient(to bottom, rgba(139, 92, 246,0.4), transparent)' }}
           />
         </motion.div>
       ) : null}

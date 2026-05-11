@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+﻿import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Send, MessageCircle } from 'lucide-react'
 import { ThinkingProcess } from './ThinkingProcess'
@@ -203,13 +203,13 @@ export function ChatBot({ forceOpen, onForceOpenConsumed, language = 'en' }: Cha
         style={{
           background: isOpen
             ? 'linear-gradient(160deg, rgba(20,12,4,0.97) 0%, rgba(12,7,2,0.98) 55%, rgba(6,4,1,0.99) 100%)'
-            : `linear-gradient(148deg, rgba(255,255,255,${0.30 + buttonBrightness * 0.14}) 0%, rgba(251,191,36,${0.22 + buttonBrightness * 0.16}) 45%, rgba(232,69,18,${0.16 + buttonBrightness * 0.12}) 100%)`,
+            : `linear-gradient(148deg, rgba(255,255,255,${0.30 + buttonBrightness * 0.14}) 0%, rgba(251,191,36,${0.22 + buttonBrightness * 0.16}) 45%, rgba(139, 92, 246,${0.16 + buttonBrightness * 0.12}) 100%)`,
           border: isOpen
-            ? '1px solid rgba(232,69,18,0.18)'
+            ? '1px solid rgba(139, 92, 246,0.18)'
             : `1px solid rgba(255,255,255,${0.40 + buttonBrightness * 0.18})`,
           boxShadow: isOpen
             ? '0 32px 72px rgba(0,0,0,0.75), 0 8px 28px rgba(0,0,0,0.45), inset 0 1.5px 0 rgba(255,255,255,0.12)'
-            : `0 8px ${36 + buttonBrightness * 28}px rgba(232,69,18,${0.45 + buttonBrightness * 0.35}), inset 0 1.5px 0 rgba(255,255,255,${0.65 + buttonBrightness * 0.18})`,
+            : `0 8px ${36 + buttonBrightness * 28}px rgba(139, 92, 246,${0.45 + buttonBrightness * 0.35}), inset 0 1.5px 0 rgba(255,255,255,${0.65 + buttonBrightness * 0.18})`,
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
           cursor: isOpen ? 'default' : 'pointer',
@@ -250,15 +250,15 @@ export function ChatBot({ forceOpen, onForceOpenConsumed, language = 'en' }: Cha
             >
               {/* Accent line */}
               <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl pointer-events-none"
-                style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(232,69,18,0.7) 30%, rgba(251,191,36,0.9) 50%, rgba(232,69,18,0.7) 70%, transparent 100%)' }} />
+                style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246,0.7) 30%, rgba(251,191,36,0.9) 50%, rgba(139, 92, 246,0.7) 70%, transparent 100%)' }} />
 
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 shrink-0"
                 style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)' }}>
                 <div className="flex items-center gap-2.5">
                   <div className="relative flex items-center justify-center w-5 h-5">
-                    <div className="w-2 h-2 rounded-full bg-amber-400 relative z-10" />
-                    <div className="absolute w-4 h-4 rounded-full bg-amber-400/20 animate-ping" />
+                    <div className="w-2 h-2 rounded-full bg-violet-400 relative z-10" />
+                    <div className="absolute w-4 h-4 rounded-full bg-violet-400/20 animate-ping" />
                   </div>
                   <span className="text-xs font-semibold text-white/90 tracking-wide">Jayden's AI</span>
                 </div>
@@ -275,13 +275,13 @@ export function ChatBot({ forceOpen, onForceOpenConsumed, language = 'en' }: Cha
                     <div
                       className="max-w-[85%] rounded-xl px-3 py-2.5 text-xs leading-relaxed"
                       style={msg.role === 'user' ? {
-                        background: 'linear-gradient(135deg, rgba(232,69,18,0.22) 0%, rgba(217,119,6,0.18) 100%)',
-                        border: '1px solid rgba(232,69,18,0.30)',
+                        background: 'linear-gradient(135deg, rgba(139, 92, 246,0.22) 0%, rgba(217,119,6,0.18) 100%)',
+                        border: '1px solid rgba(139, 92, 246,0.30)',
                         color: 'rgba(255,255,255,0.93)',
                       } : {
                         background: 'rgba(255,255,255,0.06)',
                         border: '1px solid rgba(255,255,255,0.08)',
-                        borderLeft: '2px solid rgba(232,69,18,0.45)',
+                        borderLeft: '2px solid rgba(139, 92, 246,0.45)',
                         color: 'rgba(255,255,255,0.95)',
                         textShadow: '0 1px 8px rgba(0,0,0,0.55)',
                       }}
@@ -302,7 +302,7 @@ export function ChatBot({ forceOpen, onForceOpenConsumed, language = 'en' }: Cha
                 {isLoading && (
                   <div className="flex justify-start">
                     <div className="max-w-[85%] rounded-xl px-3 py-2.5"
-                      style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', borderLeft: '2px solid rgba(232,69,18,0.45)' }}>
+                      style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', borderLeft: '2px solid rgba(139, 92, 246,0.45)' }}>
                       <ThinkingProcess />
                     </div>
                   </div>
@@ -332,8 +332,8 @@ export function ChatBot({ forceOpen, onForceOpenConsumed, language = 'en' }: Cha
                     disabled={!input.trim() || isLoading || userMsgCount >= 20}
                     className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mb-0.5 transition-all disabled:opacity-25"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(232,69,18,0.85) 0%, rgba(217,119,6,0.95) 100%)',
-                      boxShadow: '0 2px 12px rgba(232,69,18,0.40)',
+                      background: 'linear-gradient(135deg, rgba(139, 92, 246,0.85) 0%, rgba(217,119,6,0.95) 100%)',
+                      boxShadow: '0 2px 12px rgba(139, 92, 246,0.40)',
                     }}
                   >
                     <Send className="w-3 h-3 text-white" />

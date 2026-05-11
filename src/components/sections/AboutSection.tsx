@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
+﻿import React, { useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import translations, { type Language } from '../../i18n/translations'
 import { BackgroundPaths } from '../ui/background-paths'
 import { GlowCard } from '../ui/spotlight-card'
 
-const ORANGE = '#eb5e28'
+const VIOLET = '#8B5CF6'
 
-// Dark orb that follows the mouse — creates depth on orange background
+// Dark orb that follows the mouse — creates depth on violet background
 function DarkMouseOrb() {
   const rawX = useMotionValue(0.5)
   const rawY = useMotionValue(0.5)
@@ -31,7 +31,7 @@ function DarkMouseOrb() {
     >
       <div style={{
         width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(235,94,40,0.18) 0%, rgba(235,94,40,0.06) 45%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(139,92,246,0.18) 0%, rgba(139,92,246,0.06) 45%, transparent 70%)',
         filter: 'blur(70px)',
       }} />
     </motion.div>
@@ -86,7 +86,7 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
           style={{
             fontSize: 'clamp(8rem, 22vw, 28rem)',
             color: 'transparent',
-            WebkitTextStroke: `2.5px rgba(235,94,40,0.22)`,
+            WebkitTextStroke: `2.5px rgba(139,92,246,0.22)`,
             lineHeight: 0.85,
             letterSpacing: '0.04em',
             whiteSpace: 'nowrap',
@@ -179,12 +179,12 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
 
           {/* Text column */}
           <GlowCard
-            glowColor="orange"
+            glowColor="violet"
             customSize
             className="w-full"
             style={{
               background: 'rgba(58,44,30,0.90)',
-              border: '1.5px solid rgba(235,94,40,0.45)',
+              border: '1.5px solid rgba(139,92,246,0.45)',
               backdropFilter: 'blur(8px)',
               padding: '24px 20px',
               boxShadow: '0 8px 40px rgba(0,0,0,0.40)',
@@ -209,7 +209,7 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
               transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 width: 48, height: 2,
-                background: `rgba(235,94,40,0.85)`,
+                background: `rgba(139,92,246,0.85)`,
                 borderRadius: 2,
                 transformOrigin: 'left center',
                 marginBottom: 20,
@@ -242,7 +242,7 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
                 fontStyle: 'italic',
                 fontSize: 'clamp(2.2rem, 5vw, 4.2rem)',
                 color: 'transparent',
-                WebkitTextStroke: '1.5px rgba(235,94,40,0.55)',
+                WebkitTextStroke: '1.5px rgba(139,92,246,0.55)',
                 lineHeight: 1.05,
                 letterSpacing: '-0.03em',
                 marginBottom: '24px',
@@ -275,20 +275,20 @@ export function AboutSection({ isActive, language }: AboutSectionProps) {
                   transition={{ duration: 0.4, delay: 0.56 + i * 0.07 }}
                   className="px-3 py-1.5 rounded-full text-xs cursor-default"
                   style={{
-                    background: 'rgba(235,94,40,0.10)',
-                    border: '1px solid rgba(235,94,40,0.30)',
+                    background: 'rgba(139,92,246,0.10)',
+                    border: '1px solid rgba(139,92,246,0.30)',
                     color: 'rgba(255,255,255,0.80)',
                     letterSpacing: '0.05em',
                     transition: 'border-color 0.2s, background 0.2s, color 0.2s',
                   }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(235,94,40,0.65)'
-                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(235,94,40,0.22)'
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(139,92,246,0.65)'
+                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(139,92,246,0.22)'
                     ;(e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.95)'
                   }}
                   onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(235,94,40,0.30)'
-                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(235,94,40,0.10)'
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(139,92,246,0.30)'
+                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(139,92,246,0.10)'
                     ;(e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.80)'
                   }}
                 >

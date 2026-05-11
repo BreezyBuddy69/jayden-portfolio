@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import { Bot, Clock, TrendingUp, Zap, ArrowRight } from 'lucide-react'
 import { GrainGradient } from '@paper-design/shaders-react'
 import { NeonButton } from '../ui/neon-button'
 
-const ORANGE = '#eb5e28'
+const VIOLET = '#8B5CF6'
 
 const BENEFITS = [
   { icon: Clock,       label: 'Zeit sparen',       sub: 'Stunden täglich' },
@@ -67,7 +67,7 @@ export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
           </div>
           <span
             className="text-[10px] tracking-[0.32em] uppercase"
-            style={{ color: `${ORANGE}99` }}
+            style={{ color: `${VIOLET}99` }}
           >
             Live-Beispiel — unser KI-Agent
           </span>
@@ -166,7 +166,7 @@ export function ChatSection({ isActive, onOpenChat }: ChatSectionProps) {
             >
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center"
-                style={{ background: `${ORANGE}18`, border: `1px solid ${ORANGE}30` }}
+                style={{ background: `${VIOLET}18`, border: `1px solid ${VIOLET}30` }}
               >
                 <Icon className="w-4 h-4" style={{ color: ORANGE }} />
               </div>

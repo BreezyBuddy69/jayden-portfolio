@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react'
+﻿import { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, Send, ChevronDown } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
@@ -6,7 +6,7 @@ import { useChatContext } from '../../contexts/ChatContext'
 import { TypingMessage } from '../chat/TypingMessage'
 import { ThinkingProcess } from '../chat/ThinkingProcess'
 
-const ORANGE = '#eb5e28'
+const VIOLET = '#8B5CF6'
 const DARK = '#0f0d0c'
 
 const HALO_URL = 'https://halovisionai.cloud'
@@ -195,7 +195,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                 animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ duration: 0.5 }}
                 className="block text-[10px] tracking-[0.34em] uppercase"
-                style={{ color: `${ORANGE}CC` }}
+                style={{ color: `${VIOLET}CC` }}
               >
                 {t.eyebrow}
               </motion.span>
@@ -208,7 +208,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                 style={{
                   width: 48, height: 2, background: ORANGE, borderRadius: 2,
                   transformOrigin: 'left center',
-                  boxShadow: `0 0 14px ${ORANGE}88`,
+                  boxShadow: `0 0 14px ${VIOLET}88`,
                   marginTop: -8,
                 }}
               />
@@ -294,9 +294,9 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                     className="flex-1 rounded-xl px-4 py-3.5"
                     style={{
                       background: 'rgba(60,44,28,0.92)',
-                      border: `1.5px solid ${ORANGE}65`,
+                      border: `1.5px solid ${VIOLET}65`,
                       minWidth: '150px',
-                      boxShadow: `0 4px 22px rgba(0,0,0,0.50), 0 0 10px ${ORANGE}18`,
+                      boxShadow: `0 4px 22px rgba(0,0,0,0.50), 0 0 10px ${VIOLET}18`,
                     }}
                   >
                     <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 'clamp(12px, 1.05vw, 14px)', fontWeight: 700, marginBottom: 4 }}>{s.title}</p>
@@ -318,7 +318,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
                     transition={{ duration: 0.4, delay: 0.48 + i * 0.07 }}
                     className="rounded-xl overflow-hidden"
-                    style={{ background: 'rgba(60,44,28,0.92)', border: `1.5px solid ${ORANGE}65`, boxShadow: `0 4px 22px rgba(0,0,0,0.50)` }}
+                    style={{ background: 'rgba(60,44,28,0.92)', border: `1.5px solid ${VIOLET}65`, boxShadow: `0 4px 22px rgba(0,0,0,0.50)` }}
                   >
                     <button
                       className="w-full flex items-center justify-between px-4 py-3"
@@ -345,7 +345,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                 ))}
               </div>
 
-              {/* Halo link — glass-on-dark with orange glow */}
+              {/* Halo link — glass-on-dark with violet glow */}
               <motion.a
                 href={HALO_URL}
                 target="_blank"
@@ -358,7 +358,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
               >
                 <div style={{
                   position: 'absolute', inset: '-2px', borderRadius: '14px',
-                  background: `radial-gradient(ellipse, ${ORANGE}55 0%, ${ORANGE}22 100%)`,
+                  background: `radial-gradient(ellipse, ${VIOLET}55 0%, ${VIOLET}22 100%)`,
                   filter: 'blur(8px)', opacity: 0.6, zIndex: 0,
                 }} />
                 <div
@@ -374,9 +374,9 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                     zIndex: 1,
                   }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = `${ORANGE}55`
+                    (e.currentTarget as HTMLElement).style.borderColor = `${VIOLET}55`
                     ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)'
-                    ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 24px ${ORANGE}22, inset 0 1px 0 rgba(255,255,255,0.10)`
+                    ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 24px ${VIOLET}22, inset 0 1px 0 rgba(255,255,255,0.10)`
                   }}
                   onMouseLeave={e => {
                     (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.10)'
@@ -386,7 +386,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                 >
                   <div style={{
                     width: 20, height: 20, borderRadius: 6,
-                    background: `${ORANGE}22`, border: `1px solid ${ORANGE}55`,
+                    background: `${VIOLET}22`, border: `1px solid ${VIOLET}55`,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
                     <span style={{ fontSize: 7, fontWeight: 800, color: ORANGE, letterSpacing: '0.02em' }}>HAL</span>
@@ -449,7 +449,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                 onClick={() => { setChatFull(true); setTimeout(() => handleSend(), 80) }}
                 disabled={!input.trim() || isLoading}
                 className="shrink-0 flex items-center justify-center rounded-full transition-opacity disabled:opacity-30"
-                style={{ width: 34, height: 34, background: `${ORANGE}1E`, border: `1px solid ${ORANGE}44` }}
+                style={{ width: 34, height: 34, background: `${VIOLET}1E`, border: `1px solid ${VIOLET}44` }}
               >
                 <Send className="w-3.5 h-3.5" style={{ color: ORANGE }} />
               </button>
@@ -461,7 +461,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
         )}
       </AnimatePresence>
 
-      {/* ── Fullscreen chat — orange burst on dark section ── */}
+      {/* ── Fullscreen chat — violet burst on dark section ── */}
       <AnimatePresence>
         {chatFull && (
           <motion.div
@@ -558,7 +558,7 @@ export function AutomationsSection({ isActive, language }: AutomationsSectionPro
                   />
                   <button onClick={handleSend} disabled={!input.trim() || isLoading}
                     className="shrink-0 flex items-center justify-center rounded-full transition-opacity disabled:opacity-30"
-                    style={{ width: 36, height: 36, background: 'rgba(235,94,40,0.18)', border: '1px solid rgba(235,94,40,0.55)', backdropFilter: 'blur(8px)' }}>
+                    style={{ width: 36, height: 36, background: 'rgba(139,92,246,0.18)', border: '1px solid rgba(139,92,246,0.55)', backdropFilter: 'blur(8px)' }}>
                     <Send className="w-4 h-4 text-white" />
                   </button>
                 </div>

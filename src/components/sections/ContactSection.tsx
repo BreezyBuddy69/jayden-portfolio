@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+﻿import { useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Mail, ArrowUpRight } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
 import { BackgroundPaths } from '../ui/background-paths'
 
-const ORANGE = '#eb5e28'
+const VIOLET = '#8B5CF6'
 const BG = '#0a0807'
 const EMAIL = 'mikus.jayden@outlook.com'
 
@@ -33,7 +33,7 @@ function DarkMouseOrb() {
     >
       <div style={{
         width: 480, height: 480, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(235,94,40,0.18) 0%, rgba(235,94,40,0.06) 45%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(139,92,246,0.18) 0%, rgba(139,92,246,0.06) 45%, transparent 70%)',
         filter: 'blur(65px)',
       }} />
     </motion.div>
@@ -142,7 +142,7 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
             style={{
               fontSize: 'clamp(6rem, 18vw, 22rem)',
               color: 'transparent',
-              WebkitTextStroke: '2px rgba(235,94,40,0.22)',
+              WebkitTextStroke: '2px rgba(139,92,246,0.22)',
               lineHeight: 0.82,
               letterSpacing: '0.12em',
               transform: 'translateY(20%)',
@@ -160,7 +160,7 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
         className="absolute top-0 left-0 right-0 pointer-events-none"
         style={{
           height: '1px',
-          background: 'linear-gradient(to right, transparent 0%, rgba(235,94,40,0.25) 30%, rgba(235,94,40,0.45) 50%, rgba(235,94,40,0.25) 70%, transparent 100%)',
+          background: 'linear-gradient(to right, transparent 0%, rgba(139,92,246,0.25) 30%, rgba(139,92,246,0.45) 50%, rgba(139,92,246,0.25) 70%, transparent 100%)',
           transformOrigin: 'center',
           zIndex: 4,
         }}
@@ -233,7 +233,7 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
             className="group flex items-center gap-3 px-6 py-4 rounded-xl"
             style={{
               background: 'rgba(62,46,30,0.92)',
-              border: '1.5px solid rgba(235,94,40,0.65)',
+              border: '1.5px solid rgba(139,92,246,0.65)',
               backdropFilter: 'blur(20px)',
               textDecoration: 'none',
               boxShadow: '0 6px 28px rgba(0,0,0,0.45)',
@@ -241,21 +241,21 @@ export function ContactSection({ isActive, language }: ContactSectionProps) {
             }}
             onMouseEnter={e => {
               const el = e.currentTarget as HTMLElement
-              el.style.borderColor = 'rgba(235,94,40,0.80)'
+              el.style.borderColor = 'rgba(139,92,246,0.80)'
               el.style.background = 'rgba(55,38,24,0.92)'
-              el.style.boxShadow = '0 0 36px rgba(235,94,40,0.22)'
+              el.style.boxShadow = '0 0 36px rgba(139,92,246,0.22)'
               el.style.transform = 'translateY(-2px)'
             }}
             onMouseLeave={e => {
               const el = e.currentTarget as HTMLElement
-              el.style.borderColor = 'rgba(235,94,40,0.50)'
+              el.style.borderColor = 'rgba(139,92,246,0.50)'
               el.style.background = 'rgba(38,28,20,0.85)'
               el.style.boxShadow = '0 6px 28px rgba(0,0,0,0.45)'
               el.style.transform = 'translateY(0)'
             }}
           >
             <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-              style={{ background: 'rgba(235,94,40,0.15)', border: '1px solid rgba(235,94,40,0.35)' }}>
+              style={{ background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.35)' }}>
               <Mail className="w-3.5 h-3.5" style={{ color: 'rgba(255,255,255,0.75)' }} />
             </div>
             <div className="text-left">

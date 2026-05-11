@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import translations, { type Language } from '../../i18n/translations'
 
 // 0:Hero | 1:Skills | 2:Automations | 3:Editing | 4:Arsenal | 5:Testimonials | 6:About | 7:Contact
@@ -58,8 +58,8 @@ export function SideNav({ currentSection, onNavigate, language }: SideNavProps) 
                 layoutId="sidenav-active"
                 className="absolute inset-0 rounded-full"
                 style={{
-                  background: 'rgba(232,69,18,0.08)',
-                  border: '1px solid rgba(232,69,18,0.30)',
+                  background: 'rgba(139, 92, 246,0.08)',
+                  border: '1px solid rgba(139, 92, 246,0.30)',
                 }}
                 transition={{ type: 'spring', damping: 22, stiffness: 260, mass: 0.8 }}
               />
@@ -69,7 +69,7 @@ export function SideNav({ currentSection, onNavigate, language }: SideNavProps) 
             {sub ? (
               <span
                 className="shrink-0 relative z-10 mr-2 text-[8px]"
-                style={{ color: isActive ? 'rgba(232,69,18,0.7)' : 'rgba(255,255,255,0.20)' }}
+                style={{ color: isActive ? 'rgba(139, 92, 246,0.7)' : 'rgba(255,255,255,0.20)' }}
               >
                 —
               </span>
@@ -77,7 +77,7 @@ export function SideNav({ currentSection, onNavigate, language }: SideNavProps) 
               <motion.span
                 layoutId="sidenav-dot"
                 className="w-1.5 h-1.5 rounded-full shrink-0 relative z-10 mr-2"
-                style={{ background: 'rgba(232,69,18,0.9)' }}
+                style={{ background: 'rgba(139, 92, 246,0.9)' }}
                 transition={{ type: 'spring', damping: 22, stiffness: 260, mass: 0.8 }}
               />
             ) : (

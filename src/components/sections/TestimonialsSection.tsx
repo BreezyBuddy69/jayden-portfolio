@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+﻿import React, { useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
 import { BackgroundPaths } from '../ui/background-paths'
 import { GlowCard } from '../ui/spotlight-card'
 
-const ORANGE = '#eb5e28'
+const VIOLET = '#8B5CF6'
 const DARK = '#0f0d0c'
 const YOUTUBE_URL = 'https://www.youtube.com/@subspeedy'
 const HALO_URL = 'https://halovisionai.cloud'
@@ -42,7 +42,7 @@ function MouseOrb() {
     >
       <div style={{
         width: 480, height: 480, borderRadius: '50%',
-        background: `radial-gradient(circle, ${ORANGE}60 0%, ${ORANGE}22 45%, transparent 70%)`,
+        background: `radial-gradient(circle, ${VIOLET}60 0%, ${VIOLET}22 45%, transparent 70%)`,
         filter: 'blur(65px)',
       }} />
     </motion.div>
@@ -141,25 +141,25 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
 
       {/* ── Ambient glows + grain ── */}
       <div className="absolute inset-0 z-[1] pointer-events-none">
-        {/* Bottom strong orange pool */}
+        {/* Bottom strong violet pool */}
         <div style={{
           position: 'absolute', bottom: '-5%', left: '50%', transform: 'translateX(-50%)',
           width: 950, height: 360, borderRadius: '50%',
-          background: `radial-gradient(ellipse, ${ORANGE}42 0%, ${ORANGE}16 45%, transparent 70%)`,
+          background: `radial-gradient(ellipse, ${VIOLET}42 0%, ${VIOLET}16 45%, transparent 70%)`,
           filter: 'blur(65px)',
         }} />
         {/* Top-right orange accent */}
         <div style={{
           position: 'absolute', top: '-8%', right: '-5%',
           width: 450, height: 450, borderRadius: '50%',
-          background: `radial-gradient(circle, ${ORANGE}20 0%, transparent 70%)`,
+          background: `radial-gradient(circle, ${VIOLET}20 0%, transparent 70%)`,
           filter: 'blur(50px)',
         }} />
         {/* Left-mid accent */}
         <div style={{
           position: 'absolute', top: '35%', left: '-6%',
           width: 280, height: 280, borderRadius: '50%',
-          background: `radial-gradient(circle, ${ORANGE}16 0%, transparent 70%)`,
+          background: `radial-gradient(circle, ${VIOLET}16 0%, transparent 70%)`,
           filter: 'blur(55px)',
         }} />
         <div aria-hidden className="absolute inset-0 grain opacity-[0.055]" />
@@ -176,7 +176,7 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
           style={{
             fontSize: 'clamp(5.5rem, 14vw, 19rem)',
             color: 'transparent',
-            WebkitTextStroke: `2px ${ORANGE}22`,
+            WebkitTextStroke: `2px ${VIOLET}22`,
             lineHeight: 0.90,
             whiteSpace: 'nowrap',
             letterSpacing: '0.12em',
@@ -199,7 +199,7 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
           animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -12 }}
           transition={{ duration: 0.5 }}
           className="block text-[10px] tracking-[0.34em] uppercase mb-3"
-          style={{ color: `${ORANGE}CC` }}
+          style={{ color: `${VIOLET}CC` }}
         >
           {t.eyebrow}
         </motion.span>
@@ -212,7 +212,7 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
           style={{
             width: 48, height: 2, background: ORANGE, borderRadius: 2,
             transformOrigin: 'left center',
-            boxShadow: `0 0 14px ${ORANGE}88`,
+            boxShadow: `0 0 14px ${VIOLET}88`,
             marginBottom: 16,
           }}
         />
@@ -271,12 +271,12 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
             className="flex-1"
           >
             <GlowCard
-              glowColor="orange"
+              glowColor="violet"
               customSize
               className="w-full group cursor-pointer"
               style={{
                 background: 'rgba(62,46,30,0.92)',
-                border: `1.5px solid ${ORANGE}65`,
+                border: `1.5px solid ${VIOLET}65`,
                 backdropFilter: 'blur(16px)',
                 boxShadow: '0 6px 28px rgba(0,0,0,0.40)',
               }}
@@ -312,12 +312,12 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
             className="flex-1"
           >
             <GlowCard
-              glowColor="orange"
+              glowColor="violet"
               customSize
               className="w-full group cursor-pointer"
               style={{
                 background: 'rgba(62,46,30,0.92)',
-                border: `1.5px solid ${ORANGE}65`,
+                border: `1.5px solid ${VIOLET}65`,
                 backdropFilter: 'blur(16px)',
                 boxShadow: '0 6px 28px rgba(0,0,0,0.40)',
               }}
@@ -330,7 +330,7 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
                 style={{ textDecoration: 'none' }}
               >
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: `${ORANGE}18`, border: `1px solid ${ORANGE}44` }}>
+                  style={{ background: `${VIOLET}18`, border: `1px solid ${VIOLET}44` }}>
                   <span className="text-[10px] font-bold tracking-tight" style={{ color: ORANGE }}>HAL</span>
                 </div>
                 <div className="flex-1 min-w-0">
@@ -379,15 +379,15 @@ export function TestimonialsSection({ isActive, language }: TestimonialsSectionP
             return (
               <GlowCard
                 key={i}
-                glowColor="orange"
+                glowColor="violet"
                 customSize
                 className="flex-shrink-0 group cursor-pointer"
                 style={{
                   width: '220px',
                   background: 'rgba(38,28,20,0.85)',
-                  border: `1.5px solid ${ORANGE}65`,
+                  border: `1.5px solid ${VIOLET}65`,
                   backdropFilter: 'blur(16px)',
-                  boxShadow: `0 6px 24px rgba(0,0,0,0.45), 0 0 12px ${ORANGE}18`,
+                  boxShadow: `0 6px 24px rgba(0,0,0,0.45), 0 0 12px ${VIOLET}18`,
                 }}
               >
                 <a

@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Code2, Server, Bot, TrendingUp, Target, Lightbulb } from 'lucide-react'
 import { type Language } from '../../i18n/translations'
 import { GlowCard } from '../ui/spotlight-card'
 
-const ORANGE = '#eb5e28'
+const VIOLET = '#8B5CF6'
 const DARK = '#0f0d0c'
 
 const CARDS = [
@@ -13,7 +13,7 @@ const CARDS = [
     title: 'Built This Website',
     sub: 'React · TypeScript · Vite',
     desc: 'Every pixel of this portfolio — designed and coded by me. React, TypeScript, Framer Motion, Tailwind. Including the AI chatbot, animations, and all the details.',
-    accent: 'rgba(232,69,18,0.85)',
+    accent: 'rgba(139, 92, 246,0.85)',
   },
   {
     icon: Server,
@@ -27,14 +27,14 @@ const CARDS = [
     title: 'AI & Automation Stack',
     sub: 'LangChain · Anthropic API · n8n',
     desc: 'Custom AI agents using Claude, memory systems, tool use, and complex n8n workflows. I live in this stack.',
-    accent: 'rgba(200,50,10,0.85)',
+    accent: 'rgba(109,40,217,0.85)',
   },
   {
     icon: Target,
     title: 'Goal-Driven Mindset',
     sub: 'Ambitious · Focused · Consistent',
     desc: "I don't have hobbies — I have targets. Marathon training, daily gym, sleep optimization. Everything is a system. Everything is measured.",
-    accent: 'rgba(232,69,18,0.85)',
+    accent: 'rgba(139, 92, 246,0.85)',
   },
   {
     icon: TrendingUp,
@@ -48,7 +48,7 @@ const CARDS = [
     title: 'Built Different',
     sub: 'Self-Taught · Contrarian · 17',
     desc: "Most 17-year-olds are figuring out what they want to do. I already know. I want to build things that matter and be different — on purpose.",
-    accent: 'rgba(200,50,10,0.85)',
+    accent: 'rgba(109,40,217,0.85)',
   },
 ]
 
@@ -85,7 +85,7 @@ function MouseOrb() {
     >
       <div style={{
         width: 480, height: 480, borderRadius: '50%',
-        background: `radial-gradient(circle, ${ORANGE}60 0%, ${ORANGE}20 45%, transparent 70%)`,
+        background: `radial-gradient(circle, ${VIOLET}60 0%, ${VIOLET}20 45%, transparent 70%)`,
         filter: 'blur(65px)',
       }} />
     </motion.div>
@@ -118,25 +118,25 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
 
       {/* ── Ambient glows + grain ── */}
       <div className="absolute inset-0 z-[1] pointer-events-none">
-        {/* Bottom strong orange pool */}
+        {/* Bottom strong violet pool */}
         <div style={{
           position: 'absolute', bottom: '-5%', left: '50%', transform: 'translateX(-50%)',
           width: 850, height: 340, borderRadius: '50%',
-          background: `radial-gradient(ellipse, ${ORANGE}40 0%, ${ORANGE}14 45%, transparent 70%)`,
+          background: `radial-gradient(ellipse, ${VIOLET}40 0%, ${VIOLET}14 45%, transparent 70%)`,
           filter: 'blur(65px)',
         }} />
         {/* Top-left accent */}
         <div style={{
           position: 'absolute', top: '-8%', left: '-5%',
           width: 420, height: 420, borderRadius: '50%',
-          background: `radial-gradient(circle, ${ORANGE}20 0%, transparent 70%)`,
+          background: `radial-gradient(circle, ${VIOLET}20 0%, transparent 70%)`,
           filter: 'blur(50px)',
         }} />
         {/* Right-center mid-section warm */}
         <div style={{
           position: 'absolute', top: '40%', right: '-5%',
           width: 300, height: 300, borderRadius: '50%',
-          background: `radial-gradient(circle, ${ORANGE}16 0%, transparent 70%)`,
+          background: `radial-gradient(circle, ${VIOLET}16 0%, transparent 70%)`,
           filter: 'blur(55px)',
         }} />
         <div aria-hidden className="absolute inset-0 grain opacity-[0.05]" />
@@ -149,7 +149,7 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
           style={{
             fontSize: 'min(24vw, 22vh)',
             color: 'transparent',
-            WebkitTextStroke: `2px ${ORANGE}20`,
+            WebkitTextStroke: `2px ${VIOLET}20`,
             whiteSpace: 'nowrap',
             letterSpacing: '0.12em',
             lineHeight: 1,
@@ -171,7 +171,7 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
           animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -12 }}
           transition={{ duration: 0.5 }}
           className="block text-[10px] tracking-[0.34em] uppercase mb-3"
-          style={{ color: `${ORANGE}AA` }}
+          style={{ color: `${VIOLET}AA` }}
         >
           {language === 'de' ? 'Weitere Skills' : language === 'fr' ? 'Autres compétences' : 'More Skills'}
         </motion.span>
@@ -184,7 +184,7 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
           style={{
             width: 48, height: 2, background: ORANGE, borderRadius: 2,
             transformOrigin: 'left center',
-            boxShadow: `0 0 14px ${ORANGE}88`,
+            boxShadow: `0 0 14px ${VIOLET}88`,
             marginBottom: 20,
           }}
         />
@@ -243,24 +243,24 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
                 onMouseLeave={() => setHovered(null)}
               >
                 <GlowCard
-                  glowColor="orange"
+                  glowColor="violet"
                   customSize
                   className="w-full flex flex-col gap-3 cursor-default"
                   style={{
                     background: isHov ? 'rgba(68,52,36,0.95)' : 'rgba(55,42,28,0.88)',
-                    border: isHov ? `1.5px solid ${ORANGE}90` : '1.5px solid rgba(255,255,255,0.28)',
+                    border: isHov ? `1.5px solid ${VIOLET}90` : '1.5px solid rgba(255,255,255,0.28)',
                     backdropFilter: 'blur(12px)',
                     padding: '20px',
                     transition: 'background 0.3s, border-color 0.3s',
                     boxShadow: isHov
-                      ? `0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px ${ORANGE}22`
+                      ? `0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px ${VIOLET}22`
                       : '0 4px 24px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.06) inset',
                   }}
                 >
                   {/* Icon */}
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
                     style={{
-                      background: isHov ? `${ORANGE}28` : `${ORANGE}0E`,
+                      background: isHov ? `${VIOLET}28` : `${VIOLET}0E`,
                       border: `1px solid ${isHov ? ORANGE + '55' : ORANGE + '28'}`,
                       transition: 'background 0.3s, border-color 0.3s',
                     }}>
@@ -271,7 +271,7 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
                   <div>
                     <p className="font-semibold text-sm mb-0.5" style={{ color: 'rgba(255,255,255,0.95)' }}>{title}</p>
                     <p className="text-[10px] tracking-[0.14em] uppercase mb-2"
-                      style={{ color: isHov ? `${ORANGE}CC` : 'rgba(255,255,255,0.76)', transition: 'color 0.3s' }}>
+                      style={{ color: isHov ? `${VIOLET}CC` : 'rgba(255,255,255,0.76)', transition: 'color 0.3s' }}>
                       {sub}
                     </p>
                     <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.88)' }}>{desc}</p>
@@ -280,13 +280,13 @@ export function ArsenalSection({ isActive, language }: ArsenalSectionProps) {
                   {/* Bottom accent line on hover */}
                   {isHov && (
                     <div className="absolute bottom-0 left-0 right-0 h-px pointer-events-none"
-                      style={{ background: `linear-gradient(90deg, transparent, ${ORANGE}55, transparent)` }} />
+                      style={{ background: `linear-gradient(90deg, transparent, ${VIOLET}55, transparent)` }} />
                   )}
 
                   {/* Corner glow on hover */}
                   {isHov && (
                     <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none" style={{
-                      background: `radial-gradient(circle at top right, ${ORANGE}12 0%, transparent 70%)`,
+                      background: `radial-gradient(circle at top right, ${VIOLET}12 0%, transparent 70%)`,
                       borderRadius: '0 12px 0 0',
                     }} />
                   )}

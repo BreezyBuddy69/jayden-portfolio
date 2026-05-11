@@ -1,8 +1,8 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import translations, { type Language } from '../../i18n/translations'
 
-const ORANGE = '#eb5e28'
+const VIOLET = '#8B5CF6'
 
 interface SkillsSectionProps {
   isActive: boolean
@@ -76,14 +76,14 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
           {!leftOrange && (
             <div aria-hidden className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]" style={{
               height: '50%',
-              background: `radial-gradient(ellipse 80% 60% at 50% 100%, ${ORANGE}22 0%, transparent 70%)`,
+              background: `radial-gradient(ellipse 80% 60% at 50% 100%, ${VIOLET}22 0%, transparent 70%)`,
               filter: 'blur(20px)',
             }} />
           )}
           {/* Orange grid lines on dark state */}
           {!leftOrange && (
             <div aria-hidden className="absolute inset-0 pointer-events-none z-[1]" style={{
-              backgroundImage: `linear-gradient(${ORANGE}0C 1px, transparent 1px), linear-gradient(90deg, ${ORANGE}0C 1px, transparent 1px)`,
+              backgroundImage: `linear-gradient(${VIOLET}0C 1px, transparent 1px), linear-gradient(90deg, ${VIOLET}0C 1px, transparent 1px)`,
               backgroundSize: '48px 24px',
             }} />
           )}
@@ -93,7 +93,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
               fontFamily: '"Playfair Display", Georgia, serif',
               fontSize: 'clamp(22rem, 55vw, 70rem)',
               color: 'transparent',
-              WebkitTextStroke: leftOrange ? '2px rgba(0,0,0,0.22)' : `2px ${ORANGE}30`,
+              WebkitTextStroke: leftOrange ? '2px rgba(0,0,0,0.22)' : `2px ${VIOLET}30`,
               whiteSpace: 'nowrap',
               lineHeight: 0.85,
               transition: '-webkit-text-stroke 0.55s cubic-bezier(0.16,1,0.3,1)',
@@ -111,7 +111,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
             </p>
             <h3 className="art-text" style={{
               fontSize: 'clamp(3rem, 6vw, 6.5rem)',
-              color: leftOrange ? '#252422' : '#ffffff',
+              color: leftOrange ? '#0D0B1A' : '#ffffff',
               marginBottom: '20px',
               lineHeight: 0.9,
               transition: 'color 0.55s cubic-bezier(0.16,1,0.3,1)',
@@ -127,7 +127,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
             </p>
             <div className="mt-10 w-11 h-11 rounded-full flex items-center justify-center" style={{
               border: leftOrange ? '1px solid rgba(0,0,0,0.30)' : '1px solid rgba(255,255,255,0.55)',
-              color: leftOrange ? '#252422' : '#ffffff',
+              color: leftOrange ? '#0D0B1A' : '#ffffff',
               fontSize: '20px',
               transition: 'border-color 0.55s, color 0.55s',
             }}>→</div>
@@ -157,14 +157,14 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
           {!rightOrange && (
             <div aria-hidden className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]" style={{
               height: '50%',
-              background: `radial-gradient(ellipse 80% 60% at 50% 100%, ${ORANGE}22 0%, transparent 70%)`,
+              background: `radial-gradient(ellipse 80% 60% at 50% 100%, ${VIOLET}22 0%, transparent 70%)`,
               filter: 'blur(20px)',
             }} />
           )}
           {/* Orange grid lines on dark state */}
           {!rightOrange && (
             <div aria-hidden className="absolute inset-0 pointer-events-none z-[1]" style={{
-              backgroundImage: `linear-gradient(${ORANGE}0C 1px, transparent 1px), linear-gradient(90deg, ${ORANGE}0C 1px, transparent 1px)`,
+              backgroundImage: `linear-gradient(${VIOLET}0C 1px, transparent 1px), linear-gradient(90deg, ${VIOLET}0C 1px, transparent 1px)`,
               backgroundSize: '48px 24px',
             }} />
           )}
@@ -174,7 +174,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
               fontFamily: '"Playfair Display", Georgia, serif',
               fontSize: 'clamp(22rem, 55vw, 70rem)',
               color: 'transparent',
-              WebkitTextStroke: rightOrange ? '2px rgba(0,0,0,0.22)' : `2px ${ORANGE}30`,
+              WebkitTextStroke: rightOrange ? '2px rgba(0,0,0,0.22)' : `2px ${VIOLET}30`,
               whiteSpace: 'nowrap',
               lineHeight: 0.85,
               transition: '-webkit-text-stroke 0.55s cubic-bezier(0.16,1,0.3,1)',
@@ -192,7 +192,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
             </p>
             <h3 className="art-text" style={{
               fontSize: 'clamp(3rem, 6vw, 6.5rem)',
-              color: rightOrange ? '#252422' : '#ffffff',
+              color: rightOrange ? '#0D0B1A' : '#ffffff',
               marginBottom: '20px',
               lineHeight: 0.9,
               transition: 'color 0.55s cubic-bezier(0.16,1,0.3,1)',
@@ -208,7 +208,7 @@ export function SkillsSection({ isActive, onNavigate, language }: SkillsSectionP
             </p>
             <div className="mt-10 w-11 h-11 rounded-full flex items-center justify-center" style={{
               border: rightOrange ? '1px solid rgba(0,0,0,0.30)' : '1px solid rgba(255,255,255,0.55)',
-              color: rightOrange ? '#252422' : '#ffffff',
+              color: rightOrange ? '#0D0B1A' : '#ffffff',
               fontSize: '20px',
               transition: 'border-color 0.55s, color 0.55s',
             }}>→</div>

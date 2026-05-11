@@ -1,4 +1,4 @@
-@import url('https://fonts.cdnfonts.com/css/anurati');
+﻿@import url('https://fonts.cdnfonts.com/css/anurati');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
@@ -13,7 +13,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #252422;
+  background: #0D0B1A;
   color: #fffcf2;
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -29,12 +29,12 @@ html, body {
 /* ── Chat scrollbar ── */
 .chat-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(232, 69, 18, 0.28) transparent;
+  scrollbar-color: rgba(139, 92, 246, 0.28) transparent;
 }
 .chat-scroll::-webkit-scrollbar { width: 3px; }
 .chat-scroll::-webkit-scrollbar-track { background: transparent; }
 .chat-scroll::-webkit-scrollbar-thumb {
-  background: rgba(232, 69, 18, 0.28);
+  background: rgba(139, 92, 246, 0.28);
   border-radius: 2px;
 }
 
@@ -104,19 +104,19 @@ html, body {
 
 .text-3d-outline-dark {
   text-shadow:
-    1px 1px 0 rgba(232,96,10,0.35),
-    2px 2px 0 rgba(232,96,10,0.32),
-    3px 3px 0 rgba(200,70,5,0.28),
-    4px 4px 0 rgba(180,55,3,0.24),
-    5px 5px 0 rgba(160,45,2,0.20),
-    6px 6px 0 rgba(140,38,1,0.17),
-    8px 8px 0 rgba(120,30,0,0.13),
-    10px 10px 0 rgba(100,22,0,0.10),
-    14px 14px 0 rgba(80,15,0,0.07),
+    1px 1px 0 rgba(139, 92, 246,0.35),
+    2px 2px 0 rgba(139, 92, 246,0.32),
+    3px 3px 0 rgba(109, 40, 217,0.28),
+    4px 4px 0 rgba(109, 40, 217,0.24),
+    5px 5px 0 rgba(91, 33, 182,0.20),
+    6px 6px 0 rgba(76, 29, 149,0.17),
+    8px 8px 0 rgba(67, 20, 137,0.13),
+    10px 10px 0 rgba(55, 14, 120,0.10),
+    14px 14px 0 rgba(46, 10, 104,0.07),
     18px 18px 25px rgba(0,0,0,0.55);
 }
 
-/* ── 3D text on orange background ── */
+/* ── 3D text on violet background ── */
 .text-3d-on-orange {
   text-shadow:
     1px 1px 0 rgba(0,0,0,0.50),

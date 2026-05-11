@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+﻿import { useEffect, useRef, useState } from 'react'
 import { Brain, Zap, Search, Cpu, Sparkles } from 'lucide-react'
 
 const ICONS = [Brain, Zap, Search, Cpu, Sparkles]
@@ -65,7 +65,7 @@ export function ThinkingProcess() {
       <Icon className="w-3 h-3 text-white/85 shrink-0" />
       <span className="inline-flex items-center min-h-[1em]">
         <span className="text-white/85 text-xs italic">{displayed}</span>
-        <span className="inline-block w-0.5 h-3 bg-amber-500/50 animate-pulse ml-[2px]" />
+        <span className="inline-block w-0.5 h-3 bg-violet-500/50 animate-pulse ml-[2px]" />
       </span>
     </div>
   )

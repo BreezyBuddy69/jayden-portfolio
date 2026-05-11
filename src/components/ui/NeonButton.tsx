@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
@@ -52,12 +52,12 @@ export function NeonButton({ children, onClick, className = '', size = 'md', var
       className={`relative rounded-full font-medium text-white tracking-wide overflow-hidden flex items-center gap-2.5 ${sizeClass} ${className}`}
       style={{
         background: hovered
-          ? 'rgba(232,69,18,0.18)'
-          : 'rgba(232,69,18,0.10)',
-        border: `1px solid ${hovered ? 'rgba(232,69,18,0.80)' : 'rgba(232,69,18,0.45)'}`,
+          ? 'rgba(139, 92, 246,0.18)'
+          : 'rgba(139, 92, 246,0.10)',
+        border: `1px solid ${hovered ? 'rgba(139, 92, 246,0.80)' : 'rgba(139, 92, 246,0.45)'}`,
         boxShadow: hovered
-          ? '0 0 32px rgba(232,69,18,0.35), inset 0 1px 0 rgba(255,120,60,0.22)'
-          : '0 0 14px rgba(232,69,18,0.15), inset 0 1px 0 rgba(255,120,60,0.12)',
+          ? '0 0 32px rgba(139, 92, 246,0.35), inset 0 1px 0 rgba(255,120,60,0.22)'
+          : '0 0 14px rgba(139, 92, 246,0.15), inset 0 1px 0 rgba(255,120,60,0.12)',
         transition: 'background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
       }}
     >
@@ -65,7 +65,7 @@ export function NeonButton({ children, onClick, className = '', size = 'md', var
       <span
         className="absolute top-0 left-6 right-6 h-px pointer-events-none"
         style={{
-          background: `linear-gradient(90deg, transparent, rgba(232,69,18,${hovered ? '0.55' : '0.25'}), transparent)`,
+          background: `linear-gradient(90deg, transparent, rgba(139, 92, 246,${hovered ? '0.55' : '0.25'}), transparent)`,
           transition: 'opacity 0.3s ease',
         }}
       />
@@ -77,7 +77,7 @@ export function NeonButton({ children, onClick, className = '', size = 'md', var
         animate={hovered ? { x: '120%', opacity: 1 } : { x: '-100%', opacity: 0 }}
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         style={{
-          background: 'linear-gradient(90deg, transparent 0%, rgba(232,69,18,0.18) 50%, transparent 100%)',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246,0.18) 50%, transparent 100%)',
           skewX: '-12deg',
         }}
       />
@@ -97,7 +97,7 @@ export function NeonButton({ children, onClick, className = '', size = 'md', var
             height: size === 'sm' ? 13 : size === 'lg' ? 17 : 15,
             opacity: hovered ? 0.9 : 0.55,
             transition: 'opacity 0.3s ease',
-            color: 'rgba(232,69,18,1)',
+            color: 'rgba(139, 92, 246,1)',
           }}
         />
       </motion.span>

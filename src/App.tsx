@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+﻿import { useState, useCallback } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { GrainGradient } from '@paper-design/shaders-react'
 
@@ -136,7 +136,7 @@ export default function App() {
 
   return (
     <ChatProvider>
-      <div className="relative w-screen h-screen overflow-hidden" style={{ background: '#252422' }}>
+      <div className="relative w-screen h-screen overflow-hidden" style={{ background: '#0D0B1A' }}>
         {/* Global shader — runs continuously, colors shift per section (2 = orange, 3 = crimson, 4 = amber) */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <GrainGradient

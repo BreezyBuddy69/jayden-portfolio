@@ -1,9 +1,9 @@
-import { useRef, useEffect, useState } from 'react'
+﻿import { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
 import translations, { type Language } from '../../i18n/translations'
 
-const ORANGE = '#eb5e28'
+const VIOLET = '#8B5CF6'
 const DARK = '#0f0d0c'
 const CHANNEL_URL = 'https://www.youtube.com/@subspeedy'
 const STIFFNESS = 480, DAMPING = 30, MASS = 0.35
@@ -32,7 +32,7 @@ function MouseOrb() {
     >
       <div style={{
         width: 520, height: 520, borderRadius: '50%',
-        background: `radial-gradient(circle, ${ORANGE}66 0%, ${ORANGE}22 45%, transparent 70%)`,
+        background: `radial-gradient(circle, ${VIOLET}66 0%, ${VIOLET}22 45%, transparent 70%)`,
         filter: 'blur(70px)',
       }} />
     </motion.div>
@@ -155,25 +155,25 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
 
       {/* ── Ambient glows + grain ── */}
       <div className="absolute inset-0 z-[1] pointer-events-none">
-        {/* Bottom warm orange pool — much stronger */}
+        {/* Bottom warm violet pool — much stronger */}
         <div style={{
           position: 'absolute', bottom: '-5%', left: '50%', transform: 'translateX(-50%)',
           width: 1000, height: 380, borderRadius: '50%',
-          background: `radial-gradient(ellipse, ${ORANGE}44 0%, ${ORANGE}18 45%, transparent 70%)`,
+          background: `radial-gradient(ellipse, ${VIOLET}44 0%, ${VIOLET}18 45%, transparent 70%)`,
           filter: 'blur(65px)',
         }} />
         {/* Top-left accent — stronger */}
         <div style={{
           position: 'absolute', top: '-8%', left: '-5%',
           width: 480, height: 480, borderRadius: '50%',
-          background: `radial-gradient(circle, ${ORANGE}22 0%, transparent 70%)`,
+          background: `radial-gradient(circle, ${VIOLET}22 0%, transparent 70%)`,
           filter: 'blur(50px)',
         }} />
         {/* Right-center warm glow */}
         <div style={{
           position: 'absolute', top: '25%', right: '-5%',
           width: 320, height: 320, borderRadius: '50%',
-          background: `radial-gradient(circle, ${ORANGE}18 0%, transparent 70%)`,
+          background: `radial-gradient(circle, ${VIOLET}18 0%, transparent 70%)`,
           filter: 'blur(55px)',
         }} />
         <div aria-hidden className="absolute inset-0 grain opacity-[0.055]" />
@@ -206,7 +206,7 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
           style={{
             fontSize: 'clamp(5rem, 13.5vw, 18rem)',
             color: 'transparent',
-            WebkitTextStroke: `2px ${ORANGE}22`,
+            WebkitTextStroke: `2px ${VIOLET}22`,
             lineHeight: 0.90,
             whiteSpace: 'nowrap',
             letterSpacing: '0.08em',
@@ -240,7 +240,7 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
                 animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ duration: 0.5 }}
                 className="block text-[10px] tracking-[0.34em] uppercase"
-                style={{ color: `${ORANGE}CC` }}
+                style={{ color: `${VIOLET}CC` }}
               >
                 {t.eyebrow}
               </motion.span>
@@ -253,7 +253,7 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
                 style={{
                   width: 48, height: 2, background: ORANGE, borderRadius: 2,
                   transformOrigin: 'left center',
-                  boxShadow: `0 0 14px ${ORANGE}88`,
+                  boxShadow: `0 0 14px ${VIOLET}88`,
                   marginTop: -8,
                 }}
               />
@@ -334,8 +334,8 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
                     transition={{ duration: 0.4, delay: 0.44 + i * 0.07 }}
                     className="rounded-full px-4 py-2"
                     style={{
-                      background: `rgba(235,94,40,0.14)`,
-                      border: `1.5px solid ${ORANGE}68`,
+                      background: `rgba(139,92,246,0.14)`,
+                      border: `1.5px solid ${VIOLET}68`,
                       boxShadow: `0 2px 10px rgba(0,0,0,0.30)`,
                     }}
                   >
@@ -355,7 +355,7 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
                 className="inline-flex items-center gap-2.5 group w-fit px-5 py-3 rounded-xl font-semibold"
                 style={{
                   background: 'rgba(60,44,28,0.92)',
-                  border: `1.5px solid ${ORANGE}68`,
+                  border: `1.5px solid ${VIOLET}68`,
                   color: 'rgba(255,255,255,0.92)',
                   textDecoration: 'none',
                   fontSize: 'clamp(12px, 1.05vw, 14px)',
@@ -365,12 +365,12 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
                 }}
                 onMouseEnter={e => {
                   (e.currentTarget as HTMLElement).style.background = 'rgba(55,38,24,0.92)'
-                  ;(e.currentTarget as HTMLElement).style.borderColor = `${ORANGE}80`
-                  ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 24px ${ORANGE}30`
+                  ;(e.currentTarget as HTMLElement).style.borderColor = `${VIOLET}80`
+                  ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 24px ${VIOLET}30`
                 }}
                 onMouseLeave={e => {
                   (e.currentTarget as HTMLElement).style.background = 'rgba(38,28,20,0.82)'
-                  ;(e.currentTarget as HTMLElement).style.borderColor = `${ORANGE}50`
+                  ;(e.currentTarget as HTMLElement).style.borderColor = `${VIOLET}50`
                   ;(e.currentTarget as HTMLElement).style.boxShadow = '0 4px 18px rgba(0,0,0,0.38)'
                 }}
               >
@@ -395,24 +395,24 @@ export function EditingSection({ isActive, language }: EditingSectionProps) {
             className="absolute bottom-8 left-1/2 z-30 flex items-center gap-2.5 px-6 py-3 rounded-full font-semibold"
             style={{
               transform: 'translateX(-50%)',
-              background: `rgba(235,94,40,0.12)`,
-              border: `1px solid ${ORANGE}44`,
+              background: `rgba(139,92,246,0.12)`,
+              border: `1px solid ${VIOLET}44`,
               color: 'rgba(255,255,255,0.85)',
               fontSize: 'clamp(12px, 1.1vw, 14px)',
               letterSpacing: '0.06em',
               backdropFilter: 'blur(12px)',
               cursor: 'pointer',
-              boxShadow: `0 0 28px ${ORANGE}22`,
+              boxShadow: `0 0 28px ${VIOLET}22`,
             }}
             onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.background = `rgba(235,94,40,0.22)`
-              ;(e.currentTarget as HTMLElement).style.borderColor = `${ORANGE}88`
-              ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 36px ${ORANGE}44`
+              (e.currentTarget as HTMLElement).style.background = `rgba(139,92,246,0.22)`
+              ;(e.currentTarget as HTMLElement).style.borderColor = `${VIOLET}88`
+              ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 36px ${VIOLET}44`
             }}
             onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.background = `rgba(235,94,40,0.12)`
-              ;(e.currentTarget as HTMLElement).style.borderColor = `${ORANGE}44`
-              ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 28px ${ORANGE}22`
+              (e.currentTarget as HTMLElement).style.background = `rgba(139,92,246,0.12)`
+              ;(e.currentTarget as HTMLElement).style.borderColor = `${VIOLET}44`
+              ;(e.currentTarget as HTMLElement).style.boxShadow = `0 0 28px ${VIOLET}22`
             }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill={ORANGE} style={{ flexShrink: 0 }}>

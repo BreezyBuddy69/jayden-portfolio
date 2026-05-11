@@ -1,16 +1,16 @@
-import React from 'react'
+﻿import React from 'react'
 import { cn } from '@/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-const ORANGE = '#eb5e28'
+const VIOLET = '#8B5CF6'
 
 const buttonVariants = cva(
   'relative group border text-white mx-auto text-center rounded-full font-medium tracking-wide cursor-pointer',
   {
     variants: {
       variant: {
-        default: 'bg-[rgba(235,94,40,0.10)] hover:bg-[rgba(235,94,40,0.18)] border-[rgba(235,94,40,0.45)] hover:border-[rgba(235,94,40,0.80)]',
-        solid: 'bg-[#eb5e28] hover:bg-[#d4521f] border-transparent text-white',
+        default: 'bg-[rgba(139,92,246,0.10)] hover:bg-[rgba(139,92,246,0.18)] border-[rgba(139,92,246,0.45)] hover:border-[rgba(139,92,246,0.80)]',
+        solid: 'bg-[#8B5CF6] hover:bg-[#d4521f] border-transparent text-white',
         ghost: 'border-[rgba(255,255,255,0.18)] bg-transparent hover:border-[rgba(255,255,255,0.85)] hover:bg-[rgba(255,255,255,0.06)]',
       },
       size: {
@@ -39,7 +39,7 @@ const NeonButton = React.forwardRef<HTMLButtonElement, NeonButtonProps>(
     const isGhost = variant === 'ghost'
 
     const boxShadow = isDefault
-      ? '0 0 14px rgba(235,94,40,0.15), inset 0 1px 0 rgba(255,120,60,0.12)'
+      ? '0 0 14px rgba(139,92,246,0.15), inset 0 1px 0 rgba(255,120,60,0.12)'
       : undefined
 
     return (
@@ -47,7 +47,7 @@ const NeonButton = React.forwardRef<HTMLButtonElement, NeonButtonProps>(
         className={cn(
           buttonVariants({ variant, size }),
           'transition-all duration-300',
-          'hover:[box-shadow:0_0_32px_rgba(235,94,40,0.35),inset_0_1px_0_rgba(255,120,60,0.22)]',
+          'hover:[box-shadow:0_0_32px_rgba(139,92,246,0.35),inset_0_1px_0_rgba(255,120,60,0.22)]',
           'uppercase letter-spacing-[0.14em]',
           className
         )}
@@ -67,7 +67,7 @@ const NeonButton = React.forwardRef<HTMLButtonElement, NeonButtonProps>(
             neon && (isGhost ? 'hidden' : 'block')
           )}
           style={{
-            background: `linear-gradient(90deg, transparent, ${ORANGE}88, transparent)`,
+            background: `linear-gradient(90deg, transparent, ${VIOLET}88, transparent)`,
           }}
         />
 
@@ -80,7 +80,7 @@ const NeonButton = React.forwardRef<HTMLButtonElement, NeonButtonProps>(
             neon && (isGhost ? 'hidden' : 'block')
           )}
           style={{
-            background: `linear-gradient(90deg, transparent, ${ORANGE}CC, transparent)`,
+            background: `linear-gradient(90deg, transparent, ${VIOLET}CC, transparent)`,
           }}
         />
       </button>

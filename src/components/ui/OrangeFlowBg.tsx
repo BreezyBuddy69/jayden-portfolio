@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 
 /**
  * Aesthetic animated background for orange sections.
- * 70%+ orange (#eb5e28), max 30% dark accent (#252422 / #403d39).
+ * 70%+ orange (#8B5CF6), max 30% dark accent (#0D0B1A / #403d39).
  */
 export function OrangeFlowBg() {
   return (
@@ -55,7 +55,7 @@ export function OrangeFlowBg() {
           width: 280, height: 280,
           top: '5%', right: '10%',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(235,94,40,0.28) 0%, rgba(64,61,57,0.10) 55%, transparent 75%)',
+          background: 'radial-gradient(circle, rgba(139,92,246,0.28) 0%, rgba(64,61,57,0.10) 55%, transparent 75%)',
           filter: 'blur(60px)',
           mixBlendMode: 'multiply',
         }}

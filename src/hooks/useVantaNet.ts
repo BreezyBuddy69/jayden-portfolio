@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+﻿import { useEffect, useRef } from 'react'
 
 interface VantaNetOptions {
   el: HTMLElement
@@ -36,7 +36,7 @@ export function useVantaNet(containerRef: React.RefObject<HTMLElement | null>) {
         el: containerRef.current,
         mouseControls: true,
         touchControls: false,
-        color: 0xd97706,        // amber deep
+        color: 0x7C3AED,        // amber deep
         backgroundColor: 0x080808,
         points: 9,
         maxDistance: 22,

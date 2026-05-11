@@ -1,10 +1,10 @@
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+﻿import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { type Language } from '../../i18n/translations'
 import { Boxes } from '../ui/background-boxes'
 import { NeonButton } from '../ui/neon-button'
 
-const ORANGE = '#eb5e28'
+const VIOLET = '#8B5CF6'
 const DARK = '#0f0d0c'
 
 interface HeroSectionProps {
@@ -45,7 +45,7 @@ function MouseOrb() {
           width: 480,
           height: 480,
           borderRadius: '50%',
-          background: `radial-gradient(circle, ${ORANGE}44 0%, ${ORANGE}11 45%, transparent 70%)`,
+          background: `radial-gradient(circle, ${VIOLET}44 0%, ${VIOLET}11 45%, transparent 70%)`,
           filter: 'blur(60px)',
         }}
       />
@@ -127,7 +127,7 @@ export function HeroSection({ isActive, onScrollDown, onOpenChat, language }: He
           transform: 'translateX(-50%)',
           width: 800, height: 300,
           borderRadius: '50%',
-          background: `radial-gradient(ellipse, ${ORANGE}22 0%, transparent 65%)`,
+          background: `radial-gradient(ellipse, ${VIOLET}22 0%, transparent 65%)`,
           filter: 'blur(60px)',
         }} />
         {/* Top-left cool dark */}
@@ -160,7 +160,7 @@ export function HeroSection({ isActive, onScrollDown, onOpenChat, language }: He
                 lineHeight: 0.90,
                 whiteSpace: 'nowrap',
                 letterSpacing: '0.02em',
-                textShadow: `0 0 120px ${ORANGE}55, 0 4px 40px rgba(0,0,0,0.6)`,
+                textShadow: `0 0 120px ${VIOLET}55, 0 4px 40px rgba(0,0,0,0.6)`,
               }}
             />
           </div>
@@ -176,7 +176,7 @@ export function HeroSection({ isActive, onScrollDown, onOpenChat, language }: He
                 fontSize: 'clamp(8.05rem, 25.3vw, 29.9rem)',
                 color: 'transparent',
                 fontWeight: 900,
-                WebkitTextStroke: `2px ${ORANGE}88`,
+                WebkitTextStroke: `2px ${VIOLET}88`,
                 lineHeight: 0.90,
                 whiteSpace: 'nowrap',
                 letterSpacing: '0.22em',
@@ -216,7 +216,7 @@ export function HeroSection({ isActive, onScrollDown, onOpenChat, language }: He
             background: ORANGE,
             borderRadius: 2,
             transformOrigin: 'center',
-            boxShadow: `0 0 12px ${ORANGE}88`,
+            boxShadow: `0 0 12px ${VIOLET}88`,
           }}
         />
 

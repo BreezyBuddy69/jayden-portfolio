@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 
-const ORANGE = "#eb5e28";
+const VIOLET = "#8B5CF6";
 
 function FloatingPaths({ position }: { position: number }) {
   const paths = Array.from({ length: 36 }, (_, i) => ({
@@ -30,7 +30,7 @@ function FloatingPaths({ position }: { position: number }) {
           <motion.path
             key={path.id}
             d={path.d}
-            stroke={ORANGE}
+            stroke={VIOLET}
             strokeWidth={path.width}
             strokeOpacity={path.opacity}
             initial={{ pathLength: 0.3, opacity: 0.5 }}
@@ -60,14 +60,14 @@ export function BackgroundPaths({ mirrored = false }: { mirrored?: boolean }) {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 50% at 20% 60%, rgba(235,94,40,0.18) 0%, transparent 70%)",
+            "radial-gradient(ellipse 70% 50% at 20% 60%, rgba(139,92,246,0.18) 0%, transparent 70%)",
         }}
       />
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 50% 40% at 80% 30%, rgba(235,94,40,0.12) 0%, transparent 65%)",
+            "radial-gradient(ellipse 50% 40% at 80% 30%, rgba(139,92,246,0.12) 0%, transparent 65%)",
         }}
       />
 

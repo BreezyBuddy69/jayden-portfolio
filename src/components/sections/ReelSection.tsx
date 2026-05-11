@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import { Play, ExternalLink } from 'lucide-react'
 
 function YoutubeIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
@@ -39,7 +39,7 @@ function VideoCard({ id, title, index }: { id: string; title: string; index: num
       <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300" />
       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
         <div className="w-12 h-12 rounded-full flex items-center justify-center"
-          style={{ background: 'rgba(232,69,18,0.85)', backdropFilter: 'blur(8px)' }}>
+          style={{ background: 'rgba(139, 92, 246,0.85)', backdropFilter: 'blur(8px)' }}>
           <Play className="w-5 h-5 text-white ml-0.5" fill="white" />
         </div>
       </div>
@@ -54,14 +54,14 @@ function VideoCard({ id, title, index }: { id: string; title: string; index: num
 export function ReelSection({ isActive }: ReelSectionProps) {
   return (
     <section className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: '#252422' }}>
+      style={{ background: '#0D0B1A' }}>
       {/* Grain */}
       <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{ backgroundImage: 'url(/gallery/noise.png)', backgroundSize: '200px' }} />
 
       {/* Top-right ambient */}
       <div aria-hidden className="absolute top-0 right-0 w-[45vw] h-[45vh] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at top right, rgba(232,69,18,0.05) 0%, transparent 65%)' }} />
+        style={{ background: 'radial-gradient(ellipse at top right, rgba(139, 92, 246,0.05) 0%, transparent 65%)' }} />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-12">
         {/* Section label */}
@@ -70,7 +70,7 @@ export function ReelSection({ isActive }: ReelSectionProps) {
           animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -12 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="block text-[10px] tracking-[0.32em] uppercase mb-4"
-          style={{ color: 'rgba(232,69,18,0.55)' }}
+          style={{ color: 'rgba(139, 92, 246,0.55)' }}
         >
           Featured Work
         </motion.span>
@@ -126,8 +126,8 @@ export function ReelSection({ isActive }: ReelSectionProps) {
               {/* YouTube icon + channel info */}
               <div className="flex items-center gap-5">
                 <div className="w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'rgba(232,69,18,0.10)', border: '1px solid rgba(232,69,18,0.20)' }}>
-                  <YoutubeIcon className="w-8 h-8" style={{ color: 'rgba(232,69,18,0.85)' }} />
+                  style={{ background: 'rgba(139, 92, 246,0.10)', border: '1px solid rgba(139, 92, 246,0.20)' }}>
+                  <YoutubeIcon className="w-8 h-8" style={{ color: 'rgba(139, 92, 246,0.85)' }} />
                 </div>
                 <div>
                   <p className="text-white/85 font-semibold text-lg mb-0.5">@subspeedy</p>
@@ -162,9 +162,9 @@ export function ReelSection({ isActive }: ReelSectionProps) {
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.5 }}
           className="inline-flex items-center gap-2 text-sm font-medium group"
-          style={{ color: 'rgba(232,69,18,0.75)', textDecoration: 'none' }}
+          style={{ color: 'rgba(139, 92, 246,0.75)', textDecoration: 'none' }}
         >
-          <span className="group-hover:text-amber-400 transition-colors">Watch on YouTube</span>
+          <span className="group-hover:text-violet-400 transition-colors">Watch on YouTube</span>
           <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
         </motion.a>
       </div>

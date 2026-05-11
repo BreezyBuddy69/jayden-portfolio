@@ -14,8 +14,8 @@ export default {
       },
       keyframes: {
         pulseGlow: {
-          '0%, 100%': { boxShadow: '0 0 8px rgba(245,158,11,0.3)' },
-          '50%': { boxShadow: '0 0 28px rgba(245,158,11,0.8)' },
+          '0%, 100%': { boxShadow: '0 0 8px rgba(139,92,246,0.3)' },
+          '50%': { boxShadow: '0 0 28px rgba(139,92,246,0.8)' },
         },
         fadeIn: {
           '0%': { opacity: '0', transform: 'translateY(12px)' },
